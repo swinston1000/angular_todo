@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link href="style.css" rel="stylesheet"></link>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="appCtrl as myCtrl">
+        <h3>Steven's Todo - Double-Click to edit items</h3>
+        <input type="txt" ng-model="myCtrl.todoInput" />
+        <input type="button" value="Add" ng-click="myCtrl.addItem()" />
+        <label>Filter Incomplete?</label>
+        <input type="checkbox" ng-model="myCtrl.applyFilter" />
+        <input type="button" value="Remove Completed" ng-click="myCtrl.removeCompleted()" />
+        <ul>
+            <li ng-repeat="todo in myCtrl.todos.items | filter: myCtrl.filterComplete(myCtrl.applyFilter) track by $index">
+                <label ng-hide="$index === myCtrl.itemToEdit" ng-class="{strike : todo.completed}" ng-dblclick="focusInput = true; myCtrl.editItem($index);"> {{todo.task}} </label>
+                <input type="text" ng-show="$index === myCtrl.itemToEdit" ng-model="todo.task" ng-keyup="$event.keyCode == 13 ? myCtrl.editItem(null) : null" ng-blur=" myCtrl.editItem(null)" focus-me="focusInput">
+                <input type="checkbox" ng-model="todo.completed">
+                <input type="button" value="remove" ng-click="myCtrl.removeItem($index)">
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="node_modules/angular/angular.min.js"></script>
+<script src=app.js "></script>
+</html>
