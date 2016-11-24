@@ -26,6 +26,24 @@ angular.module("myApp").directive('focusMe', function($timeout) {
     };
 });
 
+angular.module("myApp").directive('todoEscape', function() {
+    'use strict';
+
+    var ESCAPE_KEY = 27;
+
+    return function(scope, elem, attrs) {
+        elem.bind('keydown', function(event) {
+            if (event.keyCode === ESCAPE_KEY) {
+                scope.$apply(attrs.todoEscape);
+            }
+        });
+
+        scope.$on('$destroy', function() {
+            elem.unbind('keydown');
+        });
+    };
+});
+
 
 angular.module("myApp").factory('toDoService', function($window, $rootScope, $localStorage) {
 
@@ -61,6 +79,10 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, $lo
         //$window.localStorage.setItem('todos', JSON.stringify(todos))
     }
 
+    var toggleComplete = function(index) {
+        $localStorage.todos.items[index].completed = !$localStorage.todos.items[index].completed
+    }
+
     // $rootScope.$on("savestate", function() {
     //     $localStorage.steven_todos = todos;
     // });
@@ -72,28 +94,67 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, $lo
         todos: $localStorage.todos,
         addTodo: addTodo,
         removeTodo: removeTodo,
-        removeAllCompletedToDos: removeAllCompletedToDos
+        removeAllCompletedToDos: removeAllCompletedToDos,
+        toggleComplete: toggleComplete
     }
 });
 
-angular.module("myApp").controller('appCtrl', function($scope, toDoService) {
+angular.module("myApp").controller('appCtrl', function($scope, $localStorage, $rootScope, toDoService) {
 
     _thisCtrl = this;
     _thisCtrl.todos = toDoService.todos;
     _thisCtrl.applyFilter = false;
-    _thisCtrl.addItem = function() {
+    _thisCtrl.toggleBtnText = "Show Active";
+    _thisCtrl.add = function() {
         if (!this.todoInput) {
             return alert("Please enter an item!");
         }
         toDoService.addTodo({ task: _thisCtrl.todoInput, completed: false });
         _thisCtrl.todoInput = ""
     };
-    _thisCtrl.removeItem = function(index) {
+
+    _thisCtrl.remove = function(index) {
         toDoService.removeTodo(index);
     };
-    _thisCtrl.editItem = function(index) {
-        _thisCtrl.itemToEdit = index;
+
+    _thisCtrl.toggleFilter = function() {
+        _thisCtrl.applyFilter = !_thisCtrl.applyFilter;
+        _thisCtrl.toggleBtnText = _thisCtrl.applyFilter ? "Show All" : "Show Active"
     };
+
+    _thisCtrl.toggleComplete = function(index) {
+        toDoService.toggleComplete(index)
+    }
+
+    _thisCtrl.escapeEdit = function(index) {
+        _thisCtrl.todos.items[index] = angular.copy(_thisCtrl.copies.items[index])
+        _thisCtrl.edit(null, 'escape')
+    }
+
+    _thisCtrl.edit = function(index, event) {
+
+        //for dealing with escape key
+        if (!event) {
+            _thisCtrl.copies = angular.copy(_thisCtrl.todos);
+        } else if (event === "escape") {
+            _thisCtrl.copies = {};
+        }
+
+        //nasty logic to stop two event on enter!
+        if (event === 'blur' && _thisCtrl.saveEvent === 'enter') {
+            // don't do anything other than reset save event
+            _thisCtrl.saveEvent = null;
+        } else if (event == 'enter') {
+            // by saving the save event we stop the proceeding blur changing itemToEdit = null;  
+            _thisCtrl.saveEvent = 'enter';
+            _thisCtrl.itemToEdit = null;
+        } else {
+            // for escape, standard blur and double-click!
+            _thisCtrl.itemToEdit = index;
+        }
+    };
+
+
     _thisCtrl.filterComplete = function(item) {
         // if the filter is on/true we need to return false if the item is completed and true if not
         // otherwise, if the filter is off we return true for all items
@@ -107,5 +168,17 @@ angular.module("myApp").controller('appCtrl', function($scope, toDoService) {
     $scope.$watch('myCtrl.applyFilter', function(newValue, oldValue) {
         _thisCtrl.newValue = newValue;
     });
+
+    $scope.$watch(
+        function() {
+            return _thisCtrl.todos;
+        },
+        function() {
+            _thisCtrl.todos = {}
+            _thisCtrl.todos = $localStorage.todos;
+        }, true
+    );
+
+
 
 });

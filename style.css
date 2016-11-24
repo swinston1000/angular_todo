@@ -1,3 +1,11 @@
 .strike {
     text-decoration: line-through;
 }
+
+.todo {
+    margin: 10px 0;
+}
+
+.hi {
+    display: none;
+}

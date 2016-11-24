@@ -4,24 +4,34 @@
 <head>
     <title></title>
     <link href="style.css" rel="stylesheet"></link>
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
 </head>
 
-<body ng-app="myApp">
+<body class="container" ng-app="myApp">
     <div ng-controller="appCtrl as myCtrl">
-        <h3>Steven's Todo - Double-Click to edit items</h3>
-        <input type="txt" ng-model="myCtrl.todoInput" autofocus />
-        <input type="button" value="Add" ng-click="myCtrl.addItem()" />
-        <label>Filter Incomplete?</label>
-        <input type="checkbox" ng-model="myCtrl.applyFilter" />
-        <input type="button" value="Remove Completed" ng-click="myCtrl.removeCompleted()" />
-        <ul>
-            <li ng-repeat="todo in myCtrl.todos.items | filter: myCtrl.filterComplete track by $index">
-                <label ng-hide="$index === myCtrl.itemToEdit" ng-class="{strike : todo.completed}" ng-dblclick="focusInput = true; myCtrl.editItem($index);"> {{todo.task}} </label>
-                <input type="text" ng-show="$index === myCtrl.itemToEdit" ng-model="todo.task" ng-keyup="$event.keyCode == 13 ? myCtrl.editItem(null) : null" ng-blur=" myCtrl.editItem(null)" focus-me="focusInput">
-                <input type="checkbox" ng-model="todo.completed">
-                <input type="button" value="remove" ng-click="myCtrl.removeItem($index)">
-            </li>
-        </ul>
+        <h3>Steven's To-do</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="myCtrl.todoInput" placeholder="Add Item" autofocus/>
+                    <span class="input-group-btn"><button class="btn btn-default" type="button" ng-click="myCtrl.add()">Add</button></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="btn-group" role="group">
+                    <input type="button" value="{{myCtrl.toggleBtnText}}" class="btn btn-default" ng-click="myCtrl.toggleFilter()" />
+                    <input type="button" value="Remove Completed Items" class="btn btn-default" ng-click="myCtrl.removeCompleted()" />
+                </div>
+            </div>
+        </div>
+        <form class="form-inline todo" ng-repeat="todo in myCtrl.todos.items | filter: myCtrl.filterComplete track by $index" ng-submit="myCtrl.edit(null, 'enter')">
+            <div class="input-group">
+                <input type="button" value="Done?" class="form-control btn btn-default" ng-click="myCtrl.toggleComplete($index)" />
+                <input type="button" value="Remove" class="form-control btn btn-danger" ng-click="myCtrl.remove($index)" />
+                <span class="input-group-addon" ng-hide="$index === myCtrl.itemToEdit" ng-class="{strike : todo.completed}" ng-dblclick="focusInput = true; myCtrl.edit($index);">{{todo.task}}</span>
+                <span class="input-group-addon" ng-show="$index === myCtrl.itemToEdit"><input class="form-control" type="text" ng-model="todo.task" ng-blur="myCtrl.edit(null, 'blur');" focus-me="focusInput" todo-escape="myCtrl.escapeEdit($index)"/></span>
+            </div>
+        </form>
     </div>
 </body>
 <script src="node_modules/angular/angular.js"></script>
