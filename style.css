@@ -6,6 +6,14 @@
     margin: 10px 0;
 }
 
-.hi {
-    display: none;
+.todo-span {
+    width: 100% !important;
+}
+
+.done-button {
+    border-bottom-left-radius: 0;
+}
+
+.input-group .form-control {
+    border-bottom-left-radius: 1;
 }

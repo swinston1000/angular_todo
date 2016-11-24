@@ -3,8 +3,8 @@
 
 <head>
     <title></title>
-    <link href="style.css" rel="stylesheet"></link>
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="style.css" rel="stylesheet"></link>
 </head>
 
 <body class="container" ng-app="myApp">
@@ -26,10 +26,10 @@
         </div>
         <form class="form-inline todo" ng-repeat="todo in myCtrl.todos.items | filter: myCtrl.filterComplete track by $index" ng-submit="myCtrl.edit(null, 'enter')">
             <div class="input-group">
-                <input type="button" value="Done?" class="form-control btn btn-default" ng-click="myCtrl.toggleComplete($index)" />
-                <input type="button" value="Remove" class="form-control btn btn-danger" ng-click="myCtrl.remove($index)" />
-                <span class="input-group-addon" ng-hide="$index === myCtrl.itemToEdit" ng-class="{strike : todo.completed}" ng-dblclick="focusInput = true; myCtrl.edit($index);">{{todo.task}}</span>
-                <span class="input-group-addon" ng-show="$index === myCtrl.itemToEdit"><input class="form-control" type="text" ng-model="todo.task" ng-blur="myCtrl.edit(null, 'blur');" focus-me="focusInput" todo-escape="myCtrl.escapeEdit($index)"/></span>
+                <input type="button" value="Done?" class="form-control btn btn-default done-button" ng-click="myCtrl.toggleComplete($index)" />
+                <input type="button" value="Remove" class="form-control btn btn-danger remove-button" ng-click="myCtrl.remove($index)" />
+                <span class="input-group-addon todo-span" ng-hide="$index === myCtrl.itemToEdit" ng-class="{strike : todo.completed}" ng-dblclick="focusInput = true; myCtrl.edit($index);">{{todo.task}}</span>
+                <span class="input-group-addon todo-span" ng-show="$index === myCtrl.itemToEdit"><input class="form-control" type="text" ng-model="todo.task" ng-blur="myCtrl.edit(null, 'blur');" focus-me="focusInput" todo-escape="myCtrl.escapeEdit($index)"/></span>
             </div>
         </form>
     </div>
