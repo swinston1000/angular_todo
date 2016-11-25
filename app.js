@@ -47,17 +47,6 @@ angular.module("myApp").directive('todoEscape', function() {
 
 angular.module("myApp").factory('toDoService', function($window, $rootScope, $localStorage) {
 
-    // angular.element($window).on('storage', function(event) {
-    //     alert(event);
-    //     if (event.key === 'todos') {
-    //         $rootScope.$apply();
-    //     }
-    // });
-    // if (!$window.localStorage.getItem('todos')) {
-    //     $window.localStorage.setItem('todos', JSON.stringify({ items: [] }))
-    // }
-    // var todos = JSON.parse($window.localStorage.getItem('todos'));
-
     // Used with ".run"
     // $rootScope.$on("savestate", function() {
     //     $localStorage.steven_todos = todos;
@@ -68,27 +57,29 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, $lo
 
 
     if (!$localStorage.todos) {
-        $localStorage.todos = { items: [] }
+        $localStorage.todos = { id: 0, items: {} }
     }
 
     var addTodo = function(todo) {
-        $localStorage.todos.items.push(todo);
-        //$window.localStorage.setItem('todos', JSON.stringify(todos))
+        $localStorage.todos.items[++$localStorage.todos.id] = todo;
     }
 
-    var removeTodo = function(index) {
-        $localStorage.todos.items.splice(index, 1);
-        //$window.localStorage.setItem('todos', JSON.stringify(todos))
+    var removeTodo = function(id) {
+        delete $localStorage.todos.items[id];
+
     };
     var removeAllCompletedToDos = function() {
-        $localStorage.todos.items = $localStorage.todos.items.filter(function(item) {
-            return !item.completed;
-        });
-        //$window.localStorage.setItem('todos', JSON.stringify(todos))
+        // $localStorage.todos.items = $localStorage.todos.items.filter(function(item) {
+        //     return !item.completed;
+        // });
     }
 
-    var toggleComplete = function(index) {
-        $localStorage.todos.items[index].completed = !$localStorage.todos.items[index].completed
+    var toggleComplete = function(id) {
+        $localStorage.todos.items[id].completed = !$localStorage.todos.items[id].completed
+    }
+
+    var setPriority = function(priority, id) {
+        $localStorage.todos.items[id].priority = parseInt(priority);
     }
 
     return {
@@ -96,27 +87,63 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, $lo
         addTodo: addTodo,
         removeTodo: removeTodo,
         removeAllCompletedToDos: removeAllCompletedToDos,
-        toggleComplete: toggleComplete
+        toggleComplete: toggleComplete,
+        setPriority: setPriority
+    }
+});
+
+angular.module('myApp').filter('filterComplete', function() {
+    return function(todos, applyFilter) {
+        if (applyFilter) {
+            var filteredInput = {};
+            angular.forEach(todos, function(item, key) {
+                if (item.completed !== true) {
+                    filteredInput[key] = item;
+                }
+            });
+            return filteredInput;
+        } else
+            return todos
     }
 });
 
 angular.module("myApp").controller('appCtrl', function($scope, toDoService) {
 
     _thisCtrl = this;
+    _thisCtrl.todo = { task: "", priority: 3, completed: false }
     _thisCtrl.todos = toDoService.todos;
     _thisCtrl.applyFilter = true;
     _thisCtrl.toggleBtnText = "Show All";
+
     _thisCtrl.add = function() {
-        if (!this.todoInput) {
+        if (!this.todo.task) {
             return alert("Please enter an item!");
         }
-        toDoService.addTodo({ task: _thisCtrl.todoInput, completed: false });
-        _thisCtrl.todoInput = ""
+        toDoService.addTodo(_thisCtrl.todo);
+        _thisCtrl.todo = { task: "", priority: 3, completed: false }
     };
 
-    _thisCtrl.remove = function(index) {
+    _thisCtrl.setPriority = function(event, id) {
+        if (!id) {
+            _thisCtrl.todo.priority = event.toElement.innerHTML;
+        } else {
+            toDoService.setPriority(event.toElement.innerHTML, id)
+        }
+    }
+
+    var colourMap = ['blue', 'green', 'yellow', 'orange', 'red']
+
+    _thisCtrl.getBackgroundColour = function(id) {
+        if (!id) {
+            return colourMap[_thisCtrl.todo.priority - 1]
+        } else {
+            return colourMap[_thisCtrl.todos.items[id].priority - 1]
+        }
+    }
+
+    _thisCtrl.remove = function(id) {
         if (confirm("Are you sure?")) {
-            toDoService.removeTodo(index);
+            toDoService.removeTodo(id);
         }
     };
 
@@ -125,12 +152,12 @@ angular.module("myApp").controller('appCtrl', function($scope, toDoService) {
         _thisCtrl.toggleBtnText = _thisCtrl.applyFilter ? "Show All" : "Show Active"
     };
 
-    _thisCtrl.toggleComplete = function(index) {
-        toDoService.toggleComplete(index)
+    _thisCtrl.toggleComplete = function(id) {
+        toDoService.toggleComplete(id)
     }
 
-    _thisCtrl.escapeEdit = function(index) {
-        _thisCtrl.todos.items[index] = angular.copy(_thisCtrl.copies.items[index])
+    _thisCtrl.escapeEdit = function(id) {
+        _thisCtrl.todos.items[id] = angular.copy(_thisCtrl.copies.items[id])
         _thisCtrl.edit(null, 'escape')
     }
 
@@ -152,12 +179,6 @@ angular.module("myApp").controller('appCtrl', function($scope, toDoService) {
 
     };
 
-
-    _thisCtrl.filterComplete = function(item) {
-        // return false to filter item 
-        return _thisCtrl.applyFilter ? !item.completed : true;
-    };
-
     _thisCtrl.removeCompleted = function() {
         if (confirm("Are you sure?")) {
             toDoService.removeAllCompletedToDos();
@@ -173,7 +194,7 @@ angular.module("myApp").controller('appCtrl', function($scope, toDoService) {
             return _thisCtrl.todos;
         },
         function() {
-            //do something here to sync across tabs??
+            //console.log(_thisCtrl.todos);
         }, true
     );
 

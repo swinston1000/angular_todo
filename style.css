@@ -2,16 +2,16 @@
     text-decoration: line-through;
 }
 
-.todo {
+.todo-form {
     margin: 10px 0;
 }
 
 .priority-button,
 .toggle-button {
-    width: 150px;
+    width: 183px;
 }
 
-.header {
+.add-item {
     padding-bottom: 10px;
 }
 
@@ -20,6 +20,30 @@
 }
 
 .todo-checkbox {
-    background-color: #337ab7;
-    border-color: #2e6da4;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.blue label,
+.blue input {
+    border: 1px solid blue;
+    border-right: 2px solid blue;
+}
+
+.green label,
+.green input {
+    border: 1px solid green;
+    border-right: 2px solid green;
+}
+
+.orange label,
+.orange input {
+    border: 1px solid orange;
+    border-right: 2px solid orange;
+}
+
+.red label,
+.red input {
+    border: 1px solid red;
+    border-right: 2px solid red;
 }
