@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ["ngStorage"])
+angular.module("myApp", ["ngStorage"])
     // .run(function($rootScope, $window) {
     //     $rootScope.$broadcast('restorestate');
     //     //save on window unload
@@ -10,9 +10,9 @@ var app = angular.module("myApp", ["ngStorage"])
 
 // awesome solution to auto-focus from:
 // http://stackoverflow.com/questions/14833326/how-to-set-focus-on-input-field
-angular.module("myApp").directive('focusMe', function($timeout) {
+angular.module("myApp").directive('todoFocusMe', function($timeout) {
     return {
-        scope: { trigger: '=focusMe' },
+        scope: { trigger: '=todoFocusMe' },
         link: function(scope, element) {
             scope.$watch('trigger', function(value) {
                 if (value === true) {
@@ -58,6 +58,14 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, $lo
     // }
     // var todos = JSON.parse($window.localStorage.getItem('todos'));
 
+    // Used with ".run"
+    // $rootScope.$on("savestate", function() {
+    //     $localStorage.steven_todos = todos;
+    // });
+    // $rootScope.$on("restorestate", function() {
+    //     todos = $localStorage.steven_todos;
+    // }());
+
 
     if (!$localStorage.todos) {
         $localStorage.todos = { items: [] }
@@ -83,13 +91,6 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, $lo
         $localStorage.todos.items[index].completed = !$localStorage.todos.items[index].completed
     }
 
-    // $rootScope.$on("savestate", function() {
-    //     $localStorage.steven_todos = todos;
-    // });
-    // $rootScope.$on("restorestate", function() {
-    //     todos = $localStorage.steven_todos;
-    // }());
-
     return {
         todos: $localStorage.todos,
         addTodo: addTodo,
@@ -99,12 +100,12 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, $lo
     }
 });
 
-angular.module("myApp").controller('appCtrl', function($scope, $localStorage, $rootScope, toDoService) {
+angular.module("myApp").controller('appCtrl', function($scope, toDoService) {
 
     _thisCtrl = this;
     _thisCtrl.todos = toDoService.todos;
-    _thisCtrl.applyFilter = false;
-    _thisCtrl.toggleBtnText = "Show Active";
+    _thisCtrl.applyFilter = true;
+    _thisCtrl.toggleBtnText = "Show All";
     _thisCtrl.add = function() {
         if (!this.todoInput) {
             return alert("Please enter an item!");
@@ -114,7 +115,9 @@ angular.module("myApp").controller('appCtrl', function($scope, $localStorage, $r
     };
 
     _thisCtrl.remove = function(index) {
-        toDoService.removeTodo(index);
+        if (confirm("Are you sure?")) {
+            toDoService.removeTodo(index);
+        }
     };
 
     _thisCtrl.toggleFilter = function() {
@@ -133,36 +136,32 @@ angular.module("myApp").controller('appCtrl', function($scope, $localStorage, $r
 
     _thisCtrl.edit = function(index, event) {
 
-        //for dealing with escape key
-        if (!event) {
+        //nasty logic to allow escapes and to stop double saving
+        if (event === 'blur' && _thisCtrl.saveEvent === 'enter') {
+            _thisCtrl.saveEvent = null;
+            return;
+        } else if (event === "double-click") {
             _thisCtrl.copies = angular.copy(_thisCtrl.todos);
         } else if (event === "escape") {
             _thisCtrl.copies = {};
-        }
-
-        //nasty logic to stop two event on enter!
-        if (event === 'blur' && _thisCtrl.saveEvent === 'enter') {
-            // don't do anything other than reset save event
-            _thisCtrl.saveEvent = null;
         } else if (event == 'enter') {
-            // by saving the save event we stop the proceeding blur changing itemToEdit = null;  
+            // by saving the save event we stop the following blur from doing anything
             _thisCtrl.saveEvent = 'enter';
-            _thisCtrl.itemToEdit = null;
-        } else {
-            // for escape, standard blur and double-click!
-            _thisCtrl.itemToEdit = index;
         }
+        _thisCtrl.itemToEdit = index;
+
     };
 
 
     _thisCtrl.filterComplete = function(item) {
-        // if the filter is on/true we need to return false if the item is completed and true if not
-        // otherwise, if the filter is off we return true for all items
+        // return false to filter item 
         return _thisCtrl.applyFilter ? !item.completed : true;
     };
 
     _thisCtrl.removeCompleted = function() {
-        toDoService.removeAllCompletedToDos();
+        if (confirm("Are you sure?")) {
+            toDoService.removeAllCompletedToDos();
+        }
     };
 
     $scope.$watch('myCtrl.applyFilter', function(newValue, oldValue) {
@@ -174,8 +173,7 @@ angular.module("myApp").controller('appCtrl', function($scope, $localStorage, $r
             return _thisCtrl.todos;
         },
         function() {
-            _thisCtrl.todos = {}
-            _thisCtrl.todos = $localStorage.todos;
+            //do something here to sync across tabs??
         }, true
     );
 

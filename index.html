@@ -4,37 +4,56 @@
 <head>
     <title></title>
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+    <!--link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet"></link-->
     <link href="style.css" rel="stylesheet"></link>
 </head>
 
 <body class="container" ng-app="myApp">
     <div ng-controller="appCtrl as myCtrl">
-        <h3>Steven's To-do</h3>
+        <h3>Steven's To-do List App</h3>
         <div class="row">
             <div class="col-md-6">
-                <div class="input-group">
-                    <input type="text" class="form-control" ng-model="myCtrl.todoInput" placeholder="Add Item" autofocus/>
-                    <span class="input-group-btn"><button class="btn btn-default" type="button" ng-click="myCtrl.add()">Add</button></span>
-                </div>
+                <form class="form" ng-submit="myCtrl.add()">
+                    <div class="input-group header">
+                        <input type="text" class="form-control" ng-model="myCtrl.todoInput" placeholder="Add Item" autofocus/>
+                        <span class="input-group-btn"><a type="button" class="btn btn-default" ng-click="myCtrl.add()">Add</a></span>
+                    </div>
+                </form>
             </div>
             <div class="col-md-6">
                 <div class="btn-group" role="group">
-                    <input type="button" value="{{myCtrl.toggleBtnText}}" class="btn btn-default" ng-click="myCtrl.toggleFilter()" />
-                    <input type="button" value="Remove Completed Items" class="btn btn-default" ng-click="myCtrl.removeCompleted()" />
+                    <a type="button" class="btn toggle-button" ng-class="myCtrl.applyFilter?'btn-primary':'btn-success'" ng-click="myCtrl.toggleFilter()">{{myCtrl.toggleBtnText}}</a>
+                    <a type="button" class="btn btn-default priority-button">Sort By Priority</a>
+                    <a type="button" class="btn btn-danger" ng-click="myCtrl.removeCompleted()">Remove Completed Items</a>
                 </div>
             </div>
         </div>
-        <form class="form-inline todo" ng-repeat="todo in myCtrl.todos.items | filter: myCtrl.filterComplete track by $index" ng-submit="myCtrl.edit(null, 'enter')">
+        <form class="form todo" ng-repeat="todo in myCtrl.todos.items | filter: myCtrl.filterComplete track by $index" ng-submit="myCtrl.edit(null, 'enter')">
             <div class="input-group">
-                <input type="button" value="Done?" class="form-control btn btn-default done-button" ng-click="myCtrl.toggleComplete($index)" />
-                <input type="button" value="Remove" class="form-control btn btn-danger remove-button" ng-click="myCtrl.remove($index)" />
-                <span class="input-group-addon todo-span" ng-hide="$index === myCtrl.itemToEdit" ng-class="{strike : todo.completed}" ng-dblclick="focusInput = true; myCtrl.edit($index);">{{todo.task}}</span>
-                <span class="input-group-addon todo-span" ng-show="$index === myCtrl.itemToEdit"><input class="form-control" type="text" ng-model="todo.task" ng-blur="myCtrl.edit(null, 'blur');" focus-me="focusInput" todo-escape="myCtrl.escapeEdit($index)"/></span>
+                <span class="input-group-addon todo-checkbox"><input type="checkbox" ng-model="todo.completed"></span>
+                <!--span class="input-group-btn">
+                    <a type="button" class="btn btn-default done-button" ng-click="myCtrl.toggleComplete($index)"><i ng-class="todo.completed ? 'fa fa-check-square-o fa-lg' : 'fa fa-square-o fa-lg'"></i></a>
+                </span-->
+                <input class="form-control" type="text" ng-show="$index === myCtrl.itemToEdit" ng-model="todo.task" ng-blur="myCtrl.edit(null, 'blur');" todo-focus-me="focusInput" todo-escape="myCtrl.escapeEdit($index)" />
+                <label class="form-control" type="text" ng-hide="$index === myCtrl.itemToEdit" ng-class="{strike : todo.completed}" ng-dblclick="focusInput=true; myCtrl.edit($index, 'double-click');">{{todo.task}}</label>
+                <div class="input-group-btn">
+                    <a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Priority<span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a>1</a></li>
+                        <li><a>2</a></li>
+                        <li><a>3</a></li>
+                        <li><a>4</a></li>
+                        <li><a>5</a></li>
+                    </ul>
+                    <button type="button" class="btn btn-danger" ng-click="myCtrl.remove($index)"> Remove </button>
+                </div>
             </div>
         </form>
     </div>
 </body>
 <script src="node_modules/angular/angular.js"></script>
 <script src="node_modules/ngstorage/ngStorage.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="node_modules/bootstrap/js/dropdown.js"></script>
 <script src=app.js "></script>
 </html>

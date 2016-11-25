@@ -6,14 +6,20 @@
     margin: 10px 0;
 }
 
-.todo-span {
-    width: 100% !important;
+.priority-button,
+.toggle-button {
+    width: 150px;
+}
+
+.header {
+    padding-bottom: 10px;
 }
 
 .done-button {
-    border-bottom-left-radius: 0;
+    width: 50px;
 }
 
-.input-group .form-control {
-    border-bottom-left-radius: 1;
+.todo-checkbox {
+    background-color: #337ab7;
+    border-color: #2e6da4;
 }
