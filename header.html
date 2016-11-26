@@ -1,0 +1,25 @@
+<div class="col-md-6">
+    <form class="form" ng-submit="myCtrl.add()">
+        <div class="input-group add-item" ng-class="myCtrl.getBackgroundColour(null);">
+            <input type="text" class="form-control" ng-model="myCtrl.todo.task" placeholder="Add Item" autofocus/>
+            <div class="input-group-btn">
+                <a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Priority<span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-right" ng-click="myCtrl.setPriority($event,null);">
+                    <li><a>1</a></li>
+                    <li><a>2</a></li>
+                    <li><a>3</a></li>
+                    <li><a>4</a></li>
+                    <li><a>5</a></li>
+                </ul>
+                <a type="button" class="btn btn-default" ng-click="myCtrl.add()">Add</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="col-md-6">
+    <div class="btn-group" role="group">
+        <a type="button" class="btn toggle-button" ng-class="myCtrl.applyFilter?'btn-primary':'btn-success'" ng-click="myCtrl.toggleFilter()">{{myCtrl.toggleBtnText}}</a>
+        <a type="button" class="btn btn-default priority-button">Sort By Priority</a>
+        <a type="button" class="btn btn-danger" ng-click="myCtrl.removeCompleted()">Remove Completed Items</a>
+    </div>
+</div>
