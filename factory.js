@@ -1,5 +1,5 @@
 angular.module('myApp').factory('priorityFactory', function(toDoService) {
-    var colourMap = ['blue', 'green', 'yellow', 'orange', 'red']
+    var colourMap = ['red', 'orange', 'yellow', 'green', 'blue']
 
     var getBackgroundColour = function(id) {
         if (!id) {

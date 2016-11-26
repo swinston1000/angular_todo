@@ -3,11 +3,12 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, $lo
     var todos = { copy: {} }
 
     if (!$localStorage.todos) {
-        $localStorage.todos = { nextid: 0, items: {} }
+        $localStorage.todos = { nextid: 1, items: {} }
     }
 
     var addTodo = function(todo) {
-        $localStorage.todos.items[++$localStorage.todos.nextid] = todo;
+        $localStorage.todos.items[$localStorage.todos.nextid] = todo;
+        $localStorage.todos.items[$localStorage.todos.nextid].id = $localStorage.todos.nextid++
     }
 
     var removeTodo = function(id) {
@@ -25,7 +26,8 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, $lo
     }
 
     var toggleComplete = function(id) {
-        $localStorage.todos.items[id].completed = !$localStorage.todos.items[id].completed
+        $localStorage.todos.items[id].completed = !$localStorage.todos.items[id].completed;
+
     }
 
     var setPriority = function(priority, id) {

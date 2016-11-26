@@ -12,3 +12,24 @@ angular.module('myApp').filter('filterComplete', function() {
             return todos
     }
 });
+
+angular.module('myApp').filter('orderByPriority', function() {
+    return function(items, sort, reverse) {
+
+        var sortType = "";
+        var filtered = [];
+
+        if (!sort) sortType = 'id';
+        else sortType = 'priority';
+
+        angular.forEach(items, function(item) {
+            filtered.push(item);
+        });
+        filtered.sort(function(a, b) {
+            return (a[sortType] > b[sortType] ? 1 : -1);
+        });
+        if (reverse) filtered.reverse();
+
+        return filtered;
+    };
+});

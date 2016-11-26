@@ -6,6 +6,8 @@ angular.module("myApp").controller('mainController', function($scope, toDoServic
     _thisCtrl.todos = toDoService.todos;
     _thisCtrl.todo = { task: "", priority: 3, completed: false }
     _thisCtrl.applyFilter = true;
+    _thisCtrl.sortByPriority = false;
+    _thisCtrl.reverseSort = false
     _thisCtrl.toggleBtnText = "Show All";
 
     _thisCtrl.getBackgroundColour = priorityFactory.getBackgroundColour;
@@ -15,6 +17,10 @@ angular.module("myApp").controller('mainController', function($scope, toDoServic
         _thisCtrl.applyFilter = !_thisCtrl.applyFilter;
         _thisCtrl.toggleBtnText = _thisCtrl.applyFilter ? "Show All" : "Show Active"
     };
+
+    _thisCtrl.toggleSort = function() {
+        _thisCtrl.sortByPriority = !_thisCtrl.sortByPriority;
+    }
 
     _thisCtrl.add = function() {
         if (!this.todo.task) {

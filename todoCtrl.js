@@ -7,6 +7,7 @@ angular.module("myApp").controller('toDoController', function(toDoService, prior
     _toDoCtrl.setPriority = priorityFactory.setPriority;
 
     _toDoCtrl.toggleComplete = function(id) {
+        console.log(id);
         toDoService.toggleComplete(id)
     }
 

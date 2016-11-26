@@ -19,7 +19,7 @@
 <div class="col-md-6">
     <div class="btn-group" role="group">
         <a type="button" class="btn toggle-button" ng-class="myCtrl.applyFilter?'btn-primary':'btn-success'" ng-click="myCtrl.toggleFilter()">{{myCtrl.toggleBtnText}}</a>
-        <a type="button" class="btn btn-default priority-button">Sort By Priority</a>
+        <a type="button" class="btn btn-default priority-button" ng-click="myCtrl.toggleSort()">{{myCtrl.sortByPriority? "Sort By Date" : "Sort By Priority"}}</a>
         <a type="button" class="btn btn-danger" ng-click="myCtrl.removeCompleted()">Remove Completed Items</a>
     </div>
 </div>
