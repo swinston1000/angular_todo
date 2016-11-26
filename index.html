@@ -9,62 +9,23 @@
 </head>
 
 <body class="container" ng-app="myApp">
-    <div ng-controller="appCtrl as myCtrl">
+    <div ng-controller="mainController as myCtrl">
         <h3>Steven's To-do List App</h3>
-        <div class="row">
-            <div class="col-md-6">
-                <form class="form" ng-submit="myCtrl.add()">
-                    <div class="input-group add-item" ng-class="getBackgroundColour(null)">
-                        <input type="text" class="form-control" ng-model="myCtrl.todo.task" placeholder="Add Item" autofocus/>
-                        <div class="input-group-btn">
-                            <a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Priority<span class="caret"></span></a>
-                            <ul class="dropdown-menu dropdown-menu-right" ng-click="myCtrl.setPriority($event,null)">
-                                <li><a>1</a></li>
-                                <li><a>2</a></li>
-                                <li><a>3</a></li>
-                                <li><a>4</a></li>
-                                <li><a>5</a></li>
-                            </ul>
-                            <a type="button" class="btn btn-default" ng-click="myCtrl.add()">Add</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <div class="btn-group" role="group">
-                    <a type="button" class="btn toggle-button" ng-class="myCtrl.applyFilter?'btn-primary':'btn-success'" ng-click="myCtrl.toggleFilter()">{{myCtrl.toggleBtnText}}</a>
-                    <a type="button" class="btn btn-default priority-button">Sort By Priority</a>
-                    <a type="button" class="btn btn-danger" ng-click="myCtrl.removeCompleted()">Remove Completed Items</a>
-                </div>
-            </div>
+        <div class="row" ng-include="'header.html'"></div>
+        <div ng-repeat="(id, todo) in myCtrl.todos.items | filterComplete:myCtrl.applyFilter">
+            <to-do todo-id='id' todo='todo'></to-do>
         </div>
-        <form class="form todo-form" ng-repeat="(id, todo) in myCtrl.todos.items |  filterComplete:myCtrl.applyFilter" ng-submit=" myCtrl.edit(null, 'enter') ">
-            <div class="input-group " ng-class="myCtrl.getBackgroundColour(id)">
-                <!--span class="input-group-addon todo-checkbox "><input type="checkbox" ng-model="todo.completed "></span-->
-                <span class="input-group-btn ">
-                    <a type="button " class="btn btn-default done-button " ng-click="myCtrl.toggleComplete(id) "><i ng-class="todo.completed ? 'fa fa-check-square-o fa-lg' : 'fa fa-square-o fa-lg' "></i></a>
-                </span>
-                <input class="form-control todo-item" type="text" ng-show="id===myCtrl.itemToEdit" ng-model="todo.task" ng-blur="myCtrl.edit(null, 'blur');" todo-focus-me="focusInput" todo-escape="myCtrl.escapeEdit(id)" />
-                <label class="form-control todo-item" type="text" ng-hide="id===myCtrl.itemToEdit" ng-class="{strike : todo.completed}" ng-dblclick="focusInput=true; myCtrl.edit(id, 'double-click');">{{todo.task}}</label>
-                <div class="input-group-btn form-buttons">
-                    <a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Priority<span class="caret"></span></a>
-                    <ul class="dropdown-menu dropdown-menu-right" ng-click="myCtrl.setPriority($event,id)">
-                        <li><a>1</a></li>
-                        <li><a>2</a></li>
-                        <li><a>3</a></li>
-                        <li><a>4</a></li>
-                        <li><a>5</a></li>
-                    </ul>
-                    <a type="button" class="btn btn-default" ng-click="myCtrl.remove(id)"><i class="fa fa-trash-o fa-lg"></i></a>
-                </div>
-            </div>
-        </form>
     </div>
 </body>
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 <script src="node_modules/angular/angular.js"></script>
 <script src="node_modules/ngstorage/ngStorage.js"></script>
 <script src="node_modules/bootstrap/js/dropdown.js"></script>
-<script src="app.js"></script>
+<script src="mainCtrl.js"></script>
+<script src="todoCtrl.js"></script>
+<script src="service.js"></script>
+<script src="filter.js"></script>
+<script src="directives.js"></script>
+<script src="factory.js"></script>
 
 </html>
