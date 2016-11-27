@@ -2,13 +2,18 @@ angular.module("myApp").controller('toDoController', function(toDoService, prior
 
     _toDoCtrl = this;
 
+    _toDoCtrl.editing = toDoService.editing;
+
     _toDoCtrl.getBackgroundColour = priorityFactory.getBackgroundColour;
 
     _toDoCtrl.setPriority = priorityFactory.setPriority;
 
     _toDoCtrl.toggleComplete = function(id) {
-        console.log(id);
         toDoService.toggleComplete(id)
+    }
+
+    _toDoCtrl.update = function(id) {
+        console.log(id);
     }
 
     _toDoCtrl.remove = function(id) {
@@ -17,24 +22,26 @@ angular.module("myApp").controller('toDoController', function(toDoService, prior
         }
     };
 
-    _toDoCtrl.edit = function(id, event) {
+    _toDoCtrl.startEditing = function(id) {
+        toDoService.startEditing(id);
+    }
+
+    _toDoCtrl.cancelEditing = function(id) {
+        toDoService.cancelEditing(id);
+    }
+
+    _toDoCtrl.update = function(id, event) {
 
         //nasty logic to stop a 'blur' happening after 'enter'
-        if (event === "double-click") {
-            toDoService.setEditing(id);
-            return;
-        } else if (event === 'blur' && _toDoCtrl.saveEvent === 'enter') {
+        if (event === 'blur' && _toDoCtrl.saveEvent === 'enter') {
             _toDoCtrl.saveEvent = null;
-            return;
+            return
         } else if (event === "enter") {
             _toDoCtrl.saveEvent = 'enter';
         }
+        toDoService.update(id)
 
-        toDoService.cancelEditing(id)
     };
 
-    _toDoCtrl.escapeEdit = function(id) {
-        toDoService.getCopy(id);
-    }
 
 })

@@ -1,0 +1,145 @@
+{
+    "nextid": 34,
+    "items": {
+        "5": {
+            "task": "Send Daniel (mentor) the Syllabus",
+            "priority": "2",
+            "completed": true,
+            "id": 5,
+            "category": "Work"
+        },
+        "6": {
+            "task": "Look at Hadas's lesson on sorting",
+            "priority": 5,
+            "completed": true,
+            "id": 6,
+            "category": "Work"
+        },
+        "7": {
+            "task": "Fix CV and LinkedIn",
+            "priority": 3,
+            "completed": false,
+            "id": 7,
+            "category": "Personal"
+        },
+        "8": {
+            "task": "Look at Nati K's Bad Names Problem",
+            "priority": "2",
+            "completed": true,
+            "id": 8,
+            "category": "Work"
+        },
+        "9": {
+            "task": "Reddit Beer App ??",
+            "priority": "4",
+            "completed": false,
+            "id": 9,
+            "category": "Work"
+        },
+        "10": {
+            "task": "Anguflix App ??",
+            "priority": "4",
+            "completed": false,
+            "id": 10,
+            "category": "Work"
+        },
+        "11": {
+            "task": "Todo App - Sync Storage Between tabs",
+            "priority": 4,
+            "completed": false,
+            "id": 11,
+            "category": "Work"
+        },
+        "12": {
+            "task": "Todo App - Remaining Count (maybe also count of total done ever)",
+            "priority": "4",
+            "completed": false,
+            "id": 12,
+            "category": "Work"
+        },
+        "13": {
+            "task": "Todo App - Reverse Sort button",
+            "priority": 5,
+            "completed": false,
+            "id": 13,
+            "category": "Work"
+        },
+        "14": {
+            "task": "Todo App - move all done to bottom",
+            "priority": 4,
+            "completed": false,
+            "id": 14,
+            "category": "Work"
+        },
+        "15": {
+            "task": "Todo App - Search",
+            "priority": "5",
+            "completed": false,
+            "id": 15,
+            "category": "Work"
+        },
+        "17": {
+            "task": "Todo App - Custom Categories",
+            "priority": 2,
+            "completed": true,
+            "id": 17,
+            "category": "Work"
+        },
+        "18": {
+            "task": "ToDo App - Paging",
+            "priority": "5",
+            "completed": false,
+            "id": 18,
+            "category": "Work"
+        },
+        "19": {
+            "task": "Pay Tax",
+            "priority": 1,
+            "completed": false,
+            "id": 19,
+            "category": "Personal"
+        },
+        "20": {
+            "task": "ToDo App - fix open menu on bottom",
+            "priority": "4",
+            "completed": false,
+            "id": 20,
+            "category": "Work"
+        },
+        "21": {
+            "task": "Hadas Debug Lesson",
+            "priority": 2,
+            "completed": false,
+            "id": 21,
+            "category": "Work"
+        },
+        "23": {
+            "task": "ToDo App - Persist Data to Mongo",
+            "priority": 3,
+            "completed": false,
+            "id": 23,
+            "category": "Work"
+        },
+        "26": {
+            "task": "Implement Merge Sort and Compare to my sort",
+            "priority": "5",
+            "completed": false,
+            "id": 26,
+            "category": "Work"
+        },
+        "32": {
+            "task": "Todo App - drag and drop",
+            "priority": "4",
+            "completed": false,
+            "category": "Work",
+            "id": 32
+        },
+        "33": {
+            "task": "The Crown",
+            "priority": "1",
+            "completed": false,
+            "category": "Personal",
+            "id": 33
+        }
+    }
+}

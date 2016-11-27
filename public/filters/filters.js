@@ -1,3 +1,17 @@
+angular.module('myApp').filter('filterCategory', function() {
+    return function(todos, filterCategory) {
+        var filteredInput = {};
+        if (filterCategory) {
+            angular.forEach(todos, function(item, key) {
+                if (item.category === filterCategory) {
+                    filteredInput[key] = item;
+                }
+            });
+            return filteredInput
+        } else return todos
+    }
+});
+
 angular.module('myApp').filter('filterComplete', function() {
     return function(todos, applyFilter) {
         if (applyFilter) {
