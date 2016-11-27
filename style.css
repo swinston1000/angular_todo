@@ -7,8 +7,9 @@
 }
 
 .priority-button,
-.toggle-button {
-    width: 183px;
+.toggle-button,
+.remove-all-btn {
+    width: 137px;
 }
 
 .add-item {
@@ -19,9 +20,10 @@
     width: 50px;
 }
 
-.todo-checkbox {
+.todo-category {
     background-color: #fff;
     border-color: #ccc;
+    width: 91px;
 }
 
 .blue label,

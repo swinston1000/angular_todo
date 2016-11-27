@@ -12,7 +12,7 @@
     <div ng-controller="mainController as myCtrl">
         <h3>Steven's To-do List App</h3>
         <div class="row" ng-include="'header.html'"></div>
-        <div ng-repeat="(id, todo) in myCtrl.todos.items | filterComplete:myCtrl.applyFilter | orderByPriority: myCtrl.sortByPriority:myCtrl.reverseSort" track by $index>
+        <div ng-repeat="(id, todo) in myCtrl.todos.items | orderByPriority: myCtrl.sortByPriority:myCtrl.reverseSort | filterComplete: myCtrl.applyFilter | filterCategory : myCtrl.filterCategory" track by $index>
             <to-do todo-id='id' todo='todo'></to-do>
         </div>
     </div>

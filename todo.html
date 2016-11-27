@@ -5,6 +5,7 @@
         <span class="input-group-btn "><a type="button " class="btn btn-default done-button " ng-click="todoCtrl.toggleComplete(todoCtrl.todo.id)"><i ng-class="todoCtrl.todo.completed ? 'fa fa-check-square-o fa-lg' : 'fa fa-square-o fa-lg' "></i></a></span>
         <input class="form-control todo-item" type="text" ng-show="todoCtrl.todo.editing" ng-model="todoCtrl.todo.task" ng-blur="todoCtrl.edit(todoCtrl.todo.id, 'blur');" todo-focus-me="focusInput" todo-escape="todoCtrl.escapeEdit(todoCtrl.todo.id)" />
         <label class="form-control todo-item" type="text" ng-hide="todoCtrl.todo.editing" ng-class="{strike : todoCtrl.todo.completed}" ng-dblclick="focusInput=true; todoCtrl.edit(todoCtrl.todo.id, 'double-click');">{{todoCtrl.todo.task}}</label>
+        <span class="input-group-addon todo-category">{{todoCtrl.todo.category}}</span>
         <div class="input-group-btn form-buttons">
             <a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Priority<span class="caret"></span></a>
             <ul class="dropdown-menu dropdown-menu-right" ng-click="todoCtrl.setPriority($event,todoCtrl.todo.id)">
