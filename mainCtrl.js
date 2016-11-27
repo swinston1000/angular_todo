@@ -1,6 +1,4 @@
-angular.module("myApp", ["ngStorage"])
-
-angular.module("myApp").controller('mainController', function($scope, toDoService, priorityFactory) {
+angular.module("myApp", ['ngStorage']).controller('mainController', function($scope, toDoService, priorityFactory) {
 
     _thisCtrl = this;
     _thisCtrl.todos = toDoService.todos;
