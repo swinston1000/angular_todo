@@ -6,31 +6,28 @@ angular.module("myApp").controller('toDoController', function(toDoService, prior
 
     _toDoCtrl.getBackgroundColour = priorityFactory.getBackgroundColour;
 
-    _toDoCtrl.setPriority = priorityFactory.setPriority;
+    _toDoCtrl.updatePriority = priorityFactory.setPriority;
 
-    _toDoCtrl.toggleComplete = function(id) {
-        toDoService.toggleComplete(id)
+    _toDoCtrl.toggle = function(todo) {
+        todo.completed = !todo.completed
+        toDoService.update(todo)
     }
 
-    _toDoCtrl.update = function(id) {
-        console.log(id);
-    }
-
-    _toDoCtrl.remove = function(id) {
+    _toDoCtrl.remove = function(todo) {
         if (confirm("Are you sure?")) {
-            toDoService.removeTodo(id);
+            toDoService.removeTodo(todo);
         }
     };
 
-    _toDoCtrl.startEditing = function(id) {
-        toDoService.startEditing(id);
+    _toDoCtrl.startEditing = function(todo) {
+        toDoService.startEditing(todo);
     }
 
-    _toDoCtrl.cancelEditing = function(id) {
-        toDoService.cancelEditing(id);
+    _toDoCtrl.cancelEditing = function(todo) {
+        toDoService.cancelEditing(todo);
     }
 
-    _toDoCtrl.update = function(id, event) {
+    _toDoCtrl.update = function(todo, event) {
 
         //nasty logic to stop a 'blur' happening after 'enter'
         if (event === 'blur' && _toDoCtrl.saveEvent === 'enter') {
@@ -39,9 +36,7 @@ angular.module("myApp").controller('toDoController', function(toDoService, prior
         } else if (event === "enter") {
             _toDoCtrl.saveEvent = 'enter';
         }
-        toDoService.update(id)
+        toDoService.update(todo)
 
     };
-
-
 })

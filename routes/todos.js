@@ -20,7 +20,6 @@ router.post('/', function(req, res, next) {
 
 /* DELETE /todos/:id */
 router.delete('/:id', function(req, res, next) {
-    console.log(req.params.id);
     Todo.findByIdAndRemove(req.params.id, function(err, post) {
         if (err) return next(err);
         else res.json(post);
@@ -35,6 +34,12 @@ router.put('/:id', function(req, res, next) {
     });
 });
 
-
+//delete multiple comma seperated todos
+router.delete('/done/:ids', function(req, res, next) {
+    Todo.remove({ _id: { $in: req.params.ids.split(',') } }, function(err, post) {
+        if (err) return next(err);
+        else res.json(post);
+    });
+});
 
 module.exports = router;

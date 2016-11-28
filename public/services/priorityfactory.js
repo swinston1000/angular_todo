@@ -5,8 +5,11 @@ angular.module('myApp').factory('priorityFactory', function(toDoService) {
         return colourMap[this.todo.priority - 1]
     }
 
-    var setPriority = function(event) {
+    var setPriority = function(event, todo) {
         this.todo.priority = event.target.innerHTML;
+        if (todo) {
+            toDoService.update(todo)
+        }
     }
 
     return {
