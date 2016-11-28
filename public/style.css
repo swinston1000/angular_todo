@@ -49,3 +49,6 @@
     border: 1px solid red;
     border-right: 2px solid red;
 }
+
+.yellow label,
+.yellow input {}
