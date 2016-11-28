@@ -46,14 +46,13 @@ angular.module("myApp", ['ngStorage', 'ngResource'])
 
         _thisCtrl.removeCompleted = function() {
             if (confirm("Are you sure?")) {
-                toDoService.removeAllCompletedToDos();
+                toDoService.removeCompleted();
             }
         };
 
         // $scope.$watch('myCtrl.applyFilter', function(newValue, oldValue) {
         //     _thisCtrl.newValue = newValue;
         // });
-
         // $scope.$watch(
         //     function() {
         //         return _thisCtrl.todos;
