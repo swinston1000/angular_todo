@@ -1,7 +1,6 @@
 angular.module("myApp").factory('toDoService', function($window, $rootScope, $localStorage, mongoService) {
 
-    var copy = []
-    var editing = []
+    var editing = {}
     var todos = { items: [] }
 
     mongoService.getToDos().success(function(data) {
@@ -10,24 +9,22 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, $lo
         console.log(data, status);
     });
 
-    var cancelEditing = function(index) {
-        editing[index].editing = false;
+    var update = function(id) {
+        editing[id] = undefined;
     }
 
-    var setEditing = function(index) {
-        copy[index] = angular.copy(todos.items[index])
-        editing[index].editing = true;
+    var startEditing = function(id) {
+        editing[id] = angular.copy(todos.items.find(function(item) {
+            return id === item._id
+        }))
     }
 
-    var getCopy = function(index) {
-        todos.items[index] = angular.copy(copy[index])
-    }
-
-    var getPriority = function(index) {
-        var item = todos.items.find(function(item) {
-            return item.index == index
+    var cancelEditing = function(id) {
+        var index = todos.items.findIndex(function(item) {
+            return id === item._id;
         })
-        return item.priority
+        todos.items[index] = angular.copy(editing[id]);
+        editing[id] = undefined;
     }
 
     var addTodo = function(todo) {
@@ -39,18 +36,15 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, $lo
         });
     }
 
-    var removeTodo = function(index) {
-        console.log(todos.items);
-        console.log(index);
-        var id = todos.items[index]._id;
+    var removeTodo = function(id) {
         mongoService.delete(id).success(function(data) {
-            console.log(data);
-            todos.items.splice(index, 1);
+            todos.items.splice(todos.items.indexOf(data), 1);
         }).error(function(data, status) {
             console.log(data, status);
         });;
     };
 
+    //TODO!!!
     var removeAllCompletedToDos = function() {
         var results = {}
         angular.forEach($localStorage.todos.items, function(item, id) {
@@ -61,13 +55,14 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, $lo
         $localStorage.todos.items = results
     }
 
+
     var toggleComplete = function(id) {
-        $localStorage.todos.items[id].completed = !$localStorage.todos.items[id].completed;
+        todos.items[id].completed = !$localStorage.todos.items[id].completed;
     }
 
     var setPriority = function(priority, id) {
 
-        $localStorage.todos.items[id].priority = parseInt(priority);
+        todos.items[id].priority = parseInt(priority);
     }
 
 
@@ -78,10 +73,9 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, $lo
         removeAllCompletedToDos: removeAllCompletedToDos,
         toggleComplete: toggleComplete,
         setPriority: setPriority,
-        getPriority: getPriority,
-        getCopy: getCopy,
-        setEditing: setEditing,
         cancelEditing: cancelEditing,
+        update: update,
+        startEditing: startEditing,
         editing: editing
     }
 });

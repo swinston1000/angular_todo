@@ -1,20 +1,14 @@
 angular.module('myApp').factory('priorityFactory', function(toDoService) {
     var colourMap = ['red', 'orange', 'yellow', 'green', 'blue']
 
-    var getBackgroundColour = function(id) {
-        if (!id) {
-            return colourMap[this.todo.priority - 1]
-        } else {
-            return colourMap[toDoService.getPriority(id) - 1]
-        }
+    var getBackgroundColour = function() {
+        return colourMap[this.todo.priority - 1]
     }
-    var setPriority = function(event, id) {
-        if (!id) {
-            this.todo.priority = event.target.innerHTML;
-        } else {
-            toDoService.setPriority(event.target.innerHTML, id)
-        }
+
+    var setPriority = function(event) {
+        this.todo.priority = event.target.innerHTML;
     }
+
     return {
         getBackgroundColour: getBackgroundColour,
         setPriority: setPriority

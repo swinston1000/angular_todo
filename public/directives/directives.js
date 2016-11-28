@@ -5,8 +5,7 @@ angular.module('myApp').directive('toDo', function() {
         controllerAs: 'todoCtrl',
         bindToController: true,
         scope: {
-            id: '=todoId
-',
+            index: '=',
             todo: '=',
         },
         templateUrl: '../templates/todo.html'
