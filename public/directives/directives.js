@@ -5,10 +5,11 @@ angular.module('myApp').directive('toDo', function() {
         controllerAs: 'todoCtrl',
         bindToController: true,
         scope: {
-            id: '=todoId',
+            id: '=todoId
+',
             todo: '=',
         },
-        templateUrl: 'todo.html'
+        templateUrl: '../templates/todo.html'
     };
 });
 

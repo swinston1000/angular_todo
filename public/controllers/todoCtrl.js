@@ -2,6 +2,8 @@ angular.module("myApp").controller('toDoController', function(toDoService, prior
 
     _toDoCtrl = this;
 
+    _toDoCtrl.editing = toDoService.editing;
+
     _toDoCtrl.getBackgroundColour = priorityFactory.getBackgroundColour;
 
     _toDoCtrl.setPriority = priorityFactory.setPriority;
@@ -11,6 +13,7 @@ angular.module("myApp").controller('toDoController', function(toDoService, prior
     }
 
     _toDoCtrl.remove = function(id) {
+        console.log(id);
         if (confirm("Are you sure?")) {
             toDoService.removeTodo(id);
         }
