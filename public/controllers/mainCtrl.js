@@ -23,6 +23,7 @@ angular.module("myApp", ['ngStorage', 'ngResource'])
         }
 
         _thisCtrl.setCategory = function(event) {
+            console.log(event);
             _thisCtrl.todo.category = _thisCtrl.categoryText = event.target.innerHTML;
             _thisCtrl.categoryChosen = true;
         }
