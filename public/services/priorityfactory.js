@@ -6,7 +6,7 @@ angular.module('myApp').factory('priorityFactory', function(toDoService) {
     }
 
     var setPriority = function(event, todo) {
-        this.todo.priority = event.target.innerHTML;
+        this.todo.priority = parseInt(event.target.innerHTML);
         if (todo) {
             toDoService.update(todo)
         }

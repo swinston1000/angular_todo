@@ -15,5 +15,11 @@ var TodoSchema = new mongoose.Schema({
     priority: Number,
     //updated_at: { type: Date, default: Date.now },
 });
+
 // Create a model based on the schema and export
-module.exports = mongoose.model('Todo', TodoSchema);
+var Todo = mongoose.model('Todo', TodoSchema);
+module.exports = Todo
+
+// Todo.create([], function(err) {
+//     if (err) { console.log(err); }
+// });

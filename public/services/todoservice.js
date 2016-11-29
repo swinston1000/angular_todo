@@ -45,17 +45,21 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, $lo
 
     var removeCompleted = function() {
 
-        var todelete = todos.items.filter(function(item) {
-            return item.completed === true;
+        var indices = []
+        var ids = []
+
+        todos.items.forEach(function(item, index) {
+            if (item.completed === true) {
+                indices.push(index)
+                ids.push(item._id)
+            }
         })
-        var ids = todelete.map(function(todo) {
-            return todo._id;
-        })
+        indices = indices.reverse(); //as we need to start removal from the end!!!
 
         httpService.deleteCompleted(ids).success(function(data) {
-            todelete.forEach(function(todo) {
-                todos.items.splice(todos.items.indexOf(todo), 1)
-            });
+            indices.forEach(function(index) {
+                todos.items.splice(index, 1)
+            })
         }).error(function(data, status) {
             console.log(data, status);
         });
