@@ -13,8 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/scripts', express.static(__dirname + '/node_modules/'));
 app.use('/todos', todos);
 
-
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
     console.log('Example app listening on port 3000!')
 })
 
