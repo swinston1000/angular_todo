@@ -1,7 +1,7 @@
 angular.module("myApp").controller('mainController', function($scope, toDoService, priorityFactory, authService) {
 
     _thisCtrl = this;
-    _thisCtrl.logout = authService.logout
+    _thisCtrl.authService = authService
     _thisCtrl.todos = toDoService.todos;
     _thisCtrl.todo = { task: "", priority: 3, completed: false }
     _thisCtrl.applyFilter = true;

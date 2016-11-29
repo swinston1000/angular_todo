@@ -1,10 +1,13 @@
 <div ng-controller="mainController as myCtrl">
-    <h3>Steven's To-do List App</h3>
-    <div class="row" ng-include="'../templates/header.html'"></div>
-    <div ng-repeat="todo in myCtrl.todos.items | orderBy: myCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: myCtrl.applyFilter | filterCategory : myCtrl.filterCategory">
-        <to-do todo='todo' index='$index'></to-do>
-    </div>
     <div ng-if="isAuthenticated">
-        <button ng-click="myCtrl.logout()">Log Out</button>
+        <h3>Steven's To-do List App</h3>
+        <div class="row" ng-include="'../templates/header.html'"></div>
+        <div ng-repeat="todo in myCtrl.todos.items | orderBy: myCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: myCtrl.applyFilter | filterCategory : myCtrl.filterCategory">
+            <to-do todo='todo' index='$index'></to-do>
+        </div>
+        <button ng-click="myCtrl.authService.logout()">Log Out</button>
+    </div>
+    <div ng-if="!isAuthenticated">
+        <button class="btn btn-primary" ng-click="myCtrl.authService.login()">Log In</button>
     </div>
 </div>
