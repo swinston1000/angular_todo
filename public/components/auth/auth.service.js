@@ -11,7 +11,6 @@ function authService(lock, authManager) {
     }
 
     function logout() {
-        console.log("obj");
         localStorage.removeItem('id_token');
         authManager.unauthenticate();
     }
