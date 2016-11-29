@@ -5,15 +5,15 @@ angular.module("myApp", ['ngStorage', 'ngResource', 'auth0.lock', 'angular-jwt',
 function config($stateProvider, lockProvider, $urlRouterProvider) {
 
     $stateProvider
-        .state('home', {
-            url: '/home',
-            templateUrl: 'index.html'
-        })
         .state('login', {
             url: '/login',
             controller: 'LoginController',
             templateUrl: 'components/login/login.html',
             controllerAs: 'vm'
+        })
+        .state('home', {
+            url: '/home',
+            templateUrl: 'templates/home.html'
         });
 
     lockProvider.init({

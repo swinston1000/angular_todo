@@ -11,16 +11,7 @@
 
 <body class="container">
     <div ng-app="myApp">
-        <div ng-controller="mainController as myCtrl">
-            <h3>Steven's To-do List App</h3>
-            <div class="row" ng-include="'../templates/header.html'"></div>
-            <div ng-repeat="todo in myCtrl.todos.items | orderBy: myCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: myCtrl.applyFilter | filterCategory : myCtrl.filterCategory">
-                <to-do todo='todo' index='$index'></to-do>
-            </div>
-        </div>
-        <div ng-if="isAuthenticated">
-            <button ng-click="vm.authService.logout()">Log Out</button>
-        </div>
+        <div ui-view></div>
     </div>
 </body>
 <script src="/scripts/jquery/dist/jquery.min.js"></script>

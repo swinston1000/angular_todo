@@ -1,15 +1,12 @@
-(function() {
-    'use strict';
+'use strict';
 
-    angular
-        .module('myApp')
-        .controller('LoginController', LoginController);
+angular
+    .module('myApp')
+    .controller('LoginController', LoginController);
 
-    function LoginController(authService) {
+function LoginController(authService) {
 
-        var vm = this;
+    var vm = this;
 
-        vm.authService = authService;
-
-    }
-})();
+    vm.authService = authService;
+}
