@@ -41,8 +41,6 @@ angular.module("myApp").controller('mainController', function($timeout, $scope, 
         } else if (!$scope.categoryChosen) {
             return alert("Please choose a category!");
         }
-        http: //localhost:3000/
-            console.log($scope.todo);
         toDoService.addTodo($scope.todo);
         $scope.todo = { task: "", priority: 3, completed: false }
         $scope.categoryChosen = false;
@@ -57,7 +55,7 @@ angular.module("myApp").controller('mainController', function($timeout, $scope, 
 
     var keys = ['todos']
 
-    $ync($scope, keys, 'blah')
+    $ync($scope, keys, 'blaah')
 
     $scope.$watch('todos', function(newValue, oldValue) {
         console.log("hi");

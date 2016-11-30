@@ -9,6 +9,7 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, htt
         console.log(data, status);
     });
 
+
     var update = function(todo) {
         httpService.update(todo).success(function(data) {
             editing[todo._id] = undefined;
