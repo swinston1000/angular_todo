@@ -1,12 +1,12 @@
-angular.module("myApp").controller('toDoController', function(toDoService, priorityFactory) {
+angular.module("myApp").controller('toDoController', function(toDoService, mainFactory) {
 
     _toDoCtrl = this;
 
     _toDoCtrl.editing = toDoService.editing;
 
-    _toDoCtrl.getBackgroundColour = priorityFactory.getBackgroundColour;
+    _toDoCtrl.getBackgroundColour = mainFactory.getBackgroundColour;
 
-    _toDoCtrl.updatePriority = priorityFactory.setPriority;
+    _toDoCtrl.updatePriority = mainFactory.setPriority;
 
     _toDoCtrl.toggle = function(todo) {
         todo.completed = !todo.completed

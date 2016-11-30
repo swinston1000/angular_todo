@@ -1,4 +1,4 @@
-angular.module("myApp").controller('mainController', function($scope, toDoService, priorityFactory, $sce) {
+angular.module("myApp").controller('mainController', function($scope, toDoService, mainFactory, $sce) {
 
     _thisCtrl = this;
 
@@ -13,8 +13,8 @@ angular.module("myApp").controller('mainController', function($scope, toDoServic
     _thisCtrl.toggleBtnText = "Show All";
     _thisCtrl.categoryText = "Category"
 
-    _thisCtrl.getBackgroundColour = priorityFactory.getBackgroundColour;
-    _thisCtrl.setPriority = priorityFactory.setPriority;
+    _thisCtrl.getBackgroundColour = mainFactory.getBackgroundColour;
+    _thisCtrl.setPriority = mainFactory.setPriority;
 
     _thisCtrl.toggleFilter = function() {
         _thisCtrl.applyFilter = !_thisCtrl.applyFilter;
