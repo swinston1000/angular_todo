@@ -7,6 +7,5 @@ angular
 function LoginController(authService) {
 
     var vm = this;
-
     vm.authService = authService;
 }

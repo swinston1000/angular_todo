@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Steven's ToDo App</title>
+    <title>Todoosey</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link href="/scripts/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
     <link href="/scripts/font-awesome/css/font-awesome.min.css" rel="stylesheet"></link>
@@ -11,7 +11,13 @@
 
 <body class="container">
     <div ng-app="myApp">
-        <div ui-view></div>
+        <nav-bar></nav-bar>
+        <div ng-controller="mainController as myCtrl" ng-if="isAuthenticated">
+            <div class="row" ng-include="'../templates/controls.html'"></div>
+            <div ng-repeat="todo in myCtrl.todos.items | orderBy: myCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: myCtrl.applyFilter | filterCategory : myCtrl.filterCategory">
+                <to-do todo='todo' index='$index'></to-do>
+            </div>
+        </div>
     </div>
 </body>
 <script src="/scripts/jquery/dist/jquery.min.js"></script>
@@ -24,6 +30,7 @@
 <script src="/scripts/angular-jwt/dist/angular-jwt.js"></script>
 <!-- <script src="/scripts/auth0.js"></script> -->
 <script src="/scripts/bootstrap/js/dropdown.js"></script>
+<script src="/scripts/bootstrap/js/collapse.js"></script>
 <script src="/app.js"></script>
 <script src="/app.run.js"></script>
 <script src="/components/login/login.controller.js"></script>

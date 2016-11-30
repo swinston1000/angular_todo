@@ -11,7 +11,7 @@ function authService(lock, authManager) {
     }
 
     function logout() {
-        localStorage.removeItem('id_token');
+        localStorage.removeItem('to_do_id_token');
         authManager.unauthenticate();
     }
 
@@ -19,7 +19,7 @@ function authService(lock, authManager) {
     // This method is called from app.run.js
     function registerAuthenticationListener() {
         lock.on('authenticated', function(authResult) {
-            localStorage.setItem('id_token', authResult.idToken);
+            localStorage.setItem('to_do_id_token', authResult.idToken);
             authManager.authenticate();
         });
     }
