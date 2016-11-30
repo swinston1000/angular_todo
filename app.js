@@ -5,6 +5,8 @@ var bodyParser = require('body-parser')
 var app = express()
 var todos = require('./routes/todos');
 
+//setting up data syncing
+
 app.use(cors()); //needed???
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -13,7 +15,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/scripts', express.static(__dirname + '/node_modules/'));
 app.use('/todos', todos);
 
-app.listen(process.env.PORT || 3000, function() {
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+require('synchroscope').listen(io.of('/synchroscope'))
+
+server.listen(process.env.PORT || 3000, function() {
     console.log('Example app listening on port 3000!')
 })
 

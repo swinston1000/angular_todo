@@ -1,4 +1,4 @@
-angular.module("myApp").controller('mainController', function($scope, toDoService, mainFactory, $sce) {
+angular.module("myApp").controller('mainController', function($timeout, $scope, toDoService, mainFactory, $sce, $ync) {
 
     _thisCtrl = this;
 
@@ -53,15 +53,24 @@ angular.module("myApp").controller('mainController', function($scope, toDoServic
         }
     };
 
+    var keys = ['todos']
+
+    $ync($scope, keys, 'myRoom')
+
     // $scope.$watch('myCtrl.applyFilter', function(newValue, oldValue) {
-    //     _thisCtrl.newValue = newValue;
+    //     _thisCtrl.newValue = newValue;SS
     // });
     // $scope.$watch(
     //     function() {
     //         return _thisCtrl.todos;
     //     },
     //     function() {
-    //         console.log(_thisCtrl.todos);
+    //         $scope.syncme = _thisCtrl.todos;
+    //         $timeout(function() {
+    //             console.log("done");
+    //             _thisCtrl.todos = $scope.syncme
+    //         }, 2000)
     //     }, true
     // );
+
 });
