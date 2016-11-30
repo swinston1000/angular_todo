@@ -1,26 +1,26 @@
 <div class="col-lg-6">
-    <form class="form" ng-submit="myCtrl.add()">
-        <div class="input-group add-item" ng-class="myCtrl.getBackgroundColour(null);">
+    <form class="form" ng-submit="add()">
+        <div class="input-group add-item" ng-class="getBackgroundColour(null);">
             <div class="input-group-btn">
-                <a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{myCtrl.categoryText}}<span class="caret"></span></a>
-                <ul class="dropdown-menu dropdown-menu-left" ng-click="myCtrl.setCategory($event);">
+                <a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{categoryText}}<span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-left" ng-click="setCategory($event);">
                     <li><a>Work</a></li>
                     <li><a>Personal</a></li>
                     <li><a>Other</a></li>
                     <li><a>Delegated</a></li>
                 </ul>
             </div>
-            <input type="text" class="form-control" ng-model="myCtrl.todo.task" placeholder="Add Item" autofocus/>
+            <input type="text" class="form-control" ng-model="todo.task" placeholder="Add Item" autofocus/>
             <div class="input-group-btn">
                 <a type="button" class="btn btn-default dropdown-toggle priority" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Priority<span class="caret"></span></a>
-                <ul class="dropdown-menu" ng-click="myCtrl.setPriority($event,null);">
+                <ul class="dropdown-menu" ng-click="setPriority($event,null);">
                     <li><a>1</a></li>
                     <li><a>2</a></li>
                     <li><a>3</a></li>
                     <li><a>4</a></li>
                     <li><a>5</a></li>
                 </ul>
-                <a type="button" class="btn btn-default" ng-click="myCtrl.add()">Add</a>
+                <a type="button" class="btn btn-default" ng-click="add()">Add</a>
             </div>
         </div>
     </form>
@@ -28,14 +28,14 @@
 <div class="col-lg-6">
     <div class="btn-group" role="group">
         <div class="btn-group">
-            <a type="button" class="btn btn-default toggle-button" ng-click="myCtrl.toggleFilter()">{{myCtrl.toggleBtnText}}</a>
-            <a ng-if="myCtrl.sortByPriority" type="button" class="btn btn-default priority-button visible-xs" ng-click="myCtrl.toggleSort()" ng-bind-html="myCtrl.calender"></a>
-            <a ng-if="!myCtrl.sortByPriority" type="button" class="btn btn-default priority-button visible-xs" ng-click="myCtrl.toggleSort()" ng-bind-html="myCtrl.thermometer"></a>
-            <a type="button" class="btn btn-default priority-button hidden-xs" ng-click="myCtrl.toggleSort()">{{myCtrl.sortByPriority? "Sort by Date" : "Sort by Priority"}}</a>
+            <a type="button" class="btn btn-default toggle-button" ng-click="toggleFilter()">{{toggleBtnText}}</a>
+            <a ng-if="sortByPriority" type="button" class="btn btn-default priority-button visible-xs" ng-click="toggleSort()" ng-bind-html="calender"></a>
+            <a ng-if="!sortByPriority" type="button" class="btn btn-default priority-button visible-xs" ng-click="toggleSort()" ng-bind-html="thermometer"></a>
+            <a type="button" class="btn btn-default priority-button hidden-xs" ng-click="toggleSort()">{{sortByPriority? "Sort by Date" : "Sort by Priority"}}</a>
             <div class="btn-group">
                 <a type="button" class="btn btn-default dropdown-toggle cat-button
 " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by Category<span class="caret"></span></a>
-                <ul class="dropdown-menu dropdown-menu-left" ng-click="myCtrl.setFilterCategory($event);">
+                <ul class="dropdown-menu dropdown-menu-left" ng-click="setFilterCategory($event);">
                     <li><a>Show All</a></li>
                     <li><a>Work</a></li>
                     <li><a>Personal</a></li>
@@ -44,6 +44,6 @@
                 </ul>
             </div>
         </div>
-        <a type="button" class="btn btn-danger remove-all-btn" ng-click="myCtrl.removeCompleted()"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> Completed</span></a>
+        <a type="button" class="btn btn-danger remove-all-btn" ng-click="removeCompleted()"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> Completed</span></a>
     </div>
 </div>

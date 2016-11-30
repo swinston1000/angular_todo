@@ -11,11 +11,11 @@
 
 <body class="container">
     <div ng-app="myApp">
-        <div ng-controller="mainController as myCtrl">
+        <div ng-controller="mainController">
             <nav-bar></nav-bar>
             <div ng-if="isAuthenticated">
                 <div class="row" ng-include="'/components/main/main.controls.template.html'"></div>
-                <div ng-repeat="todo in myCtrl.todos.items | filter:myCtrl.search | orderBy: myCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: myCtrl.applyFilter | filterCategory : myCtrl.filterCategory">
+                <div ng-repeat="todo in todos.items | filter:search | orderBy: sortByPriority ? 'priority' : 'date' | filterComplete: applyFilter | filterCategory : filterCategory">
                     <to-do todo='todo' index='$index'></to-do>
                 </div>
             </div>

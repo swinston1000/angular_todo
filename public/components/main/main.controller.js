@@ -1,53 +1,55 @@
 angular.module("myApp").controller('mainController', function($timeout, $scope, toDoService, mainFactory, $sce, $ync) {
 
-    _thisCtrl = this;
 
-    _thisCtrl.thermometer = $sce.trustAsHtml('<i class="fa fa-thermometer-half" aria-hidden="true"></i>');
-    _thisCtrl.calender = $sce.trustAsHtml('<i class="fa fa-calendar-o" aria-hidden="true"></i>');
+    $scope.thermometer = $sce.trustAsHtml('<i class="fa fa-thermometer-half" aria-hidden="true"></i>');
+    $scope.calender = $sce.trustAsHtml('<i class="fa fa-calendar-o" aria-hidden="true"></i>');
 
-    _thisCtrl.todos = toDoService.todos;
-    _thisCtrl.todo = { task: "", priority: 3, completed: false }
-    _thisCtrl.applyFilter = true;
-    _thisCtrl.sortByPriority = true;
-    _thisCtrl.reverseSort = false
-    _thisCtrl.toggleBtnText = "Show All";
-    _thisCtrl.categoryText = "Category"
+    $scope.todos = toDoService.todos;
+    $scope.todo = { task: "", priority: 3, completed: false }
+    $scope.applyFilter = true;
+    $scope.sortByPriority = true;
+    $scope.reverseSort = false
+    $scope.toggleBtnText = "Show All";
+    $scope.categoryText = "Category"
 
-    _thisCtrl.getBackgroundColour = mainFactory.getBackgroundColour;
-    _thisCtrl.setPriority = mainFactory.setPriority;
+    $scope.getBackgroundColour = mainFactory.getBackgroundColour;
+    $scope.setPriority = mainFactory.setPriority;
 
-    _thisCtrl.toggleFilter = function() {
-        _thisCtrl.applyFilter = !_thisCtrl.applyFilter;
-        _thisCtrl.toggleBtnText = _thisCtrl.applyFilter ? "Show All" : "Show Active"
+    $scope.toggleFilter = function() {
+        $scope.applyFilter = !$scope.applyFilter;
+        $scope.toggleBtnText = $scope.applyFilter ? "Show All" : "Show Active"
     };
 
-    _thisCtrl.toggleSort = function() {
-        _thisCtrl.sortByPriority = !_thisCtrl.sortByPriority;
+    $scope.toggleSort = function() {
+        $scope.sortByPriority = !$scope.sortByPriority;
     }
 
-    _thisCtrl.setCategory = function(event) {
-        _thisCtrl.todo.category = _thisCtrl.categoryText = event.target.innerHTML;
-        _thisCtrl.categoryChosen = true;
+    $scope.setCategory = function(event) {
+        $scope.todo.category = $scope.categoryText = event.target.innerHTML;
+        $scope.categoryChosen = true;
     }
 
 
-    _thisCtrl.setFilterCategory = function(event) {
-        _thisCtrl.filterCategory = event.target.innerHTML === "Show All" ? false : event.target.innerHTML;
+    $scope.setFilterCategory = function(event) {
+        $scope.filterCategory = event.target.innerHTML === "Show All" ? false : event.target.innerHTML;
     }
 
-    _thisCtrl.add = function() {
+    $scope.add = function() {
+
         if (!this.todo.task) {
             return alert("Please enter an item!");
-        } else if (!_thisCtrl.categoryChosen) {
+        } else if (!$scope.categoryChosen) {
             return alert("Please choose a category!");
         }
-        toDoService.addTodo(_thisCtrl.todo);
-        _thisCtrl.todo = { task: "", priority: 3, completed: false }
-        _thisCtrl.categoryChosen = false;
-        _thisCtrl.categoryText = "Category"
+        http: //localhost:3000/
+            console.log($scope.todo);
+        toDoService.addTodo($scope.todo);
+        $scope.todo = { task: "", priority: 3, completed: false }
+        $scope.categoryChosen = false;
+        $scope.categoryText = "Category"
     };
 
-    _thisCtrl.removeCompleted = function() {
+    $scope.removeCompleted = function() {
         if (confirm("Are you sure?")) {
             toDoService.removeCompleted();
         }
@@ -58,17 +60,17 @@ angular.module("myApp").controller('mainController', function($timeout, $scope, 
     $ync($scope, keys, 'myRoom')
 
     // $scope.$watch('myCtrl.applyFilter', function(newValue, oldValue) {
-    //     _thisCtrl.newValue = newValue;SS
+    //     $scope.newValue = newValue;SS
     // });
     // $scope.$watch(
     //     function() {
-    //         return _thisCtrl.todos;
+    //         return $scope.todos;
     //     },
     //     function() {
-    //         $scope.syncme = _thisCtrl.todos;
+    //         $scope.syncme = $scope.todos;
     //         $timeout(function() {
     //             console.log("done");
-    //             _thisCtrl.todos = $scope.syncme
+    //             $scope.todos = $scope.syncme
     //         }, 2000)
     //     }, true
     // );
