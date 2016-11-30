@@ -1,4 +1,4 @@
-angular.module("myApp", ['ngStorage', 'ngResource', 'auth0.lock', 'angular-jwt', 'ui.router'])
+angular.module("myApp", ['ngResource', 'auth0.lock', 'angular-jwt', 'ui.router'])
     .config(config);
 
 
