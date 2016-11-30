@@ -4,6 +4,6 @@ angular.module('myApp').directive('navBar', function() {
         controller: 'LoginController',
         controllerAs: 'vm',
         bindToController: true,
-        templateUrl: '../templates/navbar.html'
+        templateUrl: '/components/navbar/navbar.template.html'
     };
 });
