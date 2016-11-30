@@ -2,24 +2,18 @@ angular.module("myApp", ['ngStorage', 'ngResource', 'auth0.lock', 'angular-jwt',
     .config(config);
 
 
-function config($stateProvider, lockProvider, $urlRouterProvider) {
+function config(lockProvider, jwtOptionsProvider) {
 
-    $stateProvider
-        .state('login', {
-            url: '/login',
-            controller: 'LoginController',
-            templateUrl: 'components/login/login.html',
-            controllerAs: 'vm'
-        })
-        .state('home', {
-            url: '/home',
-            templateUrl: 'templates/home.html'
-        });
+    // Configuration for angular-jwt
+    jwtOptionsProvider.config({
+        tokenGetter: function() {
+            return localStorage.getItem('to_do_id_token');
+        }
+    });
 
     lockProvider.init({
         clientID: 'F3kTtFLJVyWUqdcqoW0eWHn7dH9rmOtJ',
         domain: 'app60017704.eu.auth0.com'
     });
 
-    $urlRouterProvider.otherwise('/home');
 }

@@ -52,3 +52,7 @@
 
 .yellow label,
 .yellow input {}
+
+body {
+    margin-top: 15px;
+}
