@@ -1,4 +1,4 @@
-angular.module("myApp").factory('toDoService', function($window, $rootScope, $localStorage, httpService) {
+angular.module("myApp").factory('toDoService', function($window, $rootScope, httpService) {
 
     var editing = {}
     var todos = { items: [] }

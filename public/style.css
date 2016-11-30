@@ -15,14 +15,13 @@
     .remove-all-btn {
         width: 137px;
     }
+    .done-button {
+        width: 50px;
+    }
 }
 
 .add-item {
     padding-bottom: 10px;
-}
-
-.done-button {
-    width: 50px;
 }
 
 .todo-category {
@@ -34,30 +33,59 @@
 .blue label,
 .blue input {
     border: 1px solid blue;
-    border-right: 2px solid blue;
 }
 
 .green label,
 .green input {
     border: 1px solid green;
-    border-right: 2px solid green;
 }
 
 .orange label,
 .orange input {
     border: 1px solid orange;
-    border-right: 2px solid orange;
 }
 
 .red label,
 .red input {
     border: 1px solid red;
-    border-right: 2px solid red;
 }
-
-.yellow label,
-.yellow input {}
 
 body {
     margin-top: 15px;
+}
+
+.mobile-todo-label {
+    height: auto;
+}
+
+.problem-box {
+    height: 100%;
+    box-sizing: content-box;
+    border-bottom-left-radius: 0;
+}
+
+.mob-category {
+    border-top-left-radius: 0;
+}
+
+.mob-delete {
+    border-top-right-radius: 0;
+}
+
+.todo-item {
+    border-bottom-right-radius: 0;
+}
+
+.priority {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.priority-mob {
+    width: 158px;
+}
+
+.navbar-default {
+    background-color: #ffffff;
+    border-color: #e7e7e7;
 }

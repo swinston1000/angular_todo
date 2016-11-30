@@ -11,18 +11,19 @@
 
 <body class="container">
     <div ng-app="myApp">
-        <nav-bar></nav-bar>
-        <div ng-controller="mainController as myCtrl" ng-if="isAuthenticated">
-            <div class="row" ng-include="'/components/main/main.controls.template.html'"></div>
-            <div ng-repeat="todo in myCtrl.todos.items | orderBy: myCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: myCtrl.applyFilter | filterCategory : myCtrl.filterCategory">
-                <to-do todo='todo' index='$index'></to-do>
+        <div ng-controller="mainController as myCtrl">
+            <nav-bar></nav-bar>
+            <div ng-if="isAuthenticated">
+                <div class="row" ng-include="'/components/main/main.controls.template.html'"></div>
+                <div ng-repeat="todo in myCtrl.todos.items | filter:myCtrl.search | orderBy: myCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: myCtrl.applyFilter | filterCategory : myCtrl.filterCategory">
+                    <to-do todo='todo' index='$index'></to-do>
+                </div>
             </div>
         </div>
     </div>
 </body>
 <script src="/scripts/jquery/dist/jquery.min.js"></script>
 <script src="/scripts/angular/angular.js"></script>
-<script src="/scripts/ngstorage/ngStorage.js"></script>
 <script src="/scripts/angular-resource/angular-resource.js"></script>
 <script src="/scripts/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="https://cdn.auth0.com/js/lock/10.6/lock.min.js"></script>
