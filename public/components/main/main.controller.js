@@ -57,11 +57,11 @@ angular.module("myApp").controller('mainController', function($timeout, $scope, 
 
     var keys = ['todos']
 
-    $ync($scope, keys, 'myRoom')
+    $ync($scope, keys, 'blah')
 
-    // $scope.$watch('myCtrl.applyFilter', function(newValue, oldValue) {
-    //     $scope.newValue = newValue;SS
-    // });
+    $scope.$watch('todos', function(newValue, oldValue) {
+        console.log("hi");
+    });
     // $scope.$watch(
     //     function() {
     //         return $scope.todos;
