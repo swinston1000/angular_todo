@@ -7,9 +7,14 @@
 }
 
 .priority-button,
-.toggle-button,
-.remove-all-btn {
+.toggle-button {
     width: 137px;
+}
+
+@media only screen and (min-width: 768px) {
+    .remove-all-btn {
+        width: 137px;
+    }
 }
 
 .add-item {

@@ -1,6 +1,10 @@
-angular.module("myApp").controller('mainController', function($scope, toDoService, priorityFactory) {
+angular.module("myApp").controller('mainController', function($scope, toDoService, priorityFactory, $sce) {
 
     _thisCtrl = this;
+
+    _thisCtrl.thermometer = $sce.trustAsHtml('<i class="fa fa-thermometer-half" aria-hidden="true"></i>');
+    _thisCtrl.calender = $sce.trustAsHtml('<i class="fa fa-calendar-o" aria-hidden="true"></i>');
+
     _thisCtrl.todos = toDoService.todos;
     _thisCtrl.todo = { task: "", priority: 3, completed: false }
     _thisCtrl.applyFilter = true;
