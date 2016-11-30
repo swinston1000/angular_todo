@@ -7,11 +7,17 @@
 }
 
 .priority-button,
+.remove-all-btn {
+    width: 45px;
+}
+
 .toggle-button {
-    width: 137px;
+    width: 123px;
 }
 
 @media only screen and (min-width: 768px) {
+    .priority-button,
+    .toggle-button,
     .remove-all-btn {
         width: 137px;
     }
@@ -76,6 +82,7 @@ body {
     border-bottom-right-radius: 0;
 }
 
+.cat-button,
 .priority {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
