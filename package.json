@@ -16,6 +16,7 @@
     "angular-jwt": "^0.1.8",
     "angular-lock": "^1.0.5",
     "angular-resource": "^1.5.9",
+    "angular-sanitize": "^1.5.9",
     "angular-ui-router": "^0.3.2",
     "auth0-lock": "^10.7.1",
     "body-parser": "^1.15.2",
