@@ -2,33 +2,45 @@
 <html>
 
 <head>
-    <title></title>
+    <title>Steven's ToDo App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link href="/scripts/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
     <link href="/scripts/font-awesome/css/font-awesome.min.css" rel="stylesheet"></link>
     <link href="style.css" rel="stylesheet"></link>
 </head>
 
-<body class="container" ng-app="myApp">
-    <div ng-controller="mainController as myCtrl">
-        <h3>Steven's To-do List App</h3>
-        <div class="row" ng-include="'../templates/header.html'"></div>
-        <div ng-repeat="todo in myCtrl.todos.items | orderBy: myCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: myCtrl.applyFilter | filterCategory : myCtrl.filterCategory">
-            <to-do todo='todo' index='$index'></to-do>
+<body class="container">
+    <div ng-app="myApp">
+        <nav-bar></nav-bar>
+        <div ng-controller="mainController as myCtrl" ng-if="isAuthenticated">
+            <div class="row" ng-include="'../templates/controls.html'"></div>
+            <div ng-repeat="todo in myCtrl.todos.items | orderBy: myCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: myCtrl.applyFilter | filterCategory : myCtrl.filterCategory">
+                <to-do todo='todo' index='$index'></to-do>
+            </div>
         </div>
     </div>
 </body>
-<script src="/scripts/jquery/dist/jquery.min.js "></script>
-<script src="/scripts/angular/angular.js "></script>
-<script src="/scripts/ngstorage/ngStorage.js "></script>
-<script src="/scripts/angular-resource/angular-resource.js "></script>
-<script src="/scripts/bootstrap/js/dropdown.js "></script>
-<script src="/controllers/mainCtrl.js "></script>
-<script src="/controllers/todoCtrl.js "></script>
-<script src="/services/todoservice.js "></script>
-<script src="/services/httpservice.js "></script>
-<script src="/services/priorityfactory.js "></script>
-<script src="/filters/filters.js "></script>
-<script src="/directives/directives.js "></script>
+<script src="/scripts/jquery/dist/jquery.min.js"></script>
+<script src="/scripts/angular/angular.js"></script>
+<script src="/scripts/ngstorage/ngStorage.js"></script>
+<script src="/scripts/angular-resource/angular-resource.js"></script>
+<script src="/scripts/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="https://cdn.auth0.com/js/lock/10.6/lock.min.js"></script>
+<script src="/scripts/angular-lock/dist/angular-lock.js"></script>
+<script src="/scripts/angular-jwt/dist/angular-jwt.js"></script>
+<!-- <script src="/scripts/auth0.js"></script> -->
+<script src="/scripts/bootstrap/js/dropdown.js"></script>
+<script src="/scripts/bootstrap/js/collapse.js"></script>
+<script src="/app.js"></script>
+<script src="/app.run.js"></script>
+<script src="/components/login/login.controller.js"></script>
+<script src="/components/auth/auth.service.js"></script>
+<script src="/controllers/mainCtrl.js"></script>
+<script src="/controllers/todoCtrl.js"></script>
+<script src="/services/todoservice.js"></script>
+<script src="/services/httpservice.js"></script>
+<script src="/services/priorityfactory.js"></script>
+<script src="/filters/filters.js"></script>
+<script src="/directives/directives.js"></script>
 
 </html>
