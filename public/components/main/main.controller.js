@@ -8,7 +8,7 @@ angular.module("myApp").controller('mainController', function($scope, toDoServic
     _thisCtrl.todos = toDoService.todos;
     _thisCtrl.todo = { task: "", priority: 3, completed: false }
     _thisCtrl.applyFilter = true;
-    _thisCtrl.sortByPriority = false;
+    _thisCtrl.sortByPriority = true;
     _thisCtrl.reverseSort = false
     _thisCtrl.toggleBtnText = "Show All";
     _thisCtrl.categoryText = "Category"
