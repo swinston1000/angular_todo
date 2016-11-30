@@ -1,4 +1,4 @@
-angular.module('myApp').factory('priorityFactory', function(toDoService) {
+angular.module('myApp').factory('mainFactory', function(toDoService) {
     var colourMap = ['red', 'orange', 'yellow', 'green', 'blue']
 
     var getBackgroundColour = function() {

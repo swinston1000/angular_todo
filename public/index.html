@@ -13,7 +13,7 @@
     <div ng-app="myApp">
         <nav-bar></nav-bar>
         <div ng-controller="mainController as myCtrl" ng-if="isAuthenticated">
-            <div class="row" ng-include="'../templates/controls.html'"></div>
+            <div class="row" ng-include="'/components/main/main.controls.template.html'"></div>
             <div ng-repeat="todo in myCtrl.todos.items | orderBy: myCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: myCtrl.applyFilter | filterCategory : myCtrl.filterCategory">
                 <to-do todo='todo' index='$index'></to-do>
             </div>
@@ -32,14 +32,13 @@
 <script src="/scripts/bootstrap/js/collapse.js"></script>
 <script src="/app.js"></script>
 <script src="/app.run.js"></script>
-<script src="/components/login/login.controller.js"></script>
 <script src="/components/auth/auth.service.js"></script>
-<script src="/controllers/mainCtrl.js"></script>
-<script src="/controllers/todoCtrl.js"></script>
-<script src="/services/todoservice.js"></script>
-<script src="/services/httpservice.js"></script>
-<script src="/services/priorityfactory.js"></script>
-<script src="/filters/filters.js"></script>
-<script src="/directives/directives.js"></script>
+<script src="/components/main/main.controller.js"></script>
+<script src="/components/main/main.factory.js"></script>
+<script src="/components/main/main.filters.js"></script>
+<script src="/components/todo/todo.controller.js"></script>
+<script src="/components/todo/todo.service.js"></script>
+<script src="/components/todo/todo.directives.js"></script>
+<script src="/components/http/http.service.js"></script>
 
 </html>
