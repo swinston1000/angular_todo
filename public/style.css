@@ -12,7 +12,7 @@
 }
 
 .toggle-button {
-    width: 120px;
+    width: 122px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -82,6 +82,7 @@ body {
     border-bottom-right-radius: 0;
 }
 
+.cat-button,
 .priority {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;

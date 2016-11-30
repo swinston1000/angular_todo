@@ -33,7 +33,8 @@
             <a ng-if="!myCtrl.sortByPriority" type="button" class="btn btn-default priority-button visible-xs" ng-click="myCtrl.toggleSort()" ng-bind-html="myCtrl.thermometer"></a>
             <a type="button" class="btn btn-default priority-button hidden-xs" ng-click="myCtrl.toggleSort()">{{myCtrl.sortByPriority? "Sort by Date" : "Sort by Priority"}}</a>
             <div class="btn-group">
-                <a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by Category<span class="caret"></span></a>
+                <a type="button" class="btn btn-default dropdown-toggle cat-button
+" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by Category<span class="caret"></span></a>
                 <ul class="dropdown-menu dropdown-menu-left" ng-click="myCtrl.setFilterCategory($event);">
                     <li><a>Show All</a></li>
                     <li><a>Work</a></li>
