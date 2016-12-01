@@ -1,23 +1,23 @@
-angular.module("myApp").factory('toDoService', function($window.socket, $window, $rootScope, httpService) {
+angular.module("myApp").factory('toDoService', function($window, socket, $window, $rootScope, httpService) {
 
     var editing = {}
     var todos = { items: [] }
 
     socket.on('change', function(fromServer) {
-        httpService.getToDos().success(function(data) {
-            todos.items = data;
-        }).error(function(data, status) {
-            console.log(data, status);
-        });
+        getTodos();
     });
 
     $window.onfocus = function() {
+        getTodos();
+    }
+
+    var getTodos = function() {
         httpService.getToDos().success(function(data) {
             todos.items = data;
         }).error(function(data, status) {
             console.log(data, status);
         });
-    }
+    }()
 
     // httpService.getToDos().success(function(data) {
     //     todos.items = data;
