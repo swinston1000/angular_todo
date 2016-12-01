@@ -104,9 +104,17 @@ body {
 
 /*solve sticky hover*/
 
+
+/*@media only screen and (max-width: 768px) {
+    .btn:hover {
+        background-color: transparent;
+    }
+}
+*/
+
 @media (hover:none),
 (hover:on-demand) {
-    a:hover {
+    .btn:hover {
         background-color: transparent;
     }
 }
