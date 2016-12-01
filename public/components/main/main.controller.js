@@ -3,7 +3,6 @@ angular.module("myApp").controller('mainController', function($timeout, $scope, 
 
     $scope.thermometer = $sce.trustAsHtml('<i class="fa fa-thermometer-half" aria-hidden="true"></i>');
     $scope.calender = $sce.trustAsHtml('<i class="fa fa-calendar-o" aria-hidden="true"></i>');
-
     $scope.todos = toDoService.todos;
     $scope.todo = { task: "", priority: 3, completed: false }
     $scope.applyFilter = true;
@@ -55,11 +54,20 @@ angular.module("myApp").controller('mainController', function($timeout, $scope, 
 
     var keys = ['todos']
 
-    $ync($scope, keys, 'blaah')
+    $ync($scope, keys, 'zzabcdef')
 
-    $scope.$watch('todos', function(newValue, oldValue) {
-        console.log("hi");
-    });
+    // $scope.$watch(function() {
+    //     return toDoService.todos;;
+    // }, function(newVal, oldVal) {
+    //     console.log(oldVal);
+    //     if (newVal !== oldVal) {
+    //         $scope.todos = newVal;
+    //     }
+    // });
+
+    // $scope.$watch('todos', function(newValue, oldValue) {
+    //     console.log("hi");
+    // });
     // $scope.$watch(
     //     function() {
     //         return $scope.todos;

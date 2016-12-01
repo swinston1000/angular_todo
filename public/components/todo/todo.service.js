@@ -1,55 +1,61 @@
-angular.module("myApp").factory('toDoService', function($window, $rootScope, httpService) {
+angular.module("myApp").service('toDoService', function($timeout, $rootScope, httpService) {
 
-    var editing = {}
-    var todos = { items: [] }
+    that = this;
 
-    httpService.getToDos().success(function(data) {
-        todos.items = data;
-    }).error(function(data, status) {
-        console.log(data, status);
-    });
+    this.editing = {}
+    this.todos = { items: [] }
 
 
-    var update = function(todo) {
+    $timeout(function() {
+        httpService.getToDos().success(function(data) {
+            that.todos.items = data;
+        }).error(function(data, status) {
+            console.log(data, status);
+        });
+    }, 5000)
+
+
+
+    this.update = function(todo) {
         httpService.update(todo).success(function(data) {
-            editing[todo._id] = undefined;
+            that.editing[todo._id] = undefined;
         }).error(function(data, status) {
             console.log(data, status);
         });
     }
 
-    var startEditing = function(todo) {
-        editing[todo._id] = angular.copy(todo)
+    this.startEditing = function(todo) {
+        that.editing[todo._id] = angular.copy(todo)
     }
 
-    var cancelEditing = function(todo) {
-        var _index = todos.items.indexOf(todo)
-        todos.items[_index] = angular.copy(editing[todo._id]);
-        editing[todo._id] = undefined;
+    this.cancelEditing = function(todo) {
+        var _index = that.todos.items.indexOf(todo)
+        that.todos.items[_index] = angular.copy(that.editing[todo._id]);
+        that.editing[todo._id] = undefined;
     }
 
-    var addTodo = function(todo) {
+    this.addTodo = function(todo) {
         httpService.add(todo).success(function(data) {
-            todos.items.push(data);
+            that.todos.items.push(data);
         }).error(function(data, status) {
             console.log(data, status);
         });
     }
 
-    var removeTodo = function(todo) {
+    this.removeTodo = function(todo) {
         httpService.delete(todo._id).success(function(data) {
-            todos.items.splice(todos.items.indexOf(todo), 1);
+            that.todos.items.splice(that.todos.items.indexOf(todo), 1);
         }).error(function(data, status) {
             console.log(data, status);
         });;
     };
 
-    var removeCompleted = function() {
+    this.removeCompleted = function() {
 
         var indices = []
         var ids = []
 
-        todos.items.forEach(function(item, index) {
+        that.todos.items.forEach(function(item, index) {
             if (item.completed === true) {
                 indices.push(index)
                 ids.push(item._id)
@@ -59,21 +65,11 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, htt
 
         httpService.deleteCompleted(ids).success(function(data) {
             indices.forEach(function(index) {
-                todos.items.splice(index, 1)
+                that.todos.items.splice(index, 1)
             })
         }).error(function(data, status) {
             console.log(data, status);
         });
     }
 
-    return {
-        todos: todos,
-        addTodo: addTodo,
-        removeTodo: removeTodo,
-        removeCompleted: removeCompleted,
-        cancelEditing: cancelEditing,
-        update: update,
-        startEditing: startEditing,
-        editing: editing
-    }
 });
