@@ -1,4 +1,4 @@
-angular.module("myApp", ['ngResource', 'auth0.lock', 'angular-jwt', 'ui.router'])
+angular.module("myApp", ['hmTouchEvents', 'ngResource', 'auth0.lock', 'angular-jwt', 'ui.router', 'angular-fastclick'])
     .config(config);
 
 
