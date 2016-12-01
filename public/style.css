@@ -106,7 +106,7 @@ body {
 
 @media (hover:none),
 (hover:on-demand) {
-    nav a:hover {
+    a:hover {
         background-color: transparent;
     }
 }
