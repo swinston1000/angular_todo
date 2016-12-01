@@ -37,7 +37,7 @@ module.exports = function(io) {
         });
     });
 
-    //delete multiple comma seperated todos
+    //delete multiple comma separated todos
     router.delete('/done/:ids', function(req, res, next) {
         Todo.remove({ _id: { $in: req.params.ids.split(',') } }, function(err, post) {
             if (err) return next(err);

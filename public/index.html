@@ -16,7 +16,7 @@
             <div ng-if="isAuthenticated">
                 <div class="row" ng-include="'/components/main/main.controls.template.html'"></div>
                 <div ng-repeat="todo in myCtrl.todos.items | filter:myCtrl.search | orderBy: myCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: myCtrl.applyFilter | filterCategory : myCtrl.filterCategory">
-                    <to-do todo='todo' index='$index'></to-do>
+                    <to-do todo='todo'></to-do>
                 </div>
             </div>
         </div>

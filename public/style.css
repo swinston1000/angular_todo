@@ -42,22 +42,26 @@
 
 .blue label,
 .blue input {
-    border: 1px solid blue;
+    border-color: blue;
 }
 
 .green label,
 .green input {
-    border: 1px solid green;
+    border-color: green;
 }
 
 .orange label,
 .orange input {
-    border: 1px solid orange;
+    border-color: orange;
 }
 
 .red label,
 .red input {
-    border: 1px solid red;
+    border-color: red;
+}
+
+.main-input {
+    border-right-width: 2px
 }
 
 body {
@@ -103,14 +107,6 @@ body {
 
 
 /*solve sticky hover*/
-
-
-/*@media only screen and (max-width: 768px) {
-    .btn:hover {
-        background-color: transparent;
-    }
-}
-*/
 
 @media (hover:none),
 (hover:on-demand) {
