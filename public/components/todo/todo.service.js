@@ -1,4 +1,4 @@
-angular.module("myApp").factory('toDoService', function(socket, $window, $rootScope, httpService) {
+angular.module("myApp").factory('toDoService', function($window.socket, $window, $rootScope, httpService) {
 
     var editing = {}
     var todos = { items: [] }
@@ -6,17 +6,24 @@ angular.module("myApp").factory('toDoService', function(socket, $window, $rootSc
     socket.on('change', function(fromServer) {
         httpService.getToDos().success(function(data) {
             todos.items = data;
-            console.log("change");
         }).error(function(data, status) {
             console.log(data, status);
         });
     });
 
-    httpService.getToDos().success(function(data) {
-        todos.items = data;
-    }).error(function(data, status) {
-        console.log(data, status);
-    });
+    $window.onfocus = function() {
+        httpService.getToDos().success(function(data) {
+            todos.items = data;
+        }).error(function(data, status) {
+            console.log(data, status);
+        });
+    }
+
+    // httpService.getToDos().success(function(data) {
+    //     todos.items = data;
+    // }).error(function(data, status) {
+    //     console.log(data, status);
+    // });
 
     var update = function(todo) {
         httpService.update(todo).success(function(data) {
