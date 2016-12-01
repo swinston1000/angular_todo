@@ -54,16 +54,16 @@ angular.module("myApp").controller('mainController', function($timeout, $scope, 
 
     var keys = ['todos']
 
-    $ync($scope, keys, 'zzabcdef')
+    $ync($scope, keys, 'runner')
 
-    // $scope.$watch(function() {
-    //     return toDoService.todos;;
-    // }, function(newVal, oldVal) {
-    //     console.log(oldVal);
-    //     if (newVal !== oldVal) {
-    //         $scope.todos = newVal;
-    //     }
-    // });
+    $scope.$watch(function() {
+        return toDoService.todos;;
+    }, function(newVal, oldVal) {
+        console.log(newVal);
+        if (newVal !== oldVal) {
+            $scope.todos = newVal;
+        }
+    });
 
     // $scope.$watch('todos', function(newValue, oldValue) {
     //     console.log("hi");
