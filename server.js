@@ -1,6 +1,5 @@
 var express = require('express')
 var cors = require('cors')
-var path = require('path');
 var bodyParser = require('body-parser')
 var app = express()
 
@@ -14,8 +13,8 @@ var io = require('socket.io').listen(server);
 
 var todos = require('./routes/todos')(io);
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/scripts', express.static(__dirname + '/node_modules/'));
+app.use(express.static(__dirname + '/public'));
+app.use('/scripts', express.static(__dirname + '/node_modules'));
 app.use('/todos', todos);
 
 server.listen(process.env.PORT || 3000, function() {

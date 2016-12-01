@@ -100,3 +100,13 @@ body {
     background-color: #ffffff;
     border-color: #e7e7e7;
 }
+
+
+/*solve sticky hover*/
+
+@media (hover:none),
+(hover:on-demand) {
+    nav a:hover {
+        background-color: transparent;
+    }
+}
