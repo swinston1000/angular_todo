@@ -1,15 +1,7 @@
-angular.module("myApp").factory('toDoService', function($window, socket, $window, $rootScope, httpService) {
+angular.module("myApp").factory('toDoService', function($window, socket, $rootScope, httpService) {
 
     var editing = {}
     var todos = { items: [] }
-
-    socket.on('change', function(fromServer) {
-        getTodos();
-    });
-
-    $window.onfocus = function() {
-        getTodos();
-    }
 
     var getTodos = function() {
         httpService.getToDos().success(function(data) {
@@ -17,13 +9,20 @@ angular.module("myApp").factory('toDoService', function($window, socket, $window
         }).error(function(data, status) {
             console.log(data, status);
         });
-    }()
+    }
 
-    // httpService.getToDos().success(function(data) {
-    //     todos.items = data;
-    // }).error(function(data, status) {
-    //     console.log(data, status);
-    // });
+    getTodos();
+
+    socket.on('change', function(fromServer) {
+        getTodos();
+    });
+
+    $window.onfocus = function() {
+        //allow 500msec for new window to load
+        setTimeout(function() {
+            getTodos();
+        }, 500)
+    }
 
     var update = function(todo) {
         httpService.update(todo).success(function(data) {
