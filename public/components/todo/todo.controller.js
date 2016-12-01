@@ -20,6 +20,7 @@ angular.module("myApp").controller('toDoController', function(toDoService, mainF
     };
 
     _toDoCtrl.startEditing = function(todo) {
+        console.log("hi");
         toDoService.startEditing(todo);
     }
 
