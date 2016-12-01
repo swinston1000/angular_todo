@@ -3,17 +3,22 @@ var cors = require('cors')
 var path = require('path');
 var bodyParser = require('body-parser')
 var app = express()
-var todos = require('./routes/todos');
+
 
 app.use(cors()); //needed???
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+
+var todos = require('./routes/todos')(io);
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/scripts', express.static(__dirname + '/node_modules/'));
 app.use('/todos', todos);
 
-app.listen(process.env.PORT || 3000, function() {
+server.listen(process.env.PORT || 3000, function() {
     console.log('Example app listening on port 3000!')
 })
 

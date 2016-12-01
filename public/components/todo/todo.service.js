@@ -1,7 +1,16 @@
-angular.module("myApp").factory('toDoService', function($window, $rootScope, httpService) {
+angular.module("myApp").factory('toDoService', function(socket, $window, $rootScope, httpService) {
 
     var editing = {}
     var todos = { items: [] }
+
+    socket.on('change', function(fromServer) {
+        httpService.getToDos().success(function(data) {
+            todos.items = data;
+            console.log("change");
+        }).error(function(data, status) {
+            console.log(data, status);
+        });
+    });
 
     httpService.getToDos().success(function(data) {
         todos.items = data;
@@ -12,6 +21,7 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, htt
     var update = function(todo) {
         httpService.update(todo).success(function(data) {
             editing[todo._id] = undefined;
+            socket.emit('update', { message: 'update' })
         }).error(function(data, status) {
             console.log(data, status);
         });
@@ -30,6 +40,7 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, htt
     var addTodo = function(todo) {
         httpService.add(todo).success(function(data) {
             todos.items.push(data);
+            socket.emit('update', { message: 'new' })
         }).error(function(data, status) {
             console.log(data, status);
         });
@@ -38,6 +49,7 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, htt
     var removeTodo = function(todo) {
         httpService.delete(todo._id).success(function(data) {
             todos.items.splice(todos.items.indexOf(todo), 1);
+            socket.emit('update', { message: 'delete' })
         }).error(function(data, status) {
             console.log(data, status);
         });;
@@ -60,6 +72,7 @@ angular.module("myApp").factory('toDoService', function($window, $rootScope, htt
             indices.forEach(function(index) {
                 todos.items.splice(index, 1)
             })
+            socket.emit('update', { message: 'multi-delete' })
         }).error(function(data, status) {
             console.log(data, status);
         });

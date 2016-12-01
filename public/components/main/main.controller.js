@@ -1,4 +1,4 @@
-angular.module("myApp").controller('mainController', function($scope, toDoService, mainFactory, $sce) {
+angular.module("myApp").controller('mainController', function(toDoService, mainFactory, $sce) {
 
     _thisCtrl = this;
 
@@ -53,15 +53,4 @@ angular.module("myApp").controller('mainController', function($scope, toDoServic
         }
     };
 
-    // $scope.$watch('myCtrl.applyFilter', function(newValue, oldValue) {
-    //     _thisCtrl.newValue = newValue;
-    // });
-    // $scope.$watch(
-    //     function() {
-    //         return _thisCtrl.todos;
-    //     },
-    //     function() {
-    //         console.log(_thisCtrl.todos);
-    //     }, true
-    // );
 });
