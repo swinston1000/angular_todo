@@ -19,7 +19,7 @@
     </div>
 </form>
 <!-- Mobile View -->
-<form class="form todo-form hidden-sm hidden-md hidden-lg" ng-submit="todoCtrl.update(todoCtrl.todo, 'enter')" hm-swiperight="todoCtrl.toggle(todoCtrl.todo)" hm-swipeleft="todoCtrl.remove(todoCtrl.todo)">
+<form class="form todo-form hidden-sm hidden-md hidden-lg" ng-submit="todoCtrl.update(todoCtrl.todo, 'enter')" hm-recognizer-options='[{"type":"swipe","directions":"DIRECTION_HORIZONTAL"}]' hm-swiperight="todoCtrl.toggle(todoCtrl.todo)" hm-swipeleft="todoCtrl.remove(todoCtrl.todo)">
     <div class="input-group" ng-class="todoCtrl.getBackgroundColour()">
         <span class="input-group-btn"><a type="button" class="btn btn-default done-button problem-box" ng-click="todoCtrl.toggle(todoCtrl.todo)"><i ng-class="todoCtrl.todo.completed ? 'fa fa-check-square-o fa-lg' : 'fa fa-square-o fa-lg' "></i></a></span>
         <input class="form-control todo-item" type="text" ng-show="todoCtrl.editing[todoCtrl.todo._id]" ng-model="todoCtrl.todo.task" ng-blur="todoCtrl.update(todoCtrl.todo, 'blur');" todo-focus-me="focusInput" todo-escape="todoCtrl.cancelEditing(todoCtrl.todo)" />

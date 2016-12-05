@@ -2,11 +2,19 @@ var express = require('express')
 var cors = require('cors')
 var bodyParser = require('body-parser')
 var app = express()
-
+var filter = require('content-filter')
 
 app.use(cors()); //needed???
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+var blackList = ['$', '{', '&&', '||']
+var options = {
+    urlBlackList: blackList,
+    bodyBlackList: blackList
+}
+
+app.use(filter(options));
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
