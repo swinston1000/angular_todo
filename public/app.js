@@ -2,18 +2,35 @@ angular.module("myApp", ['hmTouchEvents', 'ngResource', 'auth0.lock', 'angular-j
     .config(config);
 
 
-function config(lockProvider, jwtOptionsProvider) {
+function config($httpProvider, lockProvider, jwtOptionsProvider) {
 
     // Configuration for angular-jwt
     jwtOptionsProvider.config({
-        tokenGetter: function() {
+        tokenGetter: function(options) {
+
+            if (options && options.url.substr(options.url.length - 5) == '.html') {
+                return null;
+            }
             return localStorage.getItem('to_do_id_token');
-        }
+        },
+        whiteListedDomains: ['localhost'],
+        unauthenticatedRedirectPath: '/'
     });
 
     lockProvider.init({
         clientID: 'F3kTtFLJVyWUqdcqoW0eWHn7dH9rmOtJ',
-        domain: 'app60017704.eu.auth0.com'
+        domain: 'app60017704.eu.auth0.com',
+        options: {
+            auth: {
+                params: {
+                    scope: 'openid email'
+                }
+            }
+        }
+
     });
+
+    $httpProvider.interceptors.push('jwtInterceptor');
+
 
 }

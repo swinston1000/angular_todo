@@ -7,6 +7,9 @@ module.exports = function(io) {
 
     /* GET /todos listing. */
     router.get('/', function(req, res, next) {
+
+        console.log(req.user);
+
         Todo.find(function(err, todos) {
             if (err) return next(err);
             else res.json(todos);

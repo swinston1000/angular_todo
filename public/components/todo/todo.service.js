@@ -4,14 +4,17 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
     var todos = { items: [] }
 
     var getTodos = function() {
-        httpService.getToDos().success(function(data) {
-            todos.items = data;
-        }).error(function(data, status) {
-            console.log(data, status);
+        httpService.getToDos().then(function(data) {
+            todos.items = data.data;
+        }, function(error) {
+            //console.log(error);
         });
     }
 
-    getTodos();
+    //allow authentication before todos are loaded for first time
+    setTimeout(function() {
+        getTodos();
+    }, 0)
 
     socket.on('change', function(fromServer) {
         getTodos();

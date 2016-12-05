@@ -1,8 +1,10 @@
 var express = require('express')
 var cors = require('cors')
 var bodyParser = require('body-parser')
-var app = express()
+var jwt = require('express-jwt');
 var filter = require('content-filter')
+var auth0 = require('./auth0-secret')
+var app = express()
 
 app.use(cors()); //needed???
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -14,6 +16,11 @@ var options = {
     bodyBlackList: blackList
 }
 
+var jwtCheck = jwt({
+    secret: new Buffer(auth0.clientSecret, 'base64'),
+    audience: 'F3kTtFLJVyWUqdcqoW0eWHn7dH9rmOtJ'
+});
+
 app.use(filter(options));
 
 var server = require('http').createServer(app);
@@ -23,6 +30,7 @@ var todos = require('./routes/todos')(io);
 
 app.use(express.static(__dirname + '/public'));
 app.use('/scripts', express.static(__dirname + '/node_modules'));
+app.use('/todos', jwtCheck);
 app.use('/todos', todos);
 
 server.listen(process.env.PORT || 3000, function() {

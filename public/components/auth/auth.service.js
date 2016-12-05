@@ -4,7 +4,9 @@ angular
     .module('myApp')
     .service('authService', authService);
 
-function authService(lock, authManager) {
+function authService($q, lock, authManager) {
+
+    var deferredProfile = $q.defer();
 
     function login() {
         lock.show();
@@ -19,9 +21,20 @@ function authService(lock, authManager) {
     // This method is called from app.run.js
     function registerAuthenticationListener() {
         lock.on('authenticated', function(authResult) {
+
+            lock.getProfile(authResult.idToken, function(error, profile) {
+                if (error) {
+                    return console.log(error);
+                }
+                //localStorage.setItem('to_do_profile', JSON.stringify(profile));
+                deferredProfile.resolve(profile);
+            });
+
             localStorage.setItem('to_do_id_token', authResult.idToken);
             authManager.authenticate();
+
         });
+
     }
 
     return {

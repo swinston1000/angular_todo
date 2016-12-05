@@ -1,7 +1,11 @@
-angular.module("myApp").service('httpService', function($http) {
+angular.module("myApp").service('httpService', function($q, $http, authManager) {
 
     this.getToDos = function() {
-        return $http.get('/todos');
+        if (authManager.isAuthenticated()) {
+            return $http.get('/todos');
+        } else {
+            return $q.reject();
+        }
     }
 
     this.update = function(item) {
