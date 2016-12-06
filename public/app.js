@@ -25,8 +25,8 @@ function config($httpProvider, lockProvider, jwtOptionsProvider, lockPasswordles
                 params: {
                     scope: 'openid email'
                 }
-            },
-            socialButtonStyle: 'small'
+            }
+            //socialButtonStyle: 'small'
         }
     });
 
