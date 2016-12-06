@@ -1,8 +1,8 @@
-angular.module("myApp", ['hmTouchEvents', 'ngResource', 'auth0.lock', 'angular-jwt', 'ui.router', 'angular-fastclick'])
+angular.module("myApp", ['auth0.lockPasswordless', 'hmTouchEvents', 'ngResource', 'auth0.lock', 'angular-jwt', 'ui.router', 'angular-fastclick'])
     .config(config);
 
 
-function config($httpProvider, lockProvider, jwtOptionsProvider) {
+function config($httpProvider, lockProvider, jwtOptionsProvider, lockPasswordlessProvider) {
 
     // Configuration for angular-jwt
     jwtOptionsProvider.config({
@@ -17,7 +17,7 @@ function config($httpProvider, lockProvider, jwtOptionsProvider) {
         unauthenticatedRedirectPath: '/'
     });
 
-    lockProvider.init({
+    var options = {
         clientID: 'F3kTtFLJVyWUqdcqoW0eWHn7dH9rmOtJ',
         domain: 'app60017704.eu.auth0.com',
         options: {
@@ -27,10 +27,11 @@ function config($httpProvider, lockProvider, jwtOptionsProvider) {
                 }
             }
         }
+    }
 
-    });
+    lockProvider.init(options);
+
+    lockPasswordlessProvider.init(options);
 
     $httpProvider.interceptors.push('jwtInterceptor');
-
-
 }

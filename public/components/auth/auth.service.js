@@ -1,15 +1,30 @@
 'use strict';
-
 angular
     .module('myApp')
     .service('authService', authService);
 
-function authService($q, lock, authManager) {
+
+function authService($q, lock, authManager, lockPasswordless) {
+
 
     var deferredProfile = $q.defer();
 
     function login() {
-        lock.show();
+        lockPasswordless.socialOrEmailcode({
+                connections: ["facebook", "github"],
+                authParams: { scope: 'openid email' }
+            },
+            function(error, profile, id_token) {
+                if (error) {
+                    alert("Error: " + error);
+                    return;
+                }
+                localStorage.setItem('to_do_id_token', id_token);
+                authManager.authenticate();
+                //localStorage.setItem('profile', JSON.stringify(profile));
+                deferredProfile.resolve(profile);
+                lockPasswordless.close();
+            });
     }
 
     function logout() {
