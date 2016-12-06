@@ -3,7 +3,7 @@ var cors = require('cors')
 var bodyParser = require('body-parser')
 var jwt = require('express-jwt');
 var filter = require('content-filter')
-var auth0 = require('./auth0-secret')
+var auth0clientSecret = process.env.AUTH0_CLIENT_SECRET || require('./auth0-secret').clientSecret
 var app = express()
 
 app.use(cors()); //needed???
@@ -17,7 +17,7 @@ var options = {
 }
 
 var jwtCheck = jwt({
-    secret: new Buffer(auth0.clientSecret, 'base64'),
+    secret: new Buffer(auth0clientSecret, 'base64'),
     audience: 'F3kTtFLJVyWUqdcqoW0eWHn7dH9rmOtJ'
 });
 

@@ -18,6 +18,7 @@ module.exports = function(io) {
             }
         })
     });
+    on
 
     /* POST /todos */
     router.post('/', function(req, res, next) {
@@ -58,7 +59,7 @@ module.exports = function(io) {
     router.delete('/done/:id', function(req, res, next) {
         db.users.update({ email: req.user.email }, { $pull: { todos: { completed: true } } }, function(err, post) {
             if (err) return next(err);
-            else res.json(post);
+            else res.js(post);
         });
     });
 
