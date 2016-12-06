@@ -11,7 +11,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
         });
     }
 
-    //allow authentication before todos are loaded for first time
+    //timeout allows authentication before todos are loaded for first time
     setTimeout(function() {
         getTodos();
     }, 0)
@@ -21,10 +21,11 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
     });
 
     $window.onfocus = function() {
-        //allow 500msec for new window to load
+        //timeout stops the focus event interfering with page load
         setTimeout(function() {
+            console.log("focus");
             getTodos();
-        }, 500)
+        }, 0)
     }
 
     var update = function(todo) {
@@ -56,7 +57,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
     }
 
     var removeTodo = function(todo) {
-        httpService.delete(todo._id).success(function(data) {
+        httpService.delete(todo._id).success(function(messsage) {
             todos.items.splice(todos.items.indexOf(todo), 1);
             socket.emit('update', { message: 'delete' })
         }).error(function(data, status) {
@@ -66,22 +67,25 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
 
     var removeCompleted = function() {
 
-        var indices = []
-        var ids = []
+        httpService.deleteCompleted("yes").success(function(data) {
 
-        todos.items.forEach(function(item, index) {
-            if (item.completed === true) {
-                indices.push(index)
-                ids.push(item._id)
-            }
-        })
-        indices = indices.reverse(); //as we need to start removal from the end!!!
+            // the focus event actually updates todos.items 
+            // so we don't have to!!!!
 
-        httpService.deleteCompleted(ids).success(function(data) {
-            indices.forEach(function(index) {
-                todos.items.splice(index, 1)
-            })
+            // var indices = []
+            // todos.items.forEach(function(item, index) {
+            //     if (item.completed === true) {
+            //         indices.push(index)
+            //     }
+            // })
+            // indices = indices.reverse(); //as we need to start removal from the end!!!
+
+            // indices.forEach(function(index) {
+            //     todos.items.splice(index, 1)
+            // })
+
             socket.emit('update', { message: 'multi-delete' })
+
         }).error(function(data, status) {
             console.log(data, status);
         });

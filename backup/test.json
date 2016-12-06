@@ -1,0 +1,242 @@
+{
+    "_id": {
+        "$oid": "5846c8e275c1121028e4823f"
+    },
+    "email": "swinston100@hotmail.com",
+    "todos": [{
+        "_id": {
+            "$oid": "583d2f53cfca8859d8e8ca98"
+        },
+        "task": "Fix CV and LinkedIn",
+        "priority": 2,
+        "completed": false,
+        "category": "Personal",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583d2f53cfca8859d8e8ca9b"
+        },
+        "task": "Angular Netfilx",
+        "priority": 5,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583d2f53cfca8859d8e8ca9c"
+        },
+        "task": "Todo App - Sync LocalStorage Between tabs - try angular.copy()",
+        "priority": 5,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583d2f53cfca8859d8e8ca9d"
+        },
+        "task": "Todo App - Remaining Count (maybe also count of total done ever)",
+        "priority": 4,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583d2f53cfca8859d8e8caa2"
+        },
+        "task": "Todo App - Paging",
+        "priority": 5,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583d2f53cfca8859d8e8caa3"
+        },
+        "task": "Pay Tax!!!!!",
+        "priority": 1,
+        "completed": false,
+        "category": "Personal",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583d2f53cfca8859d8e8caa7"
+        },
+        "task": "Implement Merge Sort, read Ori's solution and compare to my sort",
+        "priority": 4,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583d338dcfca8859d8e8caaa"
+        },
+        "task": "LESSONS: BEERLIST, BEERLIST SERVER and BEERLIST CLIENT",
+        "priority": 4,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583d6d04cfca8859d8e8caae"
+        },
+        "task": "Todo App - Fix drag issue on category selector - not sure if possible",
+        "priority": 4,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583d987a81f41b0011df5334"
+        },
+        "task": "Todo App - customize lock page",
+        "priority": 2,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583df8d88f6b0b001171db4a"
+        },
+        "task": "Todo App - multi user",
+        "priority": 1,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583ef726e3ccda0011f696f2"
+        },
+        "task": "Read Angular Articles online",
+        "priority": 3,
+        "completed": true,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583dd5c07af99c00113f1d17"
+        },
+        "task": "Todo App - create reminder and alarm system",
+        "priority": 4,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583efdbbe3ccda0011f696f3"
+        },
+        "task": "Tic-Tac-Toe - http://jsfiddle.net/thai/8Gsyr/",
+        "priority": 5,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583ff701a95a39ed5c8e0d0f"
+        },
+        "task": "Chase Kfir (wework) re photos",
+        "priority": 3,
+        "completed": false,
+        "category": "Personal",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "58404a3f959b9500114b1a78"
+        },
+        "task": "Todo App combine two directives into one",
+        "priority": 4,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "58412e48a5511c0011ec6ee9"
+        },
+        "task": "Batmitzvah photos",
+        "priority": 1,
+        "completed": false,
+        "category": "Other",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "58416f351aabea00114f6fa1"
+        },
+        "task": "Flat bills",
+        "priority": 2,
+        "completed": false,
+        "category": "Personal",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "584172741aabea00114f6fa2"
+        },
+        "task": "Blood tests",
+        "priority": 2,
+        "completed": false,
+        "category": "Personal",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "58444823ae8f060011b0d776"
+        },
+        "task": "Learn Regex",
+        "priority": 4,
+        "completed": false,
+        "category": "Other",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "58455c7f00366200114d5bd0"
+        },
+        "task": "ANGULAR ROUTING lesson",
+        "priority": 2,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "58459cd569d64314187b25d0"
+        },
+        "task": "Todo App - token renewal",
+        "priority": 2,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "58459d93d43f860011e97a74"
+        },
+        "task": "Todo App - link accounts for a user",
+        "priority": 3,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "583fd278866d49e2e0391109"
+        },
+        "task": "Angular Reddit Beer Rating",
+        "priority": 5,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "584172821aabea00114f6fa3"
+        },
+        "task": "Doctors appointment - remove wart",
+        "priority": 3,
+        "completed": false,
+        "category": "Personal",
+        "__v": 0
+    }, {
+        "_id": {
+            "$oid": "58459d47d43f860011e97a73"
+        },
+        "task": "Todo App - multifactor security?",
+        "priority": 5,
+        "completed": false,
+        "category": "Work",
+        "__v": 0
+    }],
+    "__v": 19
+}

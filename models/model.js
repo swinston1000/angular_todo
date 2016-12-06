@@ -7,19 +7,25 @@ mongoose.connect('mongodb://swinston100:hsyniu123@ds163677.mlab.com:63677/todoap
     .catch((err) => console.error(err));
 
 // Create a schema
+
 var TodoSchema = new mongoose.Schema({
     task: String,
-    id: Number,
     completed: Boolean,
     category: String,
     priority: Number,
     //updated_at: { type: Date, default: Date.now },
 });
 
-// Create a model based on the schema and export
 var Todo = mongoose.model('Todo', TodoSchema);
-module.exports = Todo
 
-// Todo.create([], function(err) {
-//     if (err) { console.log(err); }
-// });
+
+var UserScema = new mongoose.Schema({
+    email: String,
+    todos: [TodoSchema]
+});
+
+var User = mongoose.model('User', UserScema);
+
+
+// Create a model based on the schema and export
+module.exports = { todos: Todo, users: User }
