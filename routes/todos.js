@@ -18,7 +18,6 @@ module.exports = function(io) {
             }
         })
     });
-    on
 
     /* POST /todos */
     router.post('/', function(req, res, next) {
