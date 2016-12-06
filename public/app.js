@@ -17,7 +17,7 @@ function config($httpProvider, lockProvider, jwtOptionsProvider, lockPasswordles
         unauthenticatedRedirectPath: '/'
     });
 
-    var options = {
+    lockProvider.init({
         clientID: 'F3kTtFLJVyWUqdcqoW0eWHn7dH9rmOtJ',
         domain: 'app60017704.eu.auth0.com',
         options: {
@@ -25,13 +25,15 @@ function config($httpProvider, lockProvider, jwtOptionsProvider, lockPasswordles
                 params: {
                     scope: 'openid email'
                 }
-            }
+            },
+            socialButtonStyle: 'small'
         }
-    }
+    });
 
-    lockProvider.init(options);
-
-    lockPasswordlessProvider.init(options);
+    lockPasswordlessProvider.init({
+        clientID: 'F3kTtFLJVyWUqdcqoW0eWHn7dH9rmOtJ',
+        domain: 'app60017704.eu.auth0.com'
+    });
 
     $httpProvider.interceptors.push('jwtInterceptor');
 }

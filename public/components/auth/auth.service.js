@@ -12,7 +12,8 @@ function authService($q, lock, authManager, lockPasswordless) {
     function login() {
         lockPasswordless.socialOrEmailcode({
                 connections: ["facebook", "github"],
-                authParams: { scope: 'openid email' }
+                authParams: { scope: 'openid email' },
+                socialBigButtons: false
             },
             function(error, profile, id_token) {
                 if (error) {
@@ -25,6 +26,8 @@ function authService($q, lock, authManager, lockPasswordless) {
                 deferredProfile.resolve(profile);
                 lockPasswordless.close();
             });
+
+        //lock.show();
     }
 
     function logout() {
