@@ -11,12 +11,14 @@
 
 <body class="container">
     <div ng-app="myApp">
-        <div ng-controller="mainController as myCtrl">
+        <div ng-controller="mainController as mainCtrl">
             <nav-bar></nav-bar>
             <div ng-if="isAuthenticated">
-                <div class="row" ng-include="'/components/main/main.controls.template.html'"></div>
-                <div ng-repeat="todo in myCtrl.todos.items | filter:myCtrl.search | orderBy: myCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: myCtrl.applyFilter | filterCategory : myCtrl.filterCategory">
-                    <to-do todo='todo'></to-do>
+                <div ng-controller="listController as listCtrl">
+                    <div class="row" ng-include="'/components/list/list.controls.template.html'"></div>
+                    <div ng-repeat="todo in listCtrl.todos.items | filter:mainCtrl.search | orderBy: listCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: listCtrl.applyFilter | filterCategory : listCtrl.filterCategory">
+                        <to-do todo='todo'></to-do>
+                    </div>
                 </div>
             </div>
         </div>
@@ -27,8 +29,6 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="/scripts/hammerjs/hammer.js"></script>
 <script src="/scripts/angular/angular.js"></script>
-<script src="http://cdn.auth0.com/js/lock-passwordless-2.2.3.min.js"></script>
-<script src="/scripts/angular-lock-passwordless/dist/angular-lock-passwordless.js"></script>
 <script src="/scripts/angular-fastclick/dist/index.js"></script>
 <script src="/scripts/angular-hammer/angular.hammer.js"></script>
 <script src="/scripts/angular-resource/angular-resource.js"></script>
@@ -43,8 +43,9 @@
 <script src="/components/socket/socket.factory.js"></script>
 <script src="/components/auth/auth.service.js"></script>
 <script src="/components/main/main.controller.js"></script>
-<script src="/components/main/main.factory.js"></script>
-<script src="/components/main/main.filters.js"></script>
+<script src="/components/list/list.controller.js"></script>
+<script src="/components/list/list.factory.js"></script>
+<script src="/components/list/list.filters.js"></script>
 <script src="/components/todo/todo.controller.js"></script>
 <script src="/components/todo/todo.service.js"></script>
 <script src="/components/todo/todo.directives.js"></script>

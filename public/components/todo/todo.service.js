@@ -5,25 +5,29 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
 
     var getTodos = function() {
         httpService.getToDos().then(function(data) {
-            todos.items = data.data;
+            if (!data.data.error) {
+                todos.items = data.data;
+            }
         }, function(error) {
-            //console.log(error);
+            console.log(error);
         });
     }
 
-    //timeout allows authentication before todos are loaded for first time
+    //load todos on page load
+    //the timeout allows authentication to happen first!
     setTimeout(function() {
         getTodos();
     }, 0)
 
-    socket.on('change', function(fromServer) {
-        getTodos();
+    socket.on('change', function(user) {
+        if ($rootScope.user = user.user) {
+            getTodos();
+        }
     });
 
     $window.onfocus = function() {
         //timeout stops the focus event interfering with page load
         setTimeout(function() {
-            console.log("focus");
             getTodos();
         }, 0)
     }
@@ -31,7 +35,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
     var update = function(todo) {
         httpService.update(todo).success(function(data) {
             editing[todo._id] = undefined;
-            socket.emit('update', { message: 'update' })
+            socket.emit('update', { user: $rootScope.user })
         }).error(function(data, status) {
             console.log(data, status);
         });
@@ -50,7 +54,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
     var addTodo = function(todo) {
         httpService.add(todo).success(function(data) {
             todos.items.push(data);
-            socket.emit('update', { message: 'new' })
+            socket.emit('update', { user: $rootScope.user })
         }).error(function(data, status) {
             console.log(data, status);
         });
@@ -59,7 +63,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
     var removeTodo = function(todo) {
         httpService.delete(todo._id).success(function(messsage) {
             todos.items.splice(todos.items.indexOf(todo), 1);
-            socket.emit('update', { message: 'delete' })
+            socket.emit('update', { user: $rootScope.user })
         }).error(function(data, status) {
             console.log(data, status);
         });;
@@ -84,7 +88,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
             //     todos.items.splice(index, 1)
             // })
 
-            socket.emit('update', { message: 'multi-delete' })
+            socket.emit('update', { user: $rootScope.user })
 
         }).error(function(data, status) {
             console.log(data, status);

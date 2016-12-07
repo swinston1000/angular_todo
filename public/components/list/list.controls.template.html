@@ -1,0 +1,49 @@
+<div class="col-lg-6">
+    <form class="form" ng-submit="listCtrl.add()">
+        <div class="input-group add-item" ng-class="listCtrl.getBackgroundColour(null);">
+            <div class="input-group-btn">
+                <a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{listCtrl.categoryText}}<span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-left" ng-click="listCtrl.setCategory($event);">
+                    <li><a>Work</a></li>
+                    <li><a>Personal</a></li>
+                    <li><a>Other</a></li>
+                    <li><a>Delegated</a></li>
+                </ul>
+            </div>
+            <input type="text" class="form-control main-input" ng-model="listCtrl.todo.task" placeholder="Add Item" autofocus/>
+            <div class="input-group-btn">
+                <a type="button" class="btn btn-default dropdown-toggle priority" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Priority<span class="caret"></span></a>
+                <ul class="dropdown-menu" ng-click="listCtrl.setPriority($event,null);">
+                    <li><a>1</a></li>
+                    <li><a>2</a></li>
+                    <li><a>3</a></li>
+                    <li><a>4</a></li>
+                    <li><a>5</a></li>
+                </ul>
+                <a type="button" class="btn btn-default" ng-click="listCtrl.add()">Add</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="col-lg-6">
+    <div class="btn-group" role="group">
+        <div class="btn-group">
+            <a type="button" class="btn btn-default toggle-button" ng-click="listCtrl.toggleFilter()">{{listCtrl.toggleBtnText}}</a>
+            <a ng-if="listCtrl.sortByPriority" type="button" class="btn btn-default priority-button visible-xs" ng-click="listCtrl.toggleSort()" ng-bind-html="listCtrl.calender"></a>
+            <a ng-if="!listCtrl.sortByPriority" type="button" class="btn btn-default priority-button visible-xs" ng-click="listCtrl.toggleSort()" ng-bind-html="listCtrl.thermometer"></a>
+            <a type="button" class="btn btn-default priority-button hidden-xs" ng-click="listCtrl.toggleSort()">{{listCtrl.sortByPriority? "Sort by Date" : "Sort by Priority"}}</a>
+            <div class="btn-group">
+                <a type="button" class="btn btn-default dropdown-toggle cat-button
+" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by Category<span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-left" ng-click="listCtrl.setFilterCategory($event);">
+                    <li><a>Show All</a></li>
+                    <li><a>Work</a></li>
+                    <li><a>Personal</a></li>
+                    <li><a>Other</a></li>
+                    <li><a>Delegated</a></li>
+                </ul>
+            </div>
+        </div>
+        <a type="button" class="btn btn-danger remove-all-btn" ng-click="listCtrl.removeCompleted()"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> Completed</span></a>
+    </div>
+</div>

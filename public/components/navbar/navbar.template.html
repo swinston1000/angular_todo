@@ -8,22 +8,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Steven's To-do App</a>
+            <a class="navbar-brand" href="#">To-do App</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div class="nav navbar-nav navbar-right">
                 <div ng-if="!isAuthenticated">
-                    <button class="btn btn-primary navbar-btn" ng-click="vm.authService.login()">Log In</button>
+                    <a type='button' class="btn btn-primary navbar-btn" ng-click="vm.authService.login()">Log In</a>
                 </div>
                 <div ng-if="isAuthenticated">
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" ng-model="myCtrl.search.task">
+                            <input type="text" class="form-control" ng-model="mainCtrl.search.task">
                         </div>
-                        <button type="submit" class="btn btn-default">Search</button>
+                        <button class="btn btn-default">Search</button>
                     </form>
-                    <button class="btn btn-primary navbar-btn" ng-click="vm.authService.logout()">Log Out</button>
+                    <a type='button' class="btn btn-primary navbar-btn" ng-click="vm.authService.logout()">Log Out</a>
                 </div>
             </div>
         </div>
