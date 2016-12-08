@@ -14,7 +14,7 @@ angular.module("myApp").controller('toDoController', function(toDoService, mainF
     }
 
     _toDoCtrl.remove = function(todo) {
-        if (confirm("Are you sure?")) {
+        if (confirm("Are you sure you want to delete this to-do?")) {
             toDoService.removeTodo(todo);
         }
     };

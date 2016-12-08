@@ -7,7 +7,7 @@ angular.module("myApp").controller('listController', function(toDoService, mainF
 
     _thisCtrl.todos = toDoService.todos;
     _thisCtrl.todo = { task: "", priority: 3, completed: false }
-    _thisCtrl.applyFilter = true;
+    _thisCtrl.applyFilter = false;
     _thisCtrl.sortByPriority = true;
     _thisCtrl.reverseSort = false
     _thisCtrl.toggleBtnText = "Show All";
@@ -48,7 +48,7 @@ angular.module("myApp").controller('listController', function(toDoService, mainF
     };
 
     _thisCtrl.removeCompleted = function() {
-        if (confirm("Are you sure?")) {
+        if (confirm("Are you sure you want to delete the completed to-dos?")) {
             toDoService.removeCompleted();
         }
     };

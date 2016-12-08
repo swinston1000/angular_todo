@@ -45,7 +45,7 @@ function authService($q, lock, authManager, $rootScope) {
         lock.on('authenticated', function(authResult) {
 
             if (!authResult.idTokenPayload.email_verified) {
-                return alert("Thanks for signing up, please verify your e-mail address to continue.");
+                return alert("Thanks for signing up, you have been sent an e-mail. Please open it and verify your e-mail address to continue.");
                 //localStorage.removeItem('to_do_id_token');
                 //return;
             }
