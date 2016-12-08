@@ -10,7 +10,7 @@ angular.module("myApp").controller('listController', function(toDoService, mainF
     _thisCtrl.applyFilter = false;
     _thisCtrl.sortByPriority = true;
     _thisCtrl.reverseSort = false
-    _thisCtrl.toggleBtnText = "Show All";
+    _thisCtrl.toggleBtnText = "Show Active";
     _thisCtrl.categoryText = "Category"
 
     _thisCtrl.getBackgroundColour = mainFactory.getBackgroundColour;

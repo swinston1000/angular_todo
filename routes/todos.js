@@ -65,7 +65,7 @@ module.exports = function(io) {
     router.delete('/done/:id', authenticate, function(req, res, next) {
         db.users.update({ email: req.user.email }, { $pull: { todos: { completed: true } } }, function(err, post) {
             if (err) return next(err);
-            else res.js(post);
+            else res.json(post);
         });
     });
 
