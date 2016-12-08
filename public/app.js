@@ -30,7 +30,14 @@ function config($httpProvider, lockProvider, jwtOptionsProvider) {
                 },
                 //redirect: false
             },
-            socialButtonStyle: 'small'
+            socialButtonStyle: 'small',
+            theme: {
+                logo: '/assets/ToDoList58.png',
+                primaryColor: '#344454'
+            },
+            languageDictionary: {
+                title: "Todoosey"
+            },
         }
     });
 
