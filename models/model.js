@@ -1,8 +1,11 @@
 var mongoose = require('mongoose');
 
+var mongoPassword = process.env.mongoPassword || require('./auth0-secret').mongoPassword
+
+
 mongoose.Promise = global.Promise;
 // Connect to MongoDB and create/use database called todoAppTest
-mongoose.connect('mongodb://swinston100:hsyniu123@ds163677.mlab.com:63677/todoapp')
+mongoose.connect('mongodb://swinston100:' + mongoPassword + '@ds163677.mlab.com:63677/todoapp')
     .then(() => console.log('Mongo DB connection successful'))
     .catch((err) => console.error(err));
 
