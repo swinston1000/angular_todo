@@ -110,7 +110,7 @@ body {
 
 @media (hover:none),
 (hover:on-demand) {
-    .btn:hover {
+    .btn:hover:not(.remove-all-btn) {
         background-color: transparent;
     }
 }

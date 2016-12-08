@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var mongoPassword = process.env.mongoPassword || require('./auth0-secret').mongoPassword
+var mongoPassword = process.env.mongoPassword || require('../auth0-secret').mongoPassword
 
 
 mongoose.Promise = global.Promise;
