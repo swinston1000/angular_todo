@@ -10,9 +10,11 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
                 todos.items = data.data;
             } else {}
         }, function(error) {
-            //remove listener to stop endless loop!
-            $window.onfocus = function() {}
-            alert(error.data);
+            if (error.data) {
+                //remove listener to stop endless alert loop!
+                $window.onfocus = function() {}
+                alert(error.data);
+            }
         });
     }
 
@@ -59,7 +61,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
             todos.items.push(data);
             socket.emit('update', { user: $rootScope.user })
         }).error(function(data, status) {
-            alert(data);
+            alert("2" + data);
         });
     }
 

@@ -1,6 +1,8 @@
-angular.module("myApp").controller('toDoController', function(toDoService, mainFactory) {
+angular.module("myApp").controller('toDoController', function(toDoService, mainFactory, $sce) {
 
     _toDoCtrl = this;
+
+    _toDoCtrl.tick = $sce.trustAsHtml('<i class="fa fa-check" aria-hidden="true"></i>');
 
     _toDoCtrl.editing = toDoService.editing;
 

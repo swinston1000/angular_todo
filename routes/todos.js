@@ -16,7 +16,6 @@ module.exports = function(io) {
 
     /* GET /todos listing. */
     router.get('/', authenticate, function(req, res, next) {
-        console.log("getting");
         db.users.findOne({ email: req.user.email }, function(err, user) {
             if (err) return next(err);
             else if (user) res.json(user.todos)
