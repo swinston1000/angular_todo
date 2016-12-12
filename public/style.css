@@ -114,3 +114,40 @@ body {
         background-color: transparent;
     }
 }
+
+.one li .one:after {
+    content: "\00ab";
+    /*color: red;*/
+}
+
+.two li .two:after {
+    content: "\00ab";
+}
+
+.three li .three:after {
+    content: "\00ab";
+}
+
+.four li .four:after {
+    content: "\00ab";
+}
+
+.five li .five:after {
+    content: "\00ab";
+}
+
+li .one {
+    color: red !important;
+}
+
+li .two {
+    color: orange !important;
+}
+
+li .four {
+    color: green !important;
+}
+
+li .five {
+    color: blue !important;
+}

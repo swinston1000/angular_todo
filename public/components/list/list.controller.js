@@ -4,7 +4,6 @@ angular.module("myApp").controller('listController', function(toDoService, mainF
 
     _thisCtrl.thermometer = $sce.trustAsHtml('<i class="fa fa-thermometer-half" aria-hidden="true"></i>');
     _thisCtrl.calender = $sce.trustAsHtml('<i class="fa fa-calendar-o" aria-hidden="true"></i>');
-    _thisCtrl.tick = $sce.trustAsHtml('<i class="fa fa-check" aria-hidden="true"></i>');
 
     _thisCtrl.todos = toDoService.todos;
     _thisCtrl.todo = { task: "", priority: 3, completed: false }
@@ -16,6 +15,7 @@ angular.module("myApp").controller('listController', function(toDoService, mainF
 
     _thisCtrl.getBackgroundColour = mainFactory.getBackgroundColour;
     _thisCtrl.setPriority = mainFactory.setPriority;
+    _thisCtrl.getPriority = mainFactory.getPriority;
 
     _thisCtrl.toggleFilter = function() {
         _thisCtrl.applyFilter = !_thisCtrl.applyFilter;

@@ -1,12 +1,12 @@
-angular.module("myApp").controller('toDoController', function(toDoService, mainFactory, $sce) {
+angular.module("myApp").controller('toDoController', function(toDoService, mainFactory) {
 
     _toDoCtrl = this;
-
-    _toDoCtrl.tick = $sce.trustAsHtml('<i class="fa fa-check" aria-hidden="true"></i>');
 
     _toDoCtrl.editing = toDoService.editing;
 
     _toDoCtrl.getBackgroundColour = mainFactory.getBackgroundColour;
+
+    _toDoCtrl.getPriority = mainFactory.getPriority;
 
     _toDoCtrl.updatePriority = mainFactory.setPriority;
 
