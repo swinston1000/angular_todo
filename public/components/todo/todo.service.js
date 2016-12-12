@@ -2,14 +2,17 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
 
     var editing = {}
     var todos = { items: [] }
+    var lock = false
 
     var getTodos = function() {
         httpService.getToDos().then(function(data) {
             if (!data.data.error) {
                 todos.items = data.data;
-            }
+            } else {}
         }, function(error) {
-            console.log(error);
+            //remove listener to stop endless loop!
+            $window.onfocus = function() {}
+            alert(error.data);
         });
     }
 
@@ -56,7 +59,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
             todos.items.push(data);
             socket.emit('update', { user: $rootScope.user })
         }).error(function(data, status) {
-            console.log(data, status);
+            alert(data);
         });
     }
 
@@ -91,7 +94,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
             socket.emit('update', { user: $rootScope.user })
 
         }).error(function(data, status) {
-            console.log(data, status);
+            alert(data)
         });
     }
 

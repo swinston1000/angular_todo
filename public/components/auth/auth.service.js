@@ -45,15 +45,12 @@ function authService($q, lock, authManager, $rootScope) {
         lock.on('authenticated', function(authResult) {
 
             var account = authResult.idTokenPayload.sub.split('|')[0]
-
             account = account.substr(0, 1).toUpperCase() + account.substr(1, account.length - 1)
 
             if (!authResult.idTokenPayload.email) {
                 return alert("Thanks for signing up. In order to use Todoosey your " + account + " account must be associated with a verified e-mail address. Please try another method of signing up.");
             } else if (!authResult.idTokenPayload.email_verified) {
-                return alert("Thanks for signing up.  You have been sent an e-mail to verify your address, please do so to continue.");
-                //localStorage.removeItem('to_do_id_token');
-                //return;
+                return alert("Thanks for signing up.  You have been sent an e-mail to verify your address, please do so or try another sign up method to continue.");
             }
 
             lock.getProfile(authResult.idToken, function(error, profile) {

@@ -3,17 +3,20 @@ var router = express.Router();
 var db = require('../models/model.js');
 
 var authenticate = function(req, res, next) {
-    if (!req.user.email_verified) {
-        res.send({ "error": "Please verify your e-mail address before continuing." });
+    if (!req.user.email) {
+        next(new Error("Your account needs to be associated with an e-mail address, try another method of signing up."))
+    } else if (!req.user.email_verified) {
+        next(new Error("Please verify your e-mail address before continuing."))
+    } else {
+        next();
     }
-    next();
 }
 
 module.exports = function(io) {
 
     /* GET /todos listing. */
     router.get('/', authenticate, function(req, res, next) {
-
+        console.log("getting");
         db.users.findOne({ email: req.user.email }, function(err, user) {
             if (err) return next(err);
             else if (user) res.json(user.todos)
