@@ -10,7 +10,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
                 todos.items = data.data;
             } else {}
         }, function(error) {
-            if (error) {
+            if (error && error.data) {
                 //remove listener to stop endless alert loop!
                 $window.onfocus = function() {}
                 alert(error.data);

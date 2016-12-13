@@ -4,7 +4,22 @@ angular
     .service('authService', authService);
 
 
-function authService($q, lock, authManager, $rootScope) {
+function authService($q, lock, authManager, $rootScope, angularAuth0) {
+
+    var currentToken = localStorage.getItem('to_do_id_token')
+
+
+    if (currentToken) {
+        angularAuth0.renewIdToken(currentToken, function(err, delegationResult) {
+            if (err) {
+                console.log(err);
+                return
+            }
+            //console.log(delegationResult.id_token);
+            localStorage.setItem('to_do_id_token', delegationResult.id_token);
+        });
+    }
+
 
     var profile = JSON.parse(localStorage.getItem('to_do_profile'))
     if (profile) {
@@ -63,6 +78,8 @@ function authService($q, lock, authManager, $rootScope) {
             });
 
             localStorage.setItem('to_do_id_token', authResult.idToken);
+            //localStorage.setItem('to_do_refesh_token', authResult.refreshToken);
+
             authManager.authenticate();
         });
     }

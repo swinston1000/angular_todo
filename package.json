@@ -1,39 +1,38 @@
 {
-    "name": "toodoosey",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "start": "node server.js"
-    },
-    "engines": {
-        "node": "6.9.1"
-    },
-    "author": "Steven Winston",
-    "license": "ISC",
-    "dependencies": {
-        "angular": "^1.5.8",
-        "angular-fastclick": "^1.0.0",
-        "angular-hammer": "^2.2.0",
-        "angular-jwt": "^0.1.8",
-        "angular-lock": "^1.0.5",
-        "angular-lock-passwordless": "^1.0.1",
-        "angular-resource": "^1.5.9",
-        "angular-sanitize": "^1.5.9",
-        "auth0-lock": "^10.7.1",
-        "auth0-lock-passwordless": "^2.2.3",
-        "body-parser": "^1.15.2",
-        "bootstrap": "^3.3.7",
-        "content-filter": "^1.0.26",
-        "cors": "^2.8.1",
-        "express": "^4.14.0",
-        "express-jwt": "^5.1.0",
-        "font-awesome": "^4.7.0",
-        "hammerjs": "^2.0.8",
-        "install": "^0.8.2",
-        "jquery": "^3.1.1",
-        "mongoose": "^4.7.0",
-        "ngstorage": "^0.3.11",
-        "socket.io": "^1.7.1"
-    }
+  "name": "toodoosey",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "6.9.1"
+  },
+  "author": "Steven Winston",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-auth0": "^1.0.4",
+    "angular-fastclick": "^1.0.0",
+    "angular-hammer": "^2.2.0",
+    "angular-jwt": "^0.1.8",
+    "angular-lock": "^1.0.5",
+    "angular-lock-passwordless": "^1.0.1",
+    "angular-sanitize": "^1.5.9",
+    "auth0-lock": "^10.7.1",
+    "auth0-lock-passwordless": "^2.2.3",
+    "body-parser": "^1.15.2",
+    "bootstrap": "^3.3.7",
+    "content-filter": "^1.0.26",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "express-jwt": "^5.1.0",
+    "font-awesome": "^4.7.0",
+    "hammerjs": "^2.0.8",
+    "jquery": "^3.1.1",
+    "mongoose": "^4.7.0",
+    "ngstorage": "^0.3.11",
+    "socket.io": "^1.7.1"
+  }
 }
