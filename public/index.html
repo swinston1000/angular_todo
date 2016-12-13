@@ -15,8 +15,9 @@
             <nav-bar></nav-bar>
             <div ng-if="isAuthenticated">
                 <div ng-controller="listController as listCtrl">
-                    <div class="row" ng-include="'/components/list/list.controls.template.html'"></div>
-                    <div ng-repeat="todo in listCtrl.todos.items | filter:mainCtrl.search | orderBy: listCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: listCtrl.applyFilter | filterCategory : listCtrl.filterCategory">
+                    <div class="row hidden-xs" ng-include="'/components/list/list.controls.template.html'"></div>
+                    <div class="hidden-sm hidden-md hidden-lg" ng-include="'/components/list/mobile-list.controls.template.html'"></div>
+                    <div ng-repeat="todo in listCtrl.todos.items | filter:mainCtrl.search | orderBy: mainCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: mainCtrl.applyFilter | filterCategory : mainCtrl.filterCategory">
                         <to-do todo='todo'></to-do>
                     </div>
                 </div>

@@ -15,23 +15,23 @@ var options = {
     urlBlackList: blackList,
     bodyBlackList: blackList
 }
-
-var jwtCheck = jwt({
-    secret: new Buffer(auth0clientSecret, 'base64'),
-    audience: 'F3kTtFLJVyWUqdcqoW0eWHn7dH9rmOtJ'
-});
-
 app.use(filter(options));
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
+var jwtCheck = jwt({
+    secret: new Buffer(auth0clientSecret, 'base64'),
+    audience: 'F3kTtFLJVyWUqdcqoW0eWHn7dH9rmOtJ'
+});
 var todos = require('./routes/todos')(io);
+var webhook = require('./routes/webhook')
 
 app.use(express.static(__dirname + '/public'));
 app.use('/scripts', express.static(__dirname + '/node_modules'));
 app.use('/todos', jwtCheck);
 app.use('/todos', todos);
+app.use('/webhook', webhook);
 
 server.listen(process.env.PORT || 3000, function() {
     console.log('Example app listening on port 3000!')

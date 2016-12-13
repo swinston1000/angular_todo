@@ -28,14 +28,13 @@
 <div class="col-lg-6">
     <div class="btn-group" role="group">
         <div class="btn-group">
-            <a type="button" class="btn btn-default toggle-button" ng-click="listCtrl.toggleFilter()">{{listCtrl.toggleBtnText}}</a>
-            <a ng-if="listCtrl.sortByPriority" type="button" class="btn btn-default priority-button visible-xs" ng-click="listCtrl.toggleSort()" ng-bind-html="listCtrl.calender"></a>
-            <a ng-if="!listCtrl.sortByPriority" type="button" class="btn btn-default priority-button visible-xs" ng-click="listCtrl.toggleSort()" ng-bind-html="listCtrl.thermometer"></a>
-            <a type="button" class="btn btn-default priority-button hidden-xs" ng-click="listCtrl.toggleSort()">{{listCtrl.sortByPriority? "Sort by Date" : "Sort by Priority"}}</a>
+            <a type="button" class="btn btn-default toggle-button" ng-click="mainCtrl.toggleFilter()">{{mainCtrl.toggleBtnText}}</a>
+            <a ng-if="mainCtrl.sortByPriority" type="button" class="btn btn-default priority-button visible-xs" ng-click="mainCtrl.toggleSort()" ng-bind-html="mainCtrl.calender"></a>
+            <a ng-if="!mainCtrl.sortByPriority" type="button" class="btn btn-default priority-button visible-xs" ng-click="mainCtrl.toggleSort()" ng-bind-html="mainCtrl.thermometer"></a>
+            <a type="button" class="btn btn-default priority-button hidden-xs" ng-click="mainCtrl.toggleSort()">{{mainCtrl.sortByPriority? "Sort by Date" : "Sort by Priority"}}</a>
             <div class="btn-group">
-                <a type="button" class="btn btn-default dropdown-toggle cat-button
-" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by Category<span class="caret"></span></a>
-                <ul class="dropdown-menu dropdown-menu-left" ng-click="listCtrl.setFilterCategory($event);">
+                <a type="button" class="btn btn-default dropdown-toggle cat-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by Category<span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-left" ng-click="mainCtrl.setFilterCategory($event);">
                     <li><a>Show All</a></li>
                     <li><a>Work</a></li>
                     <li><a>Personal</a></li>

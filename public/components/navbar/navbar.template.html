@@ -1,4 +1,5 @@
-<nav class="navbar navbar-default">
+<nav class="navbar
+ navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -12,19 +13,35 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <div class="nav navbar-nav navbar-right">
-                <div ng-if="!isAuthenticated">
-                    <a type='button' class="btn btn-primary navbar-btn" ng-click="vm.authService.login()">Log In</a>
-                </div>
-                <div ng-if="isAuthenticated">
-                    <form class="navbar-form navbar-left">
-                        <div class="form-group">
-                            <input type="text" class="form-control" ng-model="mainCtrl.search.task">
+            <div ng-if="isAuthenticated">
+                <a type='button' class="btn btn-primary navbar-btn navbar-right hidden-xs" ng-click="vm.authService.logout()">Log Out</a>
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="input-group">
+                        <span class="input-group-btn"><button type="submit" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i></button></span>
+                        <input type="text" class="form-control" ng-model="mainCtrl.search.task">
+                    </div>
+                </form>
+                <form class="navbar-form navbar-left visible-xs">
+                    <div class="btn-group groupnav" role="group">
+                        <a type="button" class="btnnav btn btn-default" ng-click="mainCtrl.toggleFilter()">{{mainCtrl.toggleBtnText}}</a>
+                        <a ng-if="mainCtrl.sortByPriority" type="button" class="btnnav btn btn-default" ng-click="mainCtrl.toggleSort()" ng-bind-html="mainCtrl.calender"></a>
+                        <a ng-if="!mainCtrl.sortByPriority" type="button" class="btnnav btn btn-default" ng-click="mainCtrl.toggleSort()" ng-bind-html="mainCtrl.thermometer"></a>
+                        <div class="btnnav btn-group" role="group">
+                            <a type="button" class="btnnavfilter btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter Category<span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-left" ng-click="mainCtrl.setFilterCategory($event);">
+                                <li><a>Show All</a></li>
+                                <li><a>Work</a></li>
+                                <li><a>Personal</a></li>
+                                <li><a>Other</a></li>
+                                <li><a>Delegated</a></li>
+                            </ul>
                         </div>
-                        <button class="btn btn-default">Search</button>
-                    </form>
-                    <a type='button' class="btn btn-primary navbar-btn" ng-click="vm.authService.logout()">Log Out</a>
-                </div>
+                    </div>
+                </form>
+                <a type='button' class="btn btn-primary navbar-btn navbar-right visible-xs" ng-click="vm.authService.logout()">Log Out</a>
+            </div>
+            <div ng-if="!isAuthenticated">
+                <a type='button' class="btn btn-primary navbar-btn navbar-right login" ng-click="vm.authService.login()">Sign Up | Log In</a>
             </div>
         </div>
         <!-- /.navbar-collapse -->

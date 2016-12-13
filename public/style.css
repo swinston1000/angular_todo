@@ -6,18 +6,8 @@
     margin: 10px 0;
 }
 
-.priority-button,
-.remove-all-btn {
-    width: 45px;
-}
 
-.toggle-button {
-    width: 123px;
-}
-
-.done-button {
-    width: 20px;
-}
+/*above mobile size*/
 
 @media only screen and (min-width: 768px) {
     .priority-button,
@@ -27,6 +17,31 @@
     }
     .done-button {
         width: 50px;
+    }
+}
+
+
+/*mobile size*/
+
+@media only screen and (max-width: 768px) {
+    .navbar-form {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    .login {
+        display: block!important;
+    }
+    .navbar-form .groupnav {
+        width: 100%;
+    }
+    .navbar-form .btnnav {
+        width: 33.33333%;
+    }
+    .btnnavfilter {
+        width: 100%;
+    }
+    .navbar .dropdown-menu {
+        position: relative;
     }
 }
 
