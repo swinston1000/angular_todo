@@ -20,6 +20,7 @@
     "angular-lock": "^1.0.5",
     "angular-lock-passwordless": "^1.0.1",
     "angular-sanitize": "^1.5.9",
+    "angular-ui-router": "^0.3.2",
     "auth0-lock": "^10.7.1",
     "auth0-lock-passwordless": "^2.2.3",
     "body-parser": "^1.15.2",

@@ -11,18 +11,7 @@
 
 <body class="container">
     <div ng-app="myApp">
-        <div ng-controller="mainController as mainCtrl">
-            <nav-bar></nav-bar>
-            <div ng-if="isAuthenticated">
-                <div ng-controller="listController as listCtrl">
-                    <div class="row hidden-xs" ng-include="'/components/list/list.controls.template.html'"></div>
-                    <div class="hidden-sm hidden-md hidden-lg" ng-include="'/components/list/mobile-list.controls.template.html'"></div>
-                    <div ng-repeat="todo in listCtrl.todos.items | filter:mainCtrl.search | orderBy: mainCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: mainCtrl.applyFilter | filterCategory : mainCtrl.filterCategory">
-                        <to-do todo='todo'></to-do>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <ui-view></ui-view>
     </div>
 </body>
 <script src="/scripts/jquery/dist/jquery.min.js"></script>
@@ -30,6 +19,7 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="/scripts/hammerjs/hammer.js"></script>
 <script src="/scripts/angular/angular.js"></script>
+<script src="/scripts/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="/scripts/angular-fastclick/dist/index.js"></script>
 <script src="/scripts/angular-hammer/angular.hammer.js"></script>
 <script src="/scripts/angular-auth0/dist/angular-auth0.js"></script>

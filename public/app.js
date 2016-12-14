@@ -1,8 +1,8 @@
-angular.module("myApp", ['hmTouchEvents', 'auth0.lock', 'auth0.auth0', 'angular-jwt', 'angular-fastclick'])
+angular.module("myApp", ['ui.router', 'hmTouchEvents', 'auth0.lock', 'auth0.auth0', 'angular-jwt', 'angular-fastclick'])
     .config(config);
 
 
-function config($httpProvider, lockProvider, jwtOptionsProvider, angularAuth0Provider) {
+function config($urlRouterProvider, $stateProvider, $httpProvider, lockProvider, jwtOptionsProvider, angularAuth0Provider) {
 
     // Configuration for angular-jwt
     jwtOptionsProvider.config({
@@ -17,6 +17,22 @@ function config($httpProvider, lockProvider, jwtOptionsProvider, angularAuth0Pro
         unauthenticatedRedirectPath: '/'
 
     });
+
+    $stateProvider
+        .state('authorize', {
+            url: '/authorize?account_linking_token&redirect_uri',
+            controller: 'LoginController',
+            controllerAs: 'vm',
+            templateUrl: 'components/navbar/navbar.template.html',
+        })
+        .state('home', {
+            url: '/home',
+            controller: 'mainController',
+            controllerAs: 'mainCtrl',
+            templateUrl: 'components/main/main.template.html'
+        });
+
+    $urlRouterProvider.otherwise('/home');
 
     angularAuth0Provider.init({
         clientID: 'F3kTtFLJVyWUqdcqoW0eWHn7dH9rmOtJ',
