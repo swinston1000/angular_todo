@@ -1,3 +1,4 @@
+var rp = require('request-promise');
 var request = require('request');
 var express = require('express');
 var router = express.Router();
@@ -14,11 +15,13 @@ router.post('/', function(req, res) {
     var delivery = data.delivery
     var account_linking = data.account_linking
     var senderID = data.sender.id;
-    //console.log(senderID);
+
+    console.log("incoming...")
 
     if (message) {
+        console.log(message);
         message = message.text;
-        var reply = replyBasedOnMessage(message);
+        var reply = buildReply(senderID, message);
         sendMessage(senderID, reply);
     } else if (read) {
         console.log("read");
@@ -38,68 +41,30 @@ router.post('/', function(req, res) {
 
 
 router.get('/', function(req, res) {
+    console.log("hello you tried to get to /webhook");
     if (req.query['hub.verify_token'] === webhookSecret) {
+        console.log("verified");
         res.send(req.query['hub.challenge']);
     } else { res.send('Wrong token bud') }
 });
 
-// router.get('/authorize', function(req, res) {
-//     //console.log('req');
-//     //console.log(req);
-//     var redirect_uri = req.query['redirect_uri'];
-//     var account_linking_token = req.query['account_linking_token'];
-//     res.redirect('?redirect_uri=' + redirect_uri + '&account_linking_token=' + linkingSecret)
 
-//     request({
-//         uri: 'https://graph.facebook.com/v2.6/me',
-//         qs: {
-//             access_token: facebookAccessID,
-//             fields: "recipient",
-//             account_linking_token: account_linking_token
-//         },
-//         method: 'GET',
-//     }, function(error, response, body) {
-//         if (!error && response.statusCode == 200) {
-//             console.log("Success ID: ");
-//             console.log(body)
+function getUserFromDB(psid) {
+    return rp({
+        url: 'https://app60017704.eu.auth0.com/api/v2/users',
+        headers: {
+            Authorization: 'Bearer ' + auth0api
+        },
+        qs: {
+            search_engine: 'v2',
+            q: 'psid:"' + psid + '"',
+        }
+    });
+}
 
-//             request({
-//                     url: 'https://app60017704.eu.auth0.com/api/v2/users',
-//                     headers: {
-//                         Authorization: 'Bearer ' + auth0api
-//                     },
-//                     qs: {
-//                         search_engine: 'v2',
-//                         q: 'identities.connection:"facebook"',
-//                     }
-//                 },
-//                 function(err, respo, bday) {
-//                     if (err) {
-//                         console.log(err);
-//                     } else if (respo.statusCode !== 200) {
-//                         console.log(respo.statusMessage);
-//                     } else {
-//                         //var data = JSON.parse(bday);
-//                         //console.log(data);
-//                         res.redirect(redirect_uri + "&authorization_code=" + linkingSecret)
-//                     }
-//                 });
+function buildReply(senderID, message) {
 
-//         } else {
-//             console.error("Error Authorizing!!!!");
-//             console.error(response.statusMessage);
-//             console.error(response.statusCode);
-//             res.redirect(redirect_uri)
-//         }
-//     });
-// });
-
-
-
-function replyBasedOnMessage(message) {
-    //At this point, you work some logical magic here
-    //It could be a series of if-else statements, or something more intricate
-    //For now, we'll just reply with something simple:
+    console.log("building reply");
 
     var loginButton = {
         "attachment": {
@@ -111,7 +76,9 @@ function replyBasedOnMessage(message) {
                     "image_url": "https://cdn2.iconfinder.com/data/icons/productivity-at-work/256/To-Do_List-512.png",
                     "buttons": [{
                         "type": "account_link",
-                        "url": "https://todoosey.herokuapp.com/authorize"
+                        "url": "https://www.evernote.com/OAuth.action?oauth_token=yarivadam.15903DEE8AC.68747470733A2F2F6D3433693664633665652E657865637574652D6170692E75732D656173742D312E616D617A6F6E6177732E636F6D2F446576.214B4FD6DB33D4FE9D6B99D320C7D3DA&h=yAQGYMbXl",
+                        //"url":'https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.evernote.com%2FOAuth.action%3Foauth_token%3Dyarivadam.15903DEE8AC.68747470733A2F2F6D3433693664633665652E657865637574652D6170692E75732D656173742D312E616D617A6F6E6177732E636F6D2F446576.214B4FD6DB33D4FE9D6B99D320C7D3DA&h=yAQGYMbXl'
+                        //"url": "https://todoosey.herokuapp.com/webhook/authorization"
                     }]
                 }]
             }
@@ -138,6 +105,19 @@ function replyBasedOnMessage(message) {
         return loginButton
     } else if (message === "logout") {
         return logoutButton
+    } else if (message === "add") {
+
+        console.log("adding");
+
+        getUserFromDB(senderID).then(function(response) {
+            console.log(response);
+            return { text: 'Cool, what do you need to do?' }
+        }, function(error) {
+            console.log("error");
+            console.log(error);
+            return { text: 'Sorry we had an error!' }
+        })
+
     } else {
         return { text: "Hey, I think it's cool that you said '" + message + "'" }
     }
@@ -152,7 +132,6 @@ function sendMessage(recipientId, message) {
     };
     callSendAPI(messageData);
 }
-
 
 function callSendAPI(messageData) {
     request({
@@ -171,5 +150,35 @@ function callSendAPI(messageData) {
         }
     });
 }
+
+router.get('/authorization', function(req, res) {
+    //console.log('req');
+    //console.log(req);
+    var redirect_uri = req.query['redirect_uri'];
+    var account_linking_token = req.query['account_linking_token'];
+    console.log(redirect_uri);
+
+    request({
+        uri: 'https://graph.facebook.com/v2.6/me',
+        qs: {
+            access_token: facebookAccessID,
+            fields: "recipient",
+            account_linking_token: account_linking_token
+        },
+        method: 'GET',
+    }, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var id = JSON.parse(body).id;
+            console.log("redirecting");
+            res.redirect('https://l.facebook.com/l.php?u=https://todoosey.herokuapp.com/authorize?redirect=' + redirect_uri + '&psid=' + id + '&auth=' + linkingSecret)
+
+        } else {
+            console.error("Error Authorizing!!!!");
+            console.error(response.statusMessage);
+            console.error(response.statusCode);
+            res.redirect(redirect_uri)
+        }
+    });
+});
 
 module.exports = router

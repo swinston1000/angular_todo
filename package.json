@@ -35,6 +35,7 @@
     "mongoose": "^4.7.0",
     "ngstorage": "^0.3.11",
     "request": "^2.79.0",
+    "request-promise": "^4.1.1",
     "socket.io": "^1.7.1"
   }
 }

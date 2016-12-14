@@ -2,7 +2,10 @@ angular.module("myApp", ['ui.router', 'hmTouchEvents', 'auth0.lock', 'auth0.auth
     .config(config);
 
 
-function config($urlRouterProvider, $stateProvider, $httpProvider, lockProvider, jwtOptionsProvider, angularAuth0Provider) {
+function config($locationProvider, $urlRouterProvider, $stateProvider, $httpProvider, lockProvider, jwtOptionsProvider, angularAuth0Provider) {
+
+
+    $locationProvider.html5Mode({ enabled: true, requireBase: true }).hashPrefix('!');
 
     // Configuration for angular-jwt
     jwtOptionsProvider.config({
@@ -20,31 +23,24 @@ function config($urlRouterProvider, $stateProvider, $httpProvider, lockProvider,
 
     $stateProvider
         .state('authorize', {
-            url: '/authorize?account_linking_token&redirect_uri',
+            url: '/authorize?redirect&psid&auth',
+            //url: '/authorize?account_linking_token&redirect_uri',
             controller: 'LoginController',
             controllerAs: 'vm',
-            templateUrl: 'components/navbar/navbar.template.html',
+            templateUrl: 'components/auth/auth.template.html',
         })
         .state('home', {
-            url: '/home',
+            url: '/',
             controller: 'mainController',
             controllerAs: 'mainCtrl',
             templateUrl: 'components/main/main.template.html'
         });
 
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/');
 
     angularAuth0Provider.init({
         clientID: 'F3kTtFLJVyWUqdcqoW0eWHn7dH9rmOtJ',
         domain: 'app60017704.eu.auth0.com',
-        // options: {
-        //     auth: {
-        //         params: {
-        //             //scope: 'openid offline_access email'
-        //             scope: 'openid email'
-        //         }
-        //     }
-        // }
     })
 
     $httpProvider.interceptors.push('jwtInterceptor');
@@ -70,6 +66,4 @@ function config($urlRouterProvider, $stateProvider, $httpProvider, lockProvider,
             },
         }
     });
-
-
 }
