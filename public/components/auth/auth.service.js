@@ -28,7 +28,6 @@ function authService($q, lock, authManager, $rootScope, angularAuth0, $statePara
 
     var deferredProfile = $q.defer();
 
-
     function login() {
         // lockPasswordless.socialOrEmailcode({
         //         connections: ["facebook", "github"],
@@ -49,25 +48,23 @@ function authService($q, lock, authManager, $rootScope, angularAuth0, $statePara
         lock.show();
     }
 
-    function messengerLogin() {
+    // function messengerLogin() {
+    //     angularAuth0.login({
+    //         callbackURL: $stateParams.redirect + '&authorization_code=' + $stateParams.auth,
+    //         responseType: 'token',
+    //         scope: 'openid email',
+    //         psid: $stateParams.psid,
+    //     });
+    //     // var options = {
+    //     //     auth: {
+    //     //         params: {
+    //     //             scope: 'openid email',
+    //     //         },
+    //     //     },
+    //     // }
+    //     // lock.show(options)
+    // }
 
-        console.log($stateParams);
-
-        angularAuth0.login({
-            callbackURL: $stateParams.redirect + '&authorization_code=' + $stateParams.auth,
-            responseType: 'token',
-            scope: 'openid email',
-            psid: $stateParams.psid,
-        });
-        // var options = {
-        //     auth: {
-        //         params: {
-        //             scope: 'openid email',
-        //         },
-        //     },
-        // }
-        // lock.show(options)
-    }
 
     function logout() {
         localStorage.removeItem('to_do_id_token');
@@ -108,7 +105,7 @@ function authService($q, lock, authManager, $rootScope, angularAuth0, $statePara
     return {
         login: login,
         logout: logout,
-        messengerLogin: messengerLogin,
+        //messengerLogin: messengerLogin,
         registerAuthenticationListener: registerAuthenticationListener
     }
 }

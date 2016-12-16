@@ -22,19 +22,19 @@ function config($locationProvider, $urlRouterProvider, $stateProvider, $httpProv
     });
 
     $stateProvider
-        .state('authorize', {
-            url: '/authorize?redirect&psid&auth',
-            //url: '/authorize?account_linking_token&redirect_uri',
-            controller: 'LoginController',
-            controllerAs: 'vm',
-            templateUrl: 'components/auth/auth.template.html',
-        })
         .state('home', {
             url: '/',
             controller: 'mainController',
             controllerAs: 'mainCtrl',
             templateUrl: 'components/main/main.template.html'
-        });
+        })
+        // .state('authorize', {
+        //     url: '/authorize?redirect&psid&auth',
+        //     //url: '/authorize?account_linking_token&redirect_uri',
+        //     controller: 'LoginController',
+        //     controllerAs: 'vm',
+        //     templateUrl: 'components/auth/auth.template.html',
+        // })
 
     $urlRouterProvider.otherwise('/');
 

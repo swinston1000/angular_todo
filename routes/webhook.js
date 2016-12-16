@@ -1,5 +1,6 @@
 var rp = require('request-promise');
 var request = require('request');
+
 var express = require('express');
 var router = express.Router();
 var facebookAccessID = process.env.FACEBOOK_ID || require('../auth0-secret').facebookAccessID
@@ -11,8 +12,6 @@ router.post('/', function(req, res) {
 
     var data = req.body.entry[0].messaging[0];
     var message = data.message;
-    var read = data.read;
-    var delivery = data.delivery
     var account_linking = data.account_linking
     var senderID = data.sender.id;
 
@@ -23,9 +22,9 @@ router.post('/', function(req, res) {
         message = message.text;
         var reply = buildReply(senderID, message);
         sendMessage(senderID, reply);
-    } else if (read) {
+    } else if (data.read) {
         console.log("read");
-    } else if (delivery) {
+    } else if (data.delivery) {
         console.log("delivered");
     } else if (account_linking && (account_linking.authorization_code === linkingSecret)) {
         console.log("authorised linking callback: " + account_linking.status);
@@ -33,8 +32,11 @@ router.post('/', function(req, res) {
         console.log("linking callback: " + account_linking.status);
     } else if (account_linking) {
         console.log("warning unauthorized");
+    } else if (data.postback) {
+        console.log(data.postback);
     } else {
         console.log("you what?");
+        console.log(req.body);
     }
     res.sendStatus(200); //required to send FB some response, else all fails.
 });
@@ -76,9 +78,7 @@ function buildReply(senderID, message) {
                     "image_url": "https://cdn2.iconfinder.com/data/icons/productivity-at-work/256/To-Do_List-512.png",
                     "buttons": [{
                         "type": "account_link",
-                        "url": "https://www.evernote.com/OAuth.action?oauth_token=yarivadam.15903DEE8AC.68747470733A2F2F6D3433693664633665652E657865637574652D6170692E75732D656173742D312E616D617A6F6E6177732E636F6D2F446576.214B4FD6DB33D4FE9D6B99D320C7D3DA&h=yAQGYMbXl",
-                        //"url":'https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.evernote.com%2FOAuth.action%3Foauth_token%3Dyarivadam.15903DEE8AC.68747470733A2F2F6D3433693664633665652E657865637574652D6170692E75732D656173742D312E616D617A6F6E6177732E636F6D2F446576.214B4FD6DB33D4FE9D6B99D320C7D3DA&h=yAQGYMbXl'
-                        //"url": "https://todoosey.herokuapp.com/webhook/authorization"
+                        "url": "https://todoosey.herokuapp.com/authorize?signup=false",
                     }]
                 }]
             }
@@ -101,11 +101,11 @@ function buildReply(senderID, message) {
         }
     }
 
-    if (message === "login") {
+    if (message.toLowerCase() === "login") {
         return loginButton
-    } else if (message === "logout") {
+    } else if (message.toLowerCase() === "logout") {
         return logoutButton
-    } else if (message === "add") {
+    } else if (message.toLowerCase() === "add") {
 
         console.log("adding");
 
@@ -151,34 +151,37 @@ function callSendAPI(messageData) {
     });
 }
 
-router.get('/authorization', function(req, res) {
-    //console.log('req');
-    //console.log(req);
-    var redirect_uri = req.query['redirect_uri'];
-    var account_linking_token = req.query['account_linking_token'];
-    console.log(redirect_uri);
+(function setupGreeting() {
 
+    var gettingStartedButton = {
+        "setting_type": "call_to_actions",
+        "thread_state": "new_thread",
+        "call_to_actions": [{
+            "payload": "GET STARTED"
+        }]
+    }
+    var firstGreeting = {
+        "setting_type": "greeting",
+        "greeting": {
+            "text": "Hi {{user_first_name}}, welcome to Todoosey."
+        }
+    }
     request({
-        uri: 'https://graph.facebook.com/v2.6/me',
-        qs: {
-            access_token: facebookAccessID,
-            fields: "recipient",
-            account_linking_token: account_linking_token
-        },
-        method: 'GET',
+        uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
+        qs: { access_token: facebookAccessID },
+        method: 'POST',
+        json: gettingStartedButton,
     }, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            var id = JSON.parse(body).id;
-            console.log("redirecting");
-            res.redirect('https://l.facebook.com/l.php?u=https://todoosey.herokuapp.com/authorize?redirect=' + redirect_uri + '&psid=' + id + '&auth=' + linkingSecret)
-
+            console.log("Successfully sent message");
+            console.log(body);
         } else {
-            console.error("Error Authorizing!!!!");
+            console.error("Unable to send message.");
             console.error(response.statusMessage);
             console.error(response.statusCode);
-            res.redirect(redirect_uri)
+            console.error(error);
         }
     });
-});
+})()
 
 module.exports = router

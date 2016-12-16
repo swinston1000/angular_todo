@@ -1,0 +1,50 @@
+doctype html
+//if lt IE 7 
+  html.ie6  
+//if IE 7 
+  html.ie7  
+//if IE 8 
+  html.ie8  
+//if IE 9 
+  html.ie9  
+// [if !IE] <!
+html
+  // <![endif]
+  head
+    title Todoosey
+    head
+      meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+      meta(name='en:locale', content='en')
+      meta(charset='utf-8')
+      meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+  body
+    div(id="root" style="width: 280px; margin: 40px auto; padding: 10px;")
+
+  script(src="https://cdn.auth0.com/w2/auth0-7.4.min.js")
+  script(src="https://cdn.auth0.com/js/lock/10.6/lock.min.js")
+  script(type='text/javascript').
+    var config =!{config}
+    var lock = new Auth0Lock('F3kTtFLJVyWUqdcqoW0eWHn7dH9rmOtJ', 'app60017704.eu.auth0.com', {
+        auth: {
+            redirectUrl: config.redirect + '&authorization_code=' + config.auth,
+            responseType: 'token',
+            params: {
+                scope: 'openid email'
+            },
+            psid: config.psid,
+            socialButtonStyle: 'small',
+        },
+        theme: {
+            logo: '/assets/ToDoList58.png',
+            primaryColor: '#344454'
+        },
+        languageDictionary: {
+            title: "Todoosey"
+        },
+        allowLogin: !config.signup,
+        allowSignUp: config.signup
+
+    });
+    lock.show();
+ 
+

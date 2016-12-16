@@ -3,7 +3,14 @@ var cors = require('cors')
 var bodyParser = require('body-parser')
 var jwt = require('express-jwt');
 var filter = require('content-filter')
+var request = require('request');
+
+//var pug = require('pug');
 var auth0clientSecret = process.env.AUTH0_CLIENT_SECRET || require('./auth0-secret').clientSecret
+var linkingSecret = process.env.LINKING_SECRET || require('./auth0-secret').linkingSecret
+var facebookAccessID = process.env.FACEBOOK_ID || require('./auth0-secret').facebookAccessID
+
+
 var app = express()
 
 app.use(cors()); //needed???
@@ -32,15 +39,55 @@ app.use('/scripts', express.static(__dirname + '/node_modules'));
 app.use('/todos', jwtCheck);
 app.use('/todos', todos);
 app.use('/webhook', webhook);
+app.set('view engine', 'pug')
 
-server.listen(process.env.PORT || 3000, function() {
-    console.log('Example app listening on port 3000!')
+
+app.get("/authorize", function(req, res) {
+
+    var signup
+    if (req.query.signup == "true") {
+        signup = true
+    } else {
+        signup = false;
+    }
+    var redirect_uri = req.query['redirect_uri'];
+    var account_linking_token = req.query['account_linking_token'];
+    console.log(redirect_uri);
+
+    request({
+        uri: 'https://graph.facebook.com/v2.6/me',
+        qs: {
+            access_token: facebookAccessID,
+            fields: "recipient",
+            account_linking_token: account_linking_token
+        },
+        method: 'GET',
+    }, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var id = JSON.parse(body).id;
+            console.log("redirecting");
+            var config = { redirect: redirect_uri, auth: linkingSecret, psid: id, signup: signup }
+
+            res.render('auth0', { config: JSON.stringify(config) });
+        } else {
+            console.error("Error Authorizing!!!!");
+            console.error(response.statusMessage);
+            console.error(response.statusCode);
+            res.redirect(redirect_uri)
+        }
+    });
+    //res.render('authorize', { signin: true });
 })
 
 //see https://github.com/angular-ui/ui-router/issues/372
 app.get("*", function(req, res) {
     res.sendFile(__dirname + "/public/index.html");
 })
+
+server.listen(process.env.PORT || 3000, function() {
+    console.log('Example app listening on port 3000!')
+})
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
