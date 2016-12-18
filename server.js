@@ -63,7 +63,7 @@ app.get("/authorize", function(req, res) {
         method: 'GET',
     }, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            var id = JSON.parse(body).id;
+            var id = JSON.parse(body).recipient;
             var config = { redirect: redirect_uri, auth: linkingSecret, psid: id, login: login, signup: signup }
             res.render('auth0', { config: JSON.stringify(config) });
         } else {
