@@ -8,6 +8,8 @@ var webhookSecret = process.env.WEBHOOK_SECRET || require('../auth0-secret').web
 var linkingSecret = process.env.LINKING_SECRET || require('../auth0-secret').linkingSecret
 var auth0api = process.env.AUTH0_API || require('../auth0-secret').auth0api;
 
+buttons = require("./messengerbuttons")
+
 router.post('/', function(req, res) {
 
     var data = req.body.entry[0].messaging[0];
@@ -15,10 +17,7 @@ router.post('/', function(req, res) {
     var account_linking = data.account_linking
     var senderID = data.sender.id;
 
-    console.log("incoming...")
-
     if (message) {
-        console.log(message);
         message = message.text;
         var reply = buildReply(senderID, message);
         sendMessage(senderID, reply);
@@ -31,12 +30,12 @@ router.post('/', function(req, res) {
     } else if (account_linking && !account_linking.authorization_code) {
         console.log("linking callback: " + account_linking.status);
     } else if (account_linking) {
-        console.log("warning unauthorized");
-    } else if (data.postback) {
-        console.log(data.postback);
+        console.error("warning unauthorized!!!!");
+    } else if (data.postback && data.postback.payload === "get started") {
+        sendMessage(senderID, buttons("first"));
     } else {
         console.log("you what?");
-        console.log(req.body);
+        console.log(data);
     }
     res.sendStatus(200); //required to send FB some response, else all fails.
 });
@@ -52,7 +51,7 @@ router.get('/', function(req, res) {
 
 
 function getUserFromDB(psid) {
-    return rp({
+    request({
         url: 'https://app60017704.eu.auth0.com/api/v2/users',
         headers: {
             Authorization: 'Bearer ' + auth0api
@@ -61,69 +60,36 @@ function getUserFromDB(psid) {
             search_engine: 'v2',
             q: 'psid:"' + psid + '"',
         }
-    });
+    }, function(error, response, body) {
+        if (error) {
+            console.error(error);
+            return { text: 'Sorry we had an error!' }
+        } else {
+            console.log(body);
+            return { text: 'Cool, what do you need to do?' }
+        }
+    })
 }
 
 function buildReply(senderID, message) {
 
     console.log("building reply");
 
-    var loginButton = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "Welcome to Todoosey",
-                    "image_url": "https://cdn2.iconfinder.com/data/icons/productivity-at-work/256/To-Do_List-512.png",
-                    "buttons": [{
-                        "type": "account_link",
-                        "url": "https://todoosey.herokuapp.com/authorize?signup=false",
-                    }]
-                }]
-            }
-        }
-    }
-
-    var logoutButton = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "Time to say goodbye?",
-                    "image_url": "https://cdn2.iconfinder.com/data/icons/productivity-at-work/256/To-Do_List-512.png",
-                    "buttons": [{
-                        "type": "account_unlink"
-                    }]
-                }]
-            }
-        }
-    }
-
     if (message.toLowerCase() === "login") {
-        return loginButton
+        return buttons("login")
     } else if (message.toLowerCase() === "logout") {
-        return logoutButton
+        return buttons("logout")
+    } else if (message.toLowerCase() === "signup") {
+        return buttons("signup")
     } else if (message.toLowerCase() === "add") {
-
-        console.log("adding");
-
-        getUserFromDB(senderID).then(function(response) {
-            console.log(response);
-            return { text: 'Cool, what do you need to do?' }
-        }, function(error) {
-            console.log("error");
-            console.log(error);
-            return { text: 'Sorry we had an error!' }
-        })
-
+        return getUserFromDB(senderID)
     } else {
         return { text: "Hey, I think it's cool that you said '" + message + "'" }
     }
 }
 
 function sendMessage(recipientId, message) {
+    console.log(message);
     var messageData = {
         recipient: {
             id: recipientId
@@ -134,6 +100,7 @@ function sendMessage(recipientId, message) {
 }
 
 function callSendAPI(messageData) {
+    //console.log(messageData);
     request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: facebookAccessID },
@@ -151,37 +118,36 @@ function callSendAPI(messageData) {
     });
 }
 
-(function setupGreeting() {
-
-    var gettingStartedButton = {
-        "setting_type": "call_to_actions",
-        "thread_state": "new_thread",
-        "call_to_actions": [{
-            "payload": "GET STARTED"
-        }]
-    }
-    var firstGreeting = {
-        "setting_type": "greeting",
-        "greeting": {
-            "text": "Hi {{user_first_name}}, welcome to Todoosey."
-        }
-    }
-    request({
-        uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
-        qs: { access_token: facebookAccessID },
-        method: 'POST',
-        json: gettingStartedButton,
-    }, function(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            console.log("Successfully sent message");
-            console.log(body);
-        } else {
-            console.error("Unable to send message.");
-            console.error(response.statusMessage);
-            console.error(response.statusCode);
-            console.error(error);
-        }
-    });
-})()
+// (function setupGreeting() {
+//     var gettingStartedButton = {
+//         "setting_type": "call_to_actions",
+//         "thread_state": "new_thread",
+//         "call_to_actions": [{
+//             "payload": "get started"
+//         }]
+//     }
+//     var firstGreeting = {
+//         "setting_type": "greeting",
+//         "greeting": {
+//             "text": "Hi {{user_first_name}}, welcome to Todoosey. Click below to start."
+//         }
+//     }
+//     request({
+//         uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
+//         qs: { access_token: facebookAccessID },
+//         method: 'POST',
+//         json: gettingStartedButton,
+//     }, function(error, response, body) {
+//         if (!error && response.statusCode == 200) {
+//             console.log("Successfully sent message");
+//             console.log(body);
+//         } else {
+//             console.error("Unable to send message.");
+//             console.error(response.statusMessage);
+//             console.error(response.statusCode);
+//             console.error(error);
+//         }
+//     });
+// })();
 
 module.exports = router

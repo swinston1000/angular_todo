@@ -44,15 +44,14 @@ app.set('view engine', 'pug')
 
 app.get("/authorize", function(req, res) {
 
-    var signup
-    if (req.query.signup == "true") {
-        signup = true
-    } else {
-        signup = false;
-    }
     var redirect_uri = req.query['redirect_uri'];
     var account_linking_token = req.query['account_linking_token'];
-    console.log(redirect_uri);
+    var login = true;
+    var signup = true;
+    if (req.query.login) {
+        login = req.query.login === "true" ? true : false;
+        signup = !login
+    }
 
     request({
         uri: 'https://graph.facebook.com/v2.6/me',
@@ -65,9 +64,7 @@ app.get("/authorize", function(req, res) {
     }, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var id = JSON.parse(body).id;
-            console.log("redirecting");
-            var config = { redirect: redirect_uri, auth: linkingSecret, psid: id, signup: signup }
-
+            var config = { redirect: redirect_uri, auth: linkingSecret, psid: id, login: login, signup: signup }
             res.render('auth0', { config: JSON.stringify(config) });
         } else {
             console.error("Error Authorizing!!!!");
@@ -76,7 +73,6 @@ app.get("/authorize", function(req, res) {
             res.redirect(redirect_uri)
         }
     });
-    //res.render('authorize', { signin: true });
 })
 
 //see https://github.com/angular-ui/ui-router/issues/372
