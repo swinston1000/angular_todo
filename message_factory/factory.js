@@ -15,37 +15,20 @@ var buildReply = function(senderID, message, cb) {
         if (error) {
             return cb(error)
         } else if (!response) {
-            return cb(null, { text: "Please type 'login' or 'singup' to use this feature!" })
+            return cb(null, { text: "Please type 'login' or 'signup' to use this feature!" })
         } else if (message.toLowerCase() === "logout") {
             return cb(null, buttons("logout"))
-        } else if (message.startsWith("add ")) {
+        } else if (message.toLowerCase().startsWith("add ")) {
 
-            var data = response + "---" + message.substr(4)
+            var todo = JSON.stringify({ email: response, task: message.substr(4) })
 
-            cb(null, {
-                "text": "What is the priority from 1 to 5? (1 being the most urgent)",
-                "quick_replies": [{
-                    "content_type": "text",
-                    "title": "1",
-                    "payload": data
-                }, {
-                    "content_type": "text",
-                    "title": "2",
-                    "payload": data
-                }, {
-                    "content_type": "text",
-                    "title": "3",
-                    "payload": data
-                }, {
-                    "content_type": "text",
-                    "title": "4",
-                    "payload": data
-                }, {
-                    "content_type": "text",
-                    "title": "5",
-                    "payload": data
-                }]
-            })
+            var options = {
+                text: "What is the priority from 1 to 5? (1 being the most urgent)",
+                payload: 'PRIORITY_' + todo,
+                buttons: ["1", "2", "3", "4", "5"]
+            }
+            cb(null, buttons("quick", options))
+
         } else {
             return cb(null, { text: "Sorry I do not recognize that command." })
         }

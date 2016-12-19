@@ -5,6 +5,7 @@ var jwt = require('express-jwt');
 var filter = require('content-filter')
 var request = require('request');
 
+
 //var pug = require('pug');
 var auth0clientSecret = process.env.AUTH0_CLIENT_SECRET || require('./auth0-secret').clientSecret
 var linkingSecret = process.env.LINKING_SECRET || require('./auth0-secret').linkingSecret
@@ -12,17 +13,18 @@ var facebookAccessID = process.env.FACEBOOK_ID || require('./auth0-secret').face
 
 var app = express();
 
-app.use(cors()); //needed???
+//app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-//try to prevent injection attacks
-var blackList = ['$', '{', '&&', '||']
-var options = {
-    urlBlackList: blackList,
-    bodyBlackList: blackList
-}
-app.use(filter(options));
+// app.use(function(req, res, next) {
+//     if (req.body.entry && req.body.entry[0].messaging) {
+//         console.log("in middleware");
+//         console.log(req.body.entry[0].messaging[0]);
+//     }
+//     next()
+// })
+
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
@@ -31,14 +33,27 @@ var jwtCheck = jwt({
     secret: new Buffer(auth0clientSecret, 'base64'),
     audience: 'F3kTtFLJVyWUqdcqoW0eWHn7dH9rmOtJ'
 });
-var todos = require('./routes/todos')(io);
-var webhook = require('./routes/webhook')
 
 app.use(express.static(__dirname + '/public'));
 app.use('/scripts', express.static(__dirname + '/node_modules'));
+
+var webhook = require('./routes/webhook')
+app.use('/webhook', webhook);
+
+//try to prevent injection attacks
+var blackList = ['$', '{', '&&', '||']
+var options = {
+    urlBlackList: blackList,
+    bodyBlackList: blackList,
+    urlMessage: 'A forbidden expression has been found in URL: ',
+    bodyMessage: 'A forbidden expression has been found in form data: '
+}
+app.use(filter(options));
+
+var todos = require('./routes/todos')(io);
 app.use('/todos', jwtCheck);
 app.use('/todos', todos);
-app.use('/webhook', webhook);
+
 app.set('view engine', 'pug')
 
 app.get("/authorize", function(req, res) {
