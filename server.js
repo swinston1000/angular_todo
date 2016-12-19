@@ -10,13 +10,13 @@ var auth0clientSecret = process.env.AUTH0_CLIENT_SECRET || require('./auth0-secr
 var linkingSecret = process.env.LINKING_SECRET || require('./auth0-secret').linkingSecret
 var facebookAccessID = process.env.FACEBOOK_ID || require('./auth0-secret').facebookAccessID
 
-
-var app = express()
+var app = express();
 
 app.use(cors()); //needed???
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+//try to prevent injection attacks
 var blackList = ['$', '{', '&&', '||']
 var options = {
     urlBlackList: blackList,
@@ -40,7 +40,6 @@ app.use('/todos', jwtCheck);
 app.use('/todos', todos);
 app.use('/webhook', webhook);
 app.set('view engine', 'pug')
-
 
 app.get("/authorize", function(req, res) {
 
