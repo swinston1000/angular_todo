@@ -11,11 +11,6 @@ var messageFactory = require("../message_factory/factory")
 
 router.post('/', function(req, res) {
 
-    if (req.body.entry && req.body.entry[0].messaging) {
-        console.log("inpost");
-        console.log(req.body.entry[0].messaging[0]);
-    }
-
     req.body.entry.forEach(function(entry) {
         entry.messaging.forEach(function(data) {
 
@@ -28,14 +23,11 @@ router.post('/', function(req, res) {
                 var todo = JSON.parse(message.quick_reply.payload.substr(9))
                 todo.priority = message.text
                 todo = JSON.stringify(todo)
-                console.log(todo);
-
                 var options = {
                     text: "What is the task category?",
                     payload: "TASK_" + todo,
                     buttons: ["Work", "Personal", "Delegated", "Other"]
                 }
-
                 messageFactory.sendMessage(senderID, buttons("quick", options))
 
             } else if (message && message.quick_reply && message.quick_reply.payload.startsWith("TASK")) {
@@ -58,6 +50,7 @@ router.post('/', function(req, res) {
                 })
 
             } else if (message) {
+
                 messageFactory.buildReply(senderID, message.text, function(err, reply) {
                     if (err) {
                         console.error(err);
@@ -65,6 +58,7 @@ router.post('/', function(req, res) {
                     }
                     messageFactory.sendMessage(senderID, reply);
                 });
+
             } else if (data.read) {
                 //console.log("read");
             } else if (data.delivery) {
