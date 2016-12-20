@@ -1,5 +1,4 @@
 var express = require('express')
-var cors = require('cors')
 var bodyParser = require('body-parser')
 var jwt = require('express-jwt');
 var filter = require('content-filter')
@@ -13,18 +12,8 @@ var facebookAccessID = process.env.FACEBOOK_ID || require('./auth0-secret').face
 
 var app = express();
 
-//app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
-// app.use(function(req, res, next) {
-//     if (req.body.entry && req.body.entry[0].messaging) {
-//         console.log("in middleware");
-//         console.log(req.body.entry[0].messaging[0]);
-//     }
-//     next()
-// })
-
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);

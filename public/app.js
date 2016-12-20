@@ -28,13 +28,6 @@ function config($locationProvider, $urlRouterProvider, $stateProvider, $httpProv
             controllerAs: 'mainCtrl',
             templateUrl: 'components/main/main.template.html'
         })
-        // .state('authorize', {
-        //     url: '/authorize?redirect&psid&auth',
-        //     //url: '/authorize?account_linking_token&redirect_uri',
-        //     controller: 'LoginController',
-        //     controllerAs: 'vm',
-        //     templateUrl: 'components/auth/auth.template.html',
-        // })
 
     $urlRouterProvider.otherwise('/');
 
@@ -51,10 +44,8 @@ function config($locationProvider, $urlRouterProvider, $stateProvider, $httpProv
         options: {
             auth: {
                 params: {
-                    //scope: 'openid offline_access email'
                     scope: 'openid email'
                 },
-                //redirect: false
             },
             socialButtonStyle: 'small',
             theme: {
