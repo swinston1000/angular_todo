@@ -8,8 +8,7 @@ function authService($q, lock, authManager, $rootScope, angularAuth0, $statePara
 
     var currentToken = localStorage.getItem('to_do_id_token')
 
-
-    if (currentToken) {
+    if (currentToken  &&  (Date.now() <= angularAuth0.decodeJwt(currentToken).exp * 1000)) {
         angularAuth0.renewIdToken(currentToken, function(err, delegationResult) {
             if (err) {
                 console.log(err);
@@ -20,7 +19,6 @@ function authService($q, lock, authManager, $rootScope, angularAuth0, $statePara
         });
     }
 
-
     var profile = JSON.parse(localStorage.getItem('to_do_profile'))
     if (profile) {
         $rootScope.user = profile.email
@@ -29,42 +27,8 @@ function authService($q, lock, authManager, $rootScope, angularAuth0, $statePara
     var deferredProfile = $q.defer();
 
     function login() {
-        // lockPasswordless.socialOrEmailcode({
-        //         connections: ["facebook", "github"],
-        //         authParams: { scope: 'openid email' },
-        //         socialBigButtons: false
-        //     },
-        //     function(error, profile, id_token) {
-        //         if (error) {
-        //             alert("Error: " + error);
-        //             return;
-        //         }
-        //         localStorage.setItem('to_do_id_token', id_token);
-        //         authManager.authenticate();
-        //         //localStorage.setItem('profile', JSON.stringify(profile));
-        //         deferredProfile.resolve(profile);
-        //         lockPasswordless.close();
-        //     });
         lock.show();
     }
-
-    // function messengerLogin() {
-    //     angularAuth0.login({
-    //         callbackURL: $stateParams.redirect + '&authorization_code=' + $stateParams.auth,
-    //         responseType: 'token',
-    //         scope: 'openid email',
-    //         psid: $stateParams.psid,
-    //     });
-    //     // var options = {
-    //     //     auth: {
-    //     //         params: {
-    //     //             scope: 'openid email',
-    //     //         },
-    //     //     },
-    //     // }
-    //     // lock.show(options)
-    // }
-
 
     function logout() {
         localStorage.removeItem('to_do_id_token');
@@ -96,7 +60,6 @@ function authService($q, lock, authManager, $rootScope, angularAuth0, $statePara
             });
 
             localStorage.setItem('to_do_id_token', authResult.idToken);
-            //localStorage.setItem('to_do_refesh_token', authResult.refreshToken);
 
             authManager.authenticate();
         });
@@ -105,7 +68,6 @@ function authService($q, lock, authManager, $rootScope, angularAuth0, $statePara
     return {
         login: login,
         logout: logout,
-        //messengerLogin: messengerLogin,
         registerAuthenticationListener: registerAuthenticationListener
     }
 }

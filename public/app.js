@@ -44,7 +44,7 @@ function config($locationProvider, $urlRouterProvider, $stateProvider, $httpProv
         options: {
             auth: {
                 params: {
-                    scope: 'openid email'
+                    scope: 'openid email user_id'
                 },
             },
             socialButtonStyle: 'small',

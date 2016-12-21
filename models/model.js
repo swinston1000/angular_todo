@@ -11,7 +11,7 @@ mongoose.connect('mongodb://swinston100:' + mongoPassword + '@ds163677.mlab.com:
 
 // Create a schema
 
-var TodoSchema = new mongoose.Schema({
+var todoSchema = new mongoose.Schema({
     task: String,
     completed: Boolean,
     category: String,
@@ -19,15 +19,31 @@ var TodoSchema = new mongoose.Schema({
     //updated_at: { type: Date, default: Date.now },
 });
 
-var Todo = mongoose.model('Todo', TodoSchema);
+var Todo = mongoose.model('Todo', todoSchema);
 
 
-var UserScema = new mongoose.Schema({
+var userScema = new mongoose.Schema({
     email: String,
     todos: [TodoSchema]
 });
 
 var User = mongoose.model('User', UserScema);
+
+userScema.statics.findAndAddTodo = function(email, todo, cb) {
+    return this.findOne({ email: user }, function(err, user) {
+        if (err) cb(err);
+        else {
+            user.todos.push(todo)
+            user.save(function(error) {
+                if (error) {
+                    cb(error)
+                } else {
+                    cb(null, "added")
+                }
+            });
+        }
+    })
+}
 
 
 // Create a model based on the schema and export

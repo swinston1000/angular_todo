@@ -30,7 +30,7 @@ html
             redirectUrl: config.redirect + '&authorization_code=' + config.auth,
             responseType: 'token',
             params: {
-                scope: 'openid email',
+                scope: 'openid email user_id',
                 psid: config.psid,
             },
             

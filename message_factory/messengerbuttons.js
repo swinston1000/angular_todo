@@ -4,7 +4,7 @@ module.exports = function(type, options) {
     var buttonType = "account_link";
     var url = "https://todoosey.herokuapp.com/authorize"
 
-    if (type = "quick") {
+    if (type === "quick") {
 
         replyArray = []
 
@@ -31,6 +31,9 @@ module.exports = function(type, options) {
         buttonType = "account_unlink";
         url = ""
     }
+
+    console.log("in buttons");
+    console.log(type);
 
     return {
         "attachment": {

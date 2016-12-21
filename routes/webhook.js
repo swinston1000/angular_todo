@@ -1,13 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models/model.js');
+var db = require('../models/modelFunctions.js');
 
 var webhookSecret = process.env.WEBHOOK_SECRET || require('../auth0-secret').webhookSecret
 var linkingSecret = process.env.LINKING_SECRET || require('../auth0-secret').linkingSecret
 
-
 var buttons = require("../message_factory/messengerbuttons")
 var messageFactory = require("../message_factory/factory")
+var authenticate = require("../message_factory/authenticate")
+
+var cache = {}
 
 router.post('/', function(req, res) {
 
@@ -15,42 +18,74 @@ router.post('/', function(req, res) {
         entry.messaging.forEach(function(data) {
 
             var message = data.message;
-            var account_linking = data.account_linking
             var senderID = data.sender.id;
 
-            if (message && message.quick_reply && message.quick_reply.payload.startsWith("PRIORITY")) {
+            if (message && message.is_echo && message.metadata) {
+                cache[data.recipient.id] = {};
+                cache[data.recipient.id].email = message.metadata;
+                cache[data.recipient.id].status = 1
 
-                var todo = JSON.parse(message.quick_reply.payload.substr(9))
-                todo.priority = message.text
-                todo = JSON.stringify(todo)
+            } else if (message && message.is_echo) {
+                //maybe in future we can log these messages
+            } else if (data.postback && data.postback.payload.startsWith("ADD_TODO")) {
+                var text;
+                authenticate(senderID, function(error, response) {
+                    if (error) {
+                        text = "Sorry we are having problems please try again later.";
+                    } else if (!response) {
+                        text = "Please type 'login' or 'signup' to use this feature!";
+                    } else {
+                        text = "What do do you need to do?";
+                    }
+                    messageFactory.sendMessage(senderID, { metadata: response, text: text })
+                })
+
+            } else if (message && message.quick_reply && message.quick_reply.payload === "PRIORITY") {
+                cache[senderID].status = 3
+                cache[senderID].priority = message.text
                 var options = {
                     text: "What is the task category?",
-                    payload: "TASK_" + todo,
-                    buttons: ["Work", "Personal", "Delegated", "Other"]
+                    payload: "",
+                    buttons: ["Work", "Personal", "Other"]
                 }
                 messageFactory.sendMessage(senderID, buttons("quick", options))
 
-            } else if (message && message.quick_reply && message.quick_reply.payload.startsWith("TASK")) {
+            } else if (message && cache[senderID] && cache[senderID].status = 3) {
 
-                var todo = JSON.parse(message.quick_reply.payload.substr(5))
-                todo.completed = false
-                todo.category = message.text
-                var user = todo.email
-                delete todo.email
+                cache[senderID].category = message.text
+                cache[senderID].completed = false
+                delete cache[senderID].email
+                delete cache[senderID].status
 
-                db.users.findOne({ email: user }, function(err, user) {
-                    if (err) return next(err);
-                    else {
-                        user.todos.push(todo)
-                        user.save(function(err) {
-                            if (err) messageFactory.sendMessage(senderID, { text: "There was an error adding your item!" })
-                            else messageFactory.sendMessage(senderID, { text: "Thanks your to do has been added" })
-                        });
+                db.users.findAndAddTodo(cache[senderID].email, cache[senderID], cb(err, data) {
+                    if (err) {
+                        console.error(err);
+                        messageFactory.sendMessage(senderID, { text: "There was an error adding your item!" })
+                    } else {
+                        messageFactory.sendMessage(senderID, { text: "Thanks your to do has been added" })
+                        cache[senderID] = null;
                     }
                 })
 
-            } else if (message) {
+            } else if (message && cache[senderID] && cache[senderID].status === 1) {
+                cache[senderID].task = message.text
+                cache[senderID].status = 2
+                var options = {
+                    text: "What is the priority from 1 to 5? (1 being the most urgent)",
+                    payload: 'PRIORITY',
+                    buttons: ["1", "2", "3", "4", "5"]
+                }
+                messageFactory.sendMessage(senderID, buttons("quick", options))
 
+            } else if (message && cache[senderID] && cache[senderID].status === 2) {
+                var options = {
+                    text: "Please click a button to choose the priority from 1 to 5? (1 being the most urgent)",
+                    payload: 'PRIORITY',
+                    buttons: ["1", "2", "3", "4", "5"]
+                }
+                messageFactory.sendMessage(senderID, buttons("quick", options))
+
+            } else if (message) {
                 messageFactory.buildReply(senderID, message.text, function(err, reply) {
                     if (err) {
                         console.error(err);
@@ -58,21 +93,14 @@ router.post('/', function(req, res) {
                     }
                     messageFactory.sendMessage(senderID, reply);
                 });
+            } else if (data.account_linking && data.account_linking.authorization_code && (data.account_linking.authorization_code != linkingSecret)) {
+                console.error("WARNING unauthorized access!!!!");
 
-            } else if (data.read) {
-                //console.log("read");
-            } else if (data.delivery) {
-                //console.log("delivered");
-            } else if (account_linking && (account_linking.authorization_code === linkingSecret)) {
-                //console.log("authorised linking callback: " + account_linking.status);
-            } else if (account_linking && !account_linking.authorization_code) {
-                //console.log("linking callback: " + account_linking.status);
-            } else if (account_linking) {
-                console.error("WARNING unauthorized!!!!");
             } else if (data.postback && data.postback.payload === "get started") {
                 messageFactory.sendMessage(senderID, buttons("first"));
+
             } else {
-                console.log("you what?");
+                console.log("What?!?!?");
                 console.log(data);
             }
         })

@@ -18,17 +18,6 @@ var buildReply = function(senderID, message, cb) {
             return cb(null, { text: "Please type 'login' or 'signup' to use this feature!" })
         } else if (message.toLowerCase() === "logout") {
             return cb(null, buttons("logout"))
-        } else if (message.toLowerCase().startsWith("add ")) {
-
-            var todo = JSON.stringify({ email: response, task: message.substr(4) })
-
-            var options = {
-                text: "What is the priority from 1 to 5? (1 being the most urgent)",
-                payload: 'PRIORITY_' + todo,
-                buttons: ["1", "2", "3", "4", "5"]
-            }
-            cb(null, buttons("quick", options))
-
         } else {
             return cb(null, { text: "Sorry I do not recognize that command." })
         }
@@ -53,7 +42,7 @@ function _callSendAPI(messageData) {
         json: messageData
     }, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log("Successfully sent message");
+            //console.log("Successfully sent message");
         } else {
             console.error("Unable to send message.");
             console.log(messageData);
@@ -70,25 +59,39 @@ module.exports = {
 }
 
 
-// (function setupGreeting() {
+// function setupThread() {
 //     var gettingStartedButton = {
 //         "setting_type": "call_to_actions",
 //         "thread_state": "new_thread",
 //         "call_to_actions": [{
 //             "payload": "get started"
 //         }]
-//     }
+//     };
 //     var firstGreeting = {
 //         "setting_type": "greeting",
 //         "greeting": {
 //             "text": "Hi {{user_first_name}}, welcome to Todoosey. Click below to start."
 //         }
-//     }
+//     };
+//     var persistantMenu = {
+//         "setting_type": "call_to_actions",
+//         "thread_state": "existing_thread",
+//         "call_to_actions": [{
+//             "type": "postback",
+//             "title": "Add ToDo",
+//             "payload": "ADD_TODO"
+//         }, {
+//             "type": "web_url",
+//             "title": "View Website",
+//             "url": "http://todoosey.herokuapp.com/",
+//             "webview_height_ratio": "full",
+//         }]
+//     };
 //     request({
 //         uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
 //         qs: { access_token: facebookAccessID },
 //         method: 'POST',
-//         json: gettingStartedButton,
+//         json: persistantMenu,
 //     }, function(error, response, body) {
 //         if (!error && response.statusCode == 200) {
 //             console.log("Successfully sent message");
@@ -100,4 +103,5 @@ module.exports = {
 //             console.error(error);
 //         }
 //     });
-// })();
+// };
+// setupThread();
