@@ -18,8 +18,10 @@ var buildReply = function(senderID, message, cb) {
             return cb(null, { text: "Please type 'login' or 'signup' to use this feature!" })
         } else if (message.toLowerCase() === "logout") {
             return cb(null, buttons("logout"))
+        } else if (message.toLowerCase() === "add") {
+            return cb(null, { text: "What do do you need to do?", metadata: response })
         } else {
-            return cb(null, { text: "Sorry I do not recognize that command." })
+            return cb(null, { text: "Sorry I do not recognize that command. Type 'add' to make a new ToDo!" })
         }
     })
 }

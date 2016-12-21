@@ -30,14 +30,14 @@ var webhook = require('./routes/webhook')
 app.use('/webhook', webhook);
 
 //try to prevent injection attacks
-// var blackList = ['$', '{', '&&', '||']
-// var options = {
-//     urlBlackList: blackList,
-//     bodyBlackList: blackList,
-//     urlMessage: 'A forbidden expression has been found in URL: ',
-//     bodyMessage: 'A forbidden expression has been found in form data: '
-// }
-// app.use(filter(options));
+var blackList = ['$', '{', '&&', '||']
+var options = {
+    urlBlackList: blackList,
+    bodyBlackList: blackList,
+    urlMessage: 'A forbidden expression has been found in URL: ',
+    bodyMessage: 'A forbidden expression has been found in form data: '
+}
+app.use(filter(options));
 
 var todos = require('./routes/todos')(io);
 app.use('/todos', jwtCheck);

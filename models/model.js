@@ -21,7 +21,6 @@ var todoSchema = new mongoose.Schema({
 
 var Todo = mongoose.model('Todo', todoSchema);
 
-
 var userSchema = new mongoose.Schema({
     email: String,
     todos: [todoSchema]
@@ -44,8 +43,6 @@ userSchema.statics.findUserAndAddTodo = function(email, todo, cb) {
 }
 
 var User = mongoose.model('User', userSchema);
-
-
 
 // Create a model based on the schema and export
 module.exports = { todos: Todo, users: User }
