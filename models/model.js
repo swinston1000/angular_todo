@@ -22,15 +22,14 @@ var todoSchema = new mongoose.Schema({
 var Todo = mongoose.model('Todo', todoSchema);
 
 
-var userScema = new mongoose.Schema({
+var userSchema = new mongoose.Schema({
     email: String,
-    todos: [TodoSchema]
+    todos: [todoSchema]
 });
 
-var User = mongoose.model('User', UserScema);
-
-userScema.statics.findAndAddTodo = function(email, todo, cb) {
-    return this.findOne({ email: user }, function(err, user) {
+userSchema.statics.findUserAndAddTodo = function(email, todo, cb) {
+    console.log("here");
+    return this.findOne({ email: email }, function(err, user) {
         if (err) cb(err);
         else {
             user.todos.push(todo)
@@ -44,6 +43,9 @@ userScema.statics.findAndAddTodo = function(email, todo, cb) {
         }
     })
 }
+
+var User = mongoose.model('User', userSchema);
+
 
 
 // Create a model based on the schema and export

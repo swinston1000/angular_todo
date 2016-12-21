@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models/model.js');
-var db = require('../models/modelFunctions.js');
 
 var webhookSecret = process.env.WEBHOOK_SECRET || require('../auth0-secret').webhookSecret
 var linkingSecret = process.env.LINKING_SECRET || require('../auth0-secret').linkingSecret
@@ -24,10 +23,12 @@ router.post('/', function(req, res) {
                 cache[data.recipient.id] = {};
                 cache[data.recipient.id].email = message.metadata;
                 cache[data.recipient.id].status = 1
+                console.log(message.metadata);
 
             } else if (message && message.is_echo) {
                 //maybe in future we can log these messages
-            } else if (data.postback && data.postback.payload.startsWith("ADD_TODO")) {
+            } else if (data.postback && data.postback.payload === "ADD_TODO") {
+                console.log("why are we here???");
                 var text;
                 authenticate(senderID, function(error, response) {
                     if (error) {
@@ -45,23 +46,23 @@ router.post('/', function(req, res) {
                 cache[senderID].priority = message.text
                 var options = {
                     text: "What is the task category?",
-                    payload: "",
+                    payload: "TASK",
                     buttons: ["Work", "Personal", "Other"]
                 }
                 messageFactory.sendMessage(senderID, buttons("quick", options))
 
-            } else if (message && cache[senderID] && cache[senderID].status = 3) {
+            } else if (message && cache[senderID] && cache[senderID].status === 3) {
 
                 cache[senderID].category = message.text
                 cache[senderID].completed = false
-                delete cache[senderID].email
                 delete cache[senderID].status
 
-                db.users.findAndAddTodo(cache[senderID].email, cache[senderID], cb(err, data) {
+                db.users.findUserAndAddTodo(cache[senderID].email, cache[senderID], function(err, data) {
                     if (err) {
                         console.error(err);
                         messageFactory.sendMessage(senderID, { text: "There was an error adding your item!" })
                     } else {
+                        console.log(data);
                         messageFactory.sendMessage(senderID, { text: "Thanks your to do has been added" })
                         cache[senderID] = null;
                     }
@@ -93,6 +94,7 @@ router.post('/', function(req, res) {
                     }
                     messageFactory.sendMessage(senderID, reply);
                 });
+
             } else if (data.account_linking && data.account_linking.authorization_code && (data.account_linking.authorization_code != linkingSecret)) {
                 console.error("WARNING unauthorized access!!!!");
 
