@@ -36,7 +36,7 @@ userSchema.statics.findUserAndAddTodo = function(email, todo, cb) {
                 if (error) {
                     cb(error)
                 } else {
-                    cb(null, "added")
+                    cb(null, user.todos[user.todos.length - 1])
                 }
             });
         }

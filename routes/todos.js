@@ -30,16 +30,9 @@ module.exports = function(io) {
 
     /* POST /todos */
     router.post('/', authenticate, function(req, res, next) {
-        db.users.findOne({ email: req.user.email }, function(err, user) {
+        db.users.findUserAndAddTodo(req.user.email, req.body, function(err, newTodo) {
             if (err) return next(err);
-            else {
-                user.todos.push(req.body)
-                user.save(function(err) {
-                    newTodo = user.todos[user.todos.length - 1]
-                    if (err) return next(err);
-                    res.json(newTodo);
-                });
-            }
+            else res.json(newTodo);
         })
     });
 
