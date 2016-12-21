@@ -28,7 +28,6 @@ var userSchema = new mongoose.Schema({
 });
 
 userSchema.statics.findUserAndAddTodo = function(email, todo, cb) {
-    console.log("here");
     return this.findOne({ email: email }, function(err, user) {
         if (err) cb(err);
         else {

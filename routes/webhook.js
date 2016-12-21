@@ -23,13 +23,10 @@ router.post('/', function(req, res) {
                 cache[data.recipient.id] = {};
                 cache[data.recipient.id].email = message.metadata;
                 cache[data.recipient.id].status = 1
-                console.log(message.metadata);
 
             } else if (message && message.is_echo) {
                 //maybe in future we can log these messages
             } else if (data.postback && data.postback.payload === "ADD_TODO") {
-                console.log("why are we here???");
-                var text;
                 authenticate(senderID, function(error, response) {
                     if (error) {
                         text = "Sorry we are having problems please try again later.";
@@ -62,7 +59,6 @@ router.post('/', function(req, res) {
                         console.error(err);
                         messageFactory.sendMessage(senderID, { text: "There was an error adding your item!" })
                     } else {
-                        console.log(data);
                         messageFactory.sendMessage(senderID, { text: "Thanks your to do has been added" })
                         cache[senderID] = null;
                     }
@@ -102,7 +98,7 @@ router.post('/', function(req, res) {
                 messageFactory.sendMessage(senderID, buttons("first"));
 
             } else {
-                console.log("What?!?!?");
+                console.error("What?!?!?");
                 console.log(data);
             }
         })
@@ -114,7 +110,7 @@ router.post('/', function(req, res) {
 
 router.get('/', function(req, res) {
     if (req.query['hub.verify_token'] === webhookSecret) {
-        console.log("verified");
+        //console.log("verified");
         res.send(req.query['hub.challenge']);
     } else { res.send('Wrong token bud') }
 });
