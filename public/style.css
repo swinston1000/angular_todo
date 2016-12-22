@@ -169,3 +169,53 @@ li .four {
 li .five {
     color: blue !important;
 }
+
+
+/*.list.ng-enter,
+.list.ng-leave {
+    -webkit-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+    -moz-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+    -ms-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+    -o-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+    transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+.list.ng-leave.ng-leave-active,
+.list.ng-enter {
+    opacity: 0;
+    height: 0px;
+}
+
+.list.ng-enter.ng-enter-active,
+.list.ng-leave {
+    opacity: 1;
+    height: 34px;
+}*/
+
+.list.ng-enter,
+.list.ng-leave {
+    -webkit-transition: 400ms cubic-bezier(0.390, 0.575, 0.565, 1.000) all;
+    -moz-transition: 400ms cubic-bezier(0.390, 0.575, 0.565, 1.000) all;
+    -ms-transition: 400ms cubic-bezier(0.390, 0.575, 0.565, 1.000) all;
+    -o-transition: 400ms cubic-bezier(0.390, 0.575, 0.565, 1.000) all;
+    transition: 400ms cubic-bezier(0.390, 0.575, 0.565, 1.000) all;
+    position: relative;
+    display: block;
+}
+
+.list.ng-enter.ng-enter-active,
+.list.ng-leave {
+    opacity: 1;
+    height: 34px;
+}
+
+.list.ng-leave.ng-leave-active,
+.list.ng-enter {
+    opacity: 0;
+    height: 0px;
+}

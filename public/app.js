@@ -1,9 +1,11 @@
-angular.module("myApp", ['ui.router', 'hmTouchEvents', 'auth0.lock', 'auth0.auth0', 'angular-jwt', 'angular-fastclick'])
+angular.module("myApp", ['ui.router', 'hmTouchEvents', 'ngAnimate', 'auth0.lock', 'auth0.auth0', 'angular-jwt', 'angular-fastclick'])
     .config(config);
 
 
-function config($locationProvider, $urlRouterProvider, $stateProvider, $httpProvider, lockProvider, jwtOptionsProvider, angularAuth0Provider) {
+function config($animateProvider, $locationProvider, $urlRouterProvider, $stateProvider, $httpProvider, lockProvider, jwtOptionsProvider, angularAuth0Provider) {
 
+
+    $animateProvider.classNameFilter(/animate/);
 
     $locationProvider.html5Mode({ enabled: true, requireBase: true }).hashPrefix('!');
 
