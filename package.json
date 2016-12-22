@@ -12,7 +12,8 @@
   "author": "Steven Winston",
   "license": "ISC",
   "dependencies": {
-    "angular": "^1.5.8",
+    "angular": "^1.6.0",
+    "angular-animate": "^1.6.0",
     "angular-auth0": "^1.0.4",
     "angular-fastclick": "^1.0.0",
     "angular-hammer": "^2.2.0",

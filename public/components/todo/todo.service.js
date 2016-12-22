@@ -2,7 +2,6 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
 
     var editing = {}
     var todos = { items: [] }
-    var lock = false
 
     var getTodos = function() {
         httpService.getToDos().then(function(data) {
@@ -38,11 +37,11 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
     }
 
     var update = function(todo) {
-        httpService.update(todo).success(function(data) {
+        httpService.update(todo).then(function(data) {
             editing[todo._id] = undefined;
             socket.emit('update', { user: $rootScope.user })
-        }).error(function(data, status) {
-            console.log(data, status);
+        }).catch(function(error) {
+            console.error(error);
         });
     }
 
@@ -57,26 +56,26 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
     }
 
     var addTodo = function(todo) {
-        httpService.add(todo).success(function(data) {
-            todos.items.push(data);
+        httpService.add(todo).then(function(data) {
+            todos.items.push(data.data);
             socket.emit('update', { user: $rootScope.user })
-        }).error(function(data, status) {
-            alert("2" + data);
+        }).catch(function(error) {
+            console.error(error);
         });
     }
 
     var removeTodo = function(todo) {
-        httpService.delete(todo._id).success(function(messsage) {
+        httpService.delete(todo._id).then(function(data) {
             todos.items.splice(todos.items.indexOf(todo), 1);
             socket.emit('update', { user: $rootScope.user })
-        }).error(function(data, status) {
-            console.log(data, status);
+        }).catch(function(error) {
+            console.error(error);
         });;
     };
 
     var removeCompleted = function() {
 
-        httpService.deleteCompleted("yes").success(function(data) {
+        httpService.deleteCompleted("yes").then(function(data) {
 
             // the focus event actually updates todos.items 
             // so we don't have to!!!!
@@ -95,8 +94,8 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
 
             socket.emit('update', { user: $rootScope.user })
 
-        }).error(function(data, status) {
-            alert(data)
+        }).catch(function(error) {
+            alert(error)
         });
     }
 
