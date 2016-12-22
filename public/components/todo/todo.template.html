@@ -2,8 +2,8 @@
 <form class="form todo-form hidden-xs" ng-submit="todoCtrl.update(todoCtrl.todo, 'enter')">
     <div class="input-group" ng-class="todoCtrl.getBackgroundColour()">
         <span class="input-group-btn"><a type="button " class="btn btn-default done-button problem-box" ng-click="todoCtrl.toggle(todoCtrl.todo)"><i ng-class="todoCtrl.todo.completed ? 'fa fa-check-square-o fa-lg' : 'fa fa-square-o fa-lg' "></i></a></span>
-        <input class="form-control todo-item" type="text" ng-show="todoCtrl.editing[todoCtrl.todo._id]" ng-model="todoCtrl.todo.task" ng-blur="todoCtrl.update(todoCtrl.todo, 'blur');" todo-focus-me="focusInput" todo-escape="todoCtrl.cancelEditing(todoCtrl.todo)" />
-        <label class="form-control todo-item todo-label" type="text" ng-hide="todoCtrl.editing[todoCtrl.todo._id]" ng-class="{strike : todoCtrl.todo.completed}" ng-dblclick="focusInput=true; todoCtrl.startEditing(todoCtrl.todo);" hm-pressup="focusInput=true; todoCtrl.startEditing(todoCtrl.todo)">{{todoCtrl.todo.task}}</label>
+        <input class="form-control todo-item" type="text" ng-if="todoCtrl.editing[todoCtrl.todo._id]" ng-model="todoCtrl.todo.task" ng-blur="todoCtrl.update(todoCtrl.todo, 'blur');" todo-focus-me="focusInput" todo-escape="todoCtrl.cancelEditing(todoCtrl.todo)" />
+        <label class="form-control todo-item todo-label" type="text" ng-if="!todoCtrl.editing[todoCtrl.todo._id]" ng-class="{strike : todoCtrl.todo.completed}" ng-dblclick="focusInput=true; todoCtrl.startEditing(todoCtrl.todo);" hm-pressup="focusInput=true; todoCtrl.startEditing(todoCtrl.todo)">{{todoCtrl.todo.task}}</label>
         <span class="input-group-addon todo-category">{{todoCtrl.todo.category}}</span>
         <div class="input-group-btn form-buttons">
             <a type="button" class="btn btn-default dropdown-toggle priority problem-box" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Priority<span class="caret"></span></a>
@@ -22,8 +22,8 @@
 <form class="form todo-form hidden-sm hidden-md hidden-lg" ng-submit="todoCtrl.update(todoCtrl.todo, 'enter')" hm-recognizer-options='[{"type":"swipe","directions":"DIRECTION_HORIZONTAL"}]' hm-swiperight="todoCtrl.toggle(todoCtrl.todo)" hm-swipeleft="todoCtrl.remove(todoCtrl.todo)">
     <div class="input-group" ng-class="todoCtrl.getBackgroundColour()">
         <span class="input-group-btn"><a type="button" class="btn btn-default done-button mob-problem-box problem-box" ng-click="todoCtrl.toggle(todoCtrl.todo)"><i ng-class="todoCtrl.todo.completed ? 'fa fa-check-square-o fa-lg' : 'fa fa-square-o fa-lg' "></i></a></span>
-        <input class="form-control todo-item" type="text" ng-show="todoCtrl.editing[todoCtrl.todo._id]" ng-model="todoCtrl.todo.task" ng-blur="todoCtrl.update(todoCtrl.todo, 'blur');" todo-focus-me="focusInput" />
-        <label class="form-control todo-item todo-label" type="text" ng-hide="todoCtrl.editing[todoCtrl.todo._id]" ng-class="{strike : todoCtrl.todo.completed}" hm-pressup="focusInput=true; todoCtrl.startEditing(todoCtrl.todo)">{{todoCtrl.todo.task}}</label>
+        <input class="form-control todo-item" type="text" ng-if="todoCtrl.editing[todoCtrl.todo._id]" ng-model="todoCtrl.todo.task" ng-blur="todoCtrl.update(todoCtrl.todo, 'blur');" todo-focus-me="focusInput" />
+        <label class="form-control todo-item todo-label" type="text" ng-if="!todoCtrl.editing[todoCtrl.todo._id]" ng-class="{strike : todoCtrl.todo.completed}" hm-pressup="focusInput=true; todoCtrl.startEditing(todoCtrl.todo)">{{todoCtrl.todo.task}}</label>
     </div>
     <div class="input-group">
         <span class="input-group-addon todo-category mob-category">{{todoCtrl.todo.category}}</span>

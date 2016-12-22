@@ -1,10 +1,11 @@
 <nav-bar></nav-bar>
-<div ng-if="isAuthenticated">
+<div class="animate" ng-if="isAuthenticated">
     <div ng-controller="listController as listCtrl">
         <div class="row hidden-xs" ng-include="'/components/list/list.controls.template.html'"></div>
         <div class="hidden-sm hidden-md hidden-lg" ng-include="'/components/list/mobile-list.controls.template.html'"></div>
-        <div class="animate list" ng-repeat="todo in listCtrl.todos.items | filter:mainCtrl.search | orderBy: mainCtrl.sortByPriority ? 'priority' : 'date' | filterComplete: mainCtrl.applyFilter | filterCategory : mainCtrl.filterCategory">
+        <div class="todo-animate" ng-repeat="todo in listCtrl.todos.items | filter:mainCtrl.search | orderBy: mainCtrl.sortByPriority ? 'priority' : 'date' | filterCategory : mainCtrl.filterCategory | filterComplete: mainCtrl.applyFilter track by todo._id">
             <to-do todo='todo'></to-do>
         </div>
     </div>
 </div>
+<!-- ng-class="{ 'todo-animate': listCtrl.loaded.status }" -->

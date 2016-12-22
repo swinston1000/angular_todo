@@ -1,38 +1,35 @@
 angular.module("myApp").controller('listController', function(toDoService, mainFactory, $sce) {
 
-    _thisCtrl = this;
+    vm = this;
 
-    _thisCtrl.todos = toDoService.todos;
-    _thisCtrl.todo = { task: "", priority: 3, completed: false }
+    vm.todos = toDoService.todos;
+    vm.todo = { task: "", priority: 3, completed: false }
+    vm.loaded = toDoService.loaded
 
-    _thisCtrl.categoryText = "Category"
+    vm.categoryText = "Category"
 
-    _thisCtrl.getBackgroundColour = mainFactory.getBackgroundColour;
-    _thisCtrl.setPriority = mainFactory.setPriority;
-    _thisCtrl.getPriority = mainFactory.getPriority;
+    vm.getBackgroundColour = mainFactory.getBackgroundColour;
+    vm.setPriority = mainFactory.setPriority;
+    vm.getPriority = mainFactory.getPriority;
 
 
-    _thisCtrl.setCategory = function(event) {
-        _thisCtrl.todo.category = _thisCtrl.categoryText = event.target.innerHTML;
-        _thisCtrl.categoryChosen = true;
+    vm.setCategory = function(event) {
+        vm.todo.category = vm.categoryText = event.target.innerHTML;
+        vm.categoryChosen = true;
     }
 
-    _thisCtrl.add = function() {
+    vm.add = function() {
         if (!this.todo.task) {
             return alert("Please enter an item!");
-        } else if (!_thisCtrl.categoryChosen) {
+        } else if (!vm.categoryChosen) {
             return alert("Please choose a category!");
         }
-        toDoService.addTodo(_thisCtrl.todo);
-        _thisCtrl.todo = { task: "", priority: 3, completed: false }
-        _thisCtrl.categoryChosen = false;
-        _thisCtrl.categoryText = "Category"
+        toDoService.addTodo(vm.todo);
+        vm.todo = { task: "", priority: 3, completed: false }
+        vm.categoryChosen = false;
+        vm.categoryText = "Category"
     };
 
-    _thisCtrl.removeCompleted = function() {
-        if (confirm("Are you sure you want to delete the completed to-dos?")) {
-            toDoService.removeCompleted();
-        }
-    };
+
 
 });

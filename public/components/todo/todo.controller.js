@@ -1,42 +1,42 @@
 angular.module("myApp").controller('toDoController', function(toDoService, mainFactory) {
 
-    _toDoCtrl = this;
+    vm = this;
 
-    _toDoCtrl.editing = toDoService.editing;
+    vm.editing = toDoService.editing;
 
-    _toDoCtrl.getBackgroundColour = mainFactory.getBackgroundColour;
+    vm.getBackgroundColour = mainFactory.getBackgroundColour;
 
-    _toDoCtrl.getPriority = mainFactory.getPriority;
+    vm.getPriority = mainFactory.getPriority;
 
-    _toDoCtrl.updatePriority = mainFactory.setPriority;
+    vm.updatePriority = mainFactory.setPriority;
 
-    _toDoCtrl.toggle = function(todo) {
+    vm.toggle = function(todo) {
         todo.completed = !todo.completed
         toDoService.update(todo)
     }
 
-    _toDoCtrl.remove = function(todo) {
+    vm.remove = function(todo) {
         if (confirm("Are you sure you want to delete this to-do?")) {
             toDoService.removeTodo(todo);
         }
     };
 
-    _toDoCtrl.startEditing = function(todo) {
+    vm.startEditing = function(todo) {
         toDoService.startEditing(todo);
     }
 
-    _toDoCtrl.cancelEditing = function(todo) {
+    vm.cancelEditing = function(todo) {
         toDoService.cancelEditing(todo);
     }
 
-    _toDoCtrl.update = function(todo, event) {
+    vm.update = function(todo, event) {
 
         //nasty logic to stop a 'blur' happening after 'enter'
-        if (event === 'blur' && _toDoCtrl.saveEvent === 'enter') {
-            _toDoCtrl.saveEvent = null;
+        if (event === 'blur' && vm.saveEvent === 'enter') {
+            vm.saveEvent = null;
             return
         } else if (event === "enter") {
-            _toDoCtrl.saveEvent = 'enter';
+            vm.saveEvent = 'enter';
         }
         toDoService.update(todo)
 

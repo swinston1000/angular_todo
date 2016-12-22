@@ -2,6 +2,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
 
     var editing = {}
     var todos = { items: [] }
+    var loaded = { status: false }
 
     var getTodos = function() {
         httpService.getToDos().then(function(data) {
@@ -21,6 +22,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
     //the timeout allows authentication to happen first!
     setTimeout(function() {
         getTodos();
+        loaded.status = true
     }, 0)
 
     socket.on('change', function(user) {
@@ -35,6 +37,10 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
             getTodos();
         }, 0)
     }
+
+    // $window.onblur = function() {
+    //     loaded.status = false
+    // }
 
     var update = function(todo) {
         httpService.update(todo).then(function(data) {
@@ -87,7 +93,6 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
             //     }
             // })
             // indices = indices.reverse(); //as we need to start removal from the end!!!
-
             // indices.forEach(function(index) {
             //     todos.items.splice(index, 1)
             // })
@@ -107,6 +112,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
         cancelEditing: cancelEditing,
         update: update,
         startEditing: startEditing,
-        editing: editing
+        editing: editing,
+        loaded: loaded
     }
 });

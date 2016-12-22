@@ -1,5 +1,4 @@
-<nav class="navbar
- navbar-default">
+<nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -38,7 +37,12 @@
                         </div>
                     </div>
                 </form>
-                <a type='button' class="btn btn-primary navbar-btn navbar-right visible-xs" ng-click="vm.authService.logout()">Log Out</a>
+                <form class="navbar-form navbar-left visible-xs">
+                    <div class="btn-group groupnav" role="group">
+                        <a type="button" class="btn btn-danger remove-all-btn btnnav2 navbar-left" ng-click="mainCtrl.removeCompleted()"><i class="fa fa-trash-o fa-lg"></i> Remove Completed</a>
+                        <a type='button' class="btn btn-primary navbar-right btnnav2" ng-click="vm.authService.logout()">Log Out</a>
+                    </div>
+                </form>
             </div>
             <div ng-if="!isAuthenticated">
                 <a type='button' class="btn btn-primary navbar-btn navbar-right login" ng-click="vm.authService.login()">Sign Up | Log In</a>

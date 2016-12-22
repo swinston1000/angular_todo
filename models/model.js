@@ -16,7 +16,7 @@ var todoSchema = new mongoose.Schema({
     completed: Boolean,
     category: String,
     priority: Number,
-    //updated_at: { type: Date, default: Date.now },
+    //updated_at: { type: Date, default: Date.now },  //maybe use Schema.pre???
 });
 
 var Todo = mongoose.model('Todo', todoSchema);
