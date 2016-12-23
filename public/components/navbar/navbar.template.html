@@ -1,5 +1,5 @@
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -27,7 +27,7 @@
                         <a ng-if="!mainCtrl.sortByPriority" type="button" class="btnnav btn btn-default" ng-click="mainCtrl.toggleSort()" ng-bind-html="mainCtrl.thermometer"></a>
                         <div class="btnnav btn-group" role="group">
                             <a type="button" class="btnnavfilter btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter Category<span class="caret"></span></a>
-                            <ul class="dropdown-menu dropdown-menu-left" ng-click="mainCtrl.setFilterCategory($event);">
+                            <ul class="dropdown-menu category-menu dropdown-menu-left" ng-click="mainCtrl.setFilterCategory($event);">
                                 <li><a>Show All</a></li>
                                 <li><a>Work</a></li>
                                 <li><a>Personal</a></li>

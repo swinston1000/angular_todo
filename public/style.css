@@ -1,3 +1,9 @@
+body {
+    padding-top: 70px;
+    padding-bottom: 70px;
+    background-color: #e9ebee;
+}
+
 .strike {
     text-decoration: line-through;
 }
@@ -34,10 +40,6 @@
 
 .main-input {
     border-right-width: 2px
-}
-
-body {
-    margin-top: 15px;
 }
 
 .todo-label {
@@ -176,7 +178,7 @@ li .five {
     .btnnavfilter {
         width: 100%;
     }
-    .navbar .dropdown-menu {
+    .navbar .category-menu {
         position: relative;
     }
     .todo-animate.ng-enter.ng-enter-active,
