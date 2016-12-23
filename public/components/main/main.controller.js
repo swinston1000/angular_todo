@@ -8,6 +8,7 @@ angular.module("myApp").controller('mainController', function($scope, $sce, toDo
     this.reverseSort = false;
     this.filterCategory = false;
     this.toggleBtnText = "Show Active";
+    this.todos = toDoService.todos;
 
     this.toggleFilter = function() {
         this.applyFilter = !this.applyFilter;

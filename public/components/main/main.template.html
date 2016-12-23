@@ -1,14 +1,7 @@
 <nav-bar></nav-bar>
 <div class="animate" ng-if="isAuthenticated">
-    <div ng-controller="listController as listCtrl">
-        <div class="todo-animate" ng-repeat="todo in listCtrl.todos.items | filter:mainCtrl.search | orderBy: mainCtrl.sortByPriority ? 'priority' : 'date' | filterCategory : mainCtrl.filterCategory | filterComplete: mainCtrl.applyFilter track by todo._id">
-            <to-do todo='todo'></to-do>
-        </div>
-        <nav class="navbar navbar-default navbar-fixed-bottom">
-            <div class="container-fluid">
-                <div class="row" ng-include="'/components/list/list.footer.template.html'"></div>
-            </div>
-        </nav>
+    <div class="todo-animate" ng-repeat="todo in mainCtrl.todos.items | filter:mainCtrl.search | orderBy: mainCtrl.sortByPriority ? 'priority' : 'date' | filterCategory : mainCtrl.filterCategory | filterComplete: mainCtrl.applyFilter track by todo._id">
+        <to-do todo='todo'></to-do>
     </div>
+    <fixed-footer></fixed-footer>
 </div>
-<!-- ng-class="{ 'todo-animate': listCtrl.loaded.status }" -->

@@ -5,9 +5,9 @@
         <input class="form-control todo-item" type="text" ng-if="todoCtrl.editing[todoCtrl.todo._id]" ng-model="todoCtrl.todo.task" ng-blur="todoCtrl.update(todoCtrl.todo, 'blur');" todo-focus-me="focusInput" todo-escape="todoCtrl.cancelEditing(todoCtrl.todo)" />
         <label class="form-control todo-item todo-label" type="text" ng-if="!todoCtrl.editing[todoCtrl.todo._id]" ng-class="{strike : todoCtrl.todo.completed}" ng-dblclick="focusInput=true; todoCtrl.startEditing(todoCtrl.todo);" hm-pressup="focusInput=true; todoCtrl.startEditing(todoCtrl.todo)">{{todoCtrl.todo.task}}</label>
         <span class="input-group-addon todo-category">{{todoCtrl.todo.category}}</span>
-        <div class="input-group-btn form-buttons">
-            <a type="button" class="btn btn-default dropdown-toggle priority problem-box" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Priority<span class="caret"></span></a>
-            <ul class="dropdown-menu dropdown-menu-right" ng-click="todoCtrl.updatePriority($event, todoCtrl.todo)" ng-class="todoCtrl.getPriority()">
+        <div class="input-group-btn form-buttons" uib-dropdown>
+            <a type="button" class="btn btn-default dropdown-toggle priority problem-box" uib-dropdown-toggle aria-haspopup="true" aria-expanded="false">Priority<span class="caret"></span></a>
+            <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu ng-click="todoCtrl.updatePriority($event, todoCtrl.todo)" ng-class="todoCtrl.getPriority()">
                 <li><a class="one">1 </a></li>
                 <li><a class="two">2 </a></li>
                 <li><a class="three">3 </a></li>
@@ -27,9 +27,9 @@
     </div>
     <div class="input-group">
         <span class="input-group-addon todo-category mob-category">{{todoCtrl.todo.category}}</span>
-        <div class="input-group-btn form-buttons">
-            <a type="button" class="btn btn-default dropdown-toggle priority priority-mob" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Priority<span class="caret"></span></a>
-            <ul class="dropdown-menu" ng-click="todoCtrl.updatePriority($event, todoCtrl.todo)" ng-class="todoCtrl.getPriority()">
+        <div class="input-group-btn form-buttons" uib-dropdown>
+            <a type="button" class="btn btn-default dropdown-toggle priority priority-mob" uib-dropdown-toggle aria-haspopup="true" aria-expanded="false">Priority<span class="caret"></span></a>
+            <ul class="dropdown-menu" uib-dropdown-menu ng-click="todoCtrl.updatePriority($event, todoCtrl.todo)" ng-class="todoCtrl.getPriority()">
                 <li><a class="one">1 </a></li>
                 <li><a class="two">2 </a></li>
                 <li><a class="three">3 </a></li>

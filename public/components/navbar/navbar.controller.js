@@ -1,11 +1,11 @@
 'use strict';
 
-angular
-    .module('myApp')
-    .controller('LoginController', LoginController);
+angular.module('myApp')
+    .controller('NavbarController', function($window, authService, $stateParams) {
 
-function LoginController(authService, $stateParams) {
+        this.authService = authService;
 
-    //console.log($stateParams);
-    this.authService = authService;
-}
+        if (screen.width < 728) {
+            this.isNavCollapsed = true;
+        }
+    });

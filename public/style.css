@@ -1,15 +1,11 @@
 body {
     padding-top: 70px;
-    padding-bottom: 70px;
+    padding-bottom: 60px;
     background-color: #e9ebee;
 }
 
 .strike {
     text-decoration: line-through;
-}
-
-.add-item {
-    padding-bottom: 10px;
 }
 
 .todo-category {
@@ -216,10 +212,22 @@ li .five {
 @media (hover:none),
 (hover:on-demand) {
     .btn:hover:not(.remove-all-btn) {
-        background-color: transparent;
+        background-color: white;
     }
     .btn:focus:not(.remove-all-btn) {
-        background-color: transparent;
+        background-color: white;
+    }
+    .btn-danger:hover {
+        background-color: #d9534f;
+    }
+    .btn-danger:focus {
+        background-color: #d9534f;
+    }
+    .btn-primary:hover {
+        background-color: #337ab7;
+    }
+    .btn-primary:focus {
+        background-color: #337ab7;
     }
 }
 

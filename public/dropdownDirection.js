@@ -1,4 +1,4 @@
-$(document.body).on('click', '[data-toggle=dropdown]', function() {
+$(document.body).on('click', '.dropdown-toggle', function() {
     var dropmenu = $(this).next('.dropdown-menu');
 
     dropmenu.css({
@@ -10,7 +10,7 @@ $(document.body).on('click', '[data-toggle=dropdown]', function() {
     dropmenu.parent().removeClass("dropup");
 
     // Determine whether bottom of menu will be below window at current scroll position
-    if (dropmenu.offset().top + dropmenu.outerHeight() > $(window).innerHeight() + $(window).scrollTop()) {
+    if (dropmenu.offset().top + dropmenu.outerHeight() > $(window).innerHeight() + $(window).scrollTop() - 40) {
         dropmenu.parent().addClass("dropup");
     }
 

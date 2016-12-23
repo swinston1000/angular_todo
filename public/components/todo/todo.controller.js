@@ -31,6 +31,9 @@ angular.module("myApp").controller('toDoController', function(toDoService, mainF
 
     tdCtrl.update = function(todo, event) {
 
+        console.log("here");
+
+
         //nasty logic to stop a 'blur' happening after 'enter'
         if (event === 'blur' && tdCtrl.saveEvent === 'enter') {
             tdCtrl.saveEvent = null;
