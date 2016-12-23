@@ -6,17 +6,17 @@ angular
 
 function authService($q, lock, authManager, $rootScope, angularAuth0, $stateParams) {
 
-    // var currentToken = localStorage.getItem('to_do_id_token')
-    // if (currentToken  &&  (Date.now() <= angularAuth0.decodeJwt(currentToken).exp * 1000)) {
-    //     angularAuth0.renewIdToken(currentToken, function(err, delegationResult) {
-    //         if (err) {
-    //             console.log(err);
-    //             return
-    //         }
-    //         //console.log(delegationResult.id_token);
-    //         localStorage.setItem('to_do_id_token', delegationResult.id_token);
-    //     });
-    // }
+    var currentToken = localStorage.getItem('to_do_id_token')
+    if (currentToken && (Date.now() <= angularAuth0.decodeJwt(currentToken).exp * 1000)) {
+        angularAuth0.renewIdToken(currentToken, function(err, delegationResult) {
+            if (err) {
+                console.log(err);
+                return
+            }
+            //console.log(delegationResult.id_token);
+            localStorage.setItem('to_do_id_token', delegationResult.id_token);
+        });
+    }
 
     var profile = JSON.parse(localStorage.getItem('to_do_profile'))
     if (profile) {

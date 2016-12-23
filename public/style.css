@@ -80,16 +80,6 @@ body {
     border-color: #e7e7e7;
 }
 
-
-/*solve sticky hover*/
-
-@media (hover:none),
-(hover:on-demand) {
-    .btn:hover:not(.remove-all-btn) {
-        background-color: transparent;
-    }
-}
-
 .one li .one:after {
     content: "\00ab";
     /*color: red;*/
@@ -217,3 +207,22 @@ li .five {
         margin: 10px 0;
     }
 }
+
+
+/*solve sticky hover*/
+
+@media (hover:none),
+(hover:on-demand) {
+    .btn:hover:not(.remove-all-btn) {
+        background-color: transparent;
+    }
+    .btn:focus:not(.remove-all-btn) {
+        background-color: transparent;
+    }
+}
+
+
+/*html.can-touch btn:hover:not(.remove-all-btn) {
+    background: transparent;
+}
+*/

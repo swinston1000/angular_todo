@@ -2,7 +2,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
 
     var editing = {}
     var todos = { items: [] }
-    var loaded = { status: false }
+        //var loaded = { status: false }
 
     var getTodos = function() {
         httpService.getToDos().then(function(data) {
@@ -22,7 +22,7 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
     //the timeout allows authentication to happen first!
     setTimeout(function() {
         getTodos();
-        loaded.status = true
+        //loaded.status = true
     }, 0)
 
     socket.on('change', function(user) {
@@ -113,6 +113,6 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
         update: update,
         startEditing: startEditing,
         editing: editing,
-        loaded: loaded
+        //loaded: loaded
     }
 });

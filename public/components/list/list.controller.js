@@ -1,33 +1,33 @@
 angular.module("myApp").controller('listController', function(toDoService, mainFactory, $sce) {
 
-    vm = this;
+    lCtrl = this;
 
-    vm.todos = toDoService.todos;
-    vm.todo = { task: "", priority: 3, completed: false }
-    vm.loaded = toDoService.loaded
+    lCtrl.todos = toDoService.todos;
+    lCtrl.todo = { task: "", priority: 3, completed: false }
+    lCtrl.loaded = toDoService.loaded
 
-    vm.categoryText = "Category"
+    lCtrl.categoryText = "Category"
 
-    vm.getBackgroundColour = mainFactory.getBackgroundColour;
-    vm.setPriority = mainFactory.setPriority;
-    vm.getPriority = mainFactory.getPriority;
+    lCtrl.getBackgroundColour = mainFactory.getBackgroundColour;
+    lCtrl.setPriority = mainFactory.setPriority;
+    lCtrl.getPriority = mainFactory.getPriority;
 
 
-    vm.setCategory = function(event) {
-        vm.todo.category = vm.categoryText = event.target.innerHTML;
-        vm.categoryChosen = true;
+    lCtrl.setCategory = function(event) {
+        lCtrl.todo.category = lCtrl.categoryText = event.target.innerHTML;
+        lCtrl.categoryChosen = true;
     }
 
-    vm.add = function() {
+    lCtrl.add = function() {
         if (!this.todo.task) {
             return alert("Please enter an item!");
-        } else if (!vm.categoryChosen) {
+        } else if (!lCtrl.categoryChosen) {
             return alert("Please choose a category!");
         }
-        toDoService.addTodo(vm.todo);
-        vm.todo = { task: "", priority: 3, completed: false }
-        vm.categoryChosen = false;
-        vm.categoryText = "Category"
+        toDoService.addTodo(lCtrl.todo);
+        lCtrl.todo = { task: "", priority: 3, completed: false }
+        lCtrl.categoryChosen = false;
+        lCtrl.categoryText = "Category"
     };
 
 

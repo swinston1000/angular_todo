@@ -19,7 +19,7 @@ var buildReply = function(senderID, message, cb) {
         } else if (message.toLowerCase() === "logout") {
             return cb(null, buttons("logout"))
         } else if (message.toLowerCase() === "add") {
-            return cb(null, { text: "What do do you need to do?", metadata: response })
+            return cb(null, { text: "What do you need to do?", metadata: response })
         } else {
             return cb(null, { text: "Sorry I do not recognize that command. Type 'add' to make a new ToDo!" })
         }
