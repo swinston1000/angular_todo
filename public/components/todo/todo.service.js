@@ -83,19 +83,16 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
 
         httpService.deleteCompleted("yes").then(function(data) {
 
-            // the focus event actually updates todos.items 
-            // so we don't have to!!!!
-
-            // var indices = []
-            // todos.items.forEach(function(item, index) {
-            //     if (item.completed === true) {
-            //         indices.push(index)
-            //     }
-            // })
-            // indices = indices.reverse(); //as we need to start removal from the end!!!
-            // indices.forEach(function(index) {
-            //     todos.items.splice(index, 1)
-            // })
+            var indices = []
+            todos.items.forEach(function(item, index) {
+                if (item.completed === true) {
+                    indices.push(index)
+                }
+            })
+            indices = indices.reverse(); //as we need to start removal from the end!!!
+            indices.forEach(function(index) {
+                todos.items.splice(index, 1)
+            })
 
             socket.emit('update', { user: $rootScope.user })
 
