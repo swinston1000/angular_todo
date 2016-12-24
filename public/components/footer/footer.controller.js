@@ -1,31 +1,42 @@
-angular.module("myApp").controller('FooterController', function(toDoService, mainFactory, $sce) {
+angular.module("myApp")
+    .controller('FooterController', function($uibModal, toDoService) {
 
-    fCtrl = this;
+        fCtrl = this;
 
-    fCtrl.todo = { task: "", priority: 3, completed: false }
+        fCtrl.open = function() {
+            var modalInstance = $uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'addtodo.html',
+                controller: 'ModalInstanceCtrl',
+                controllerAs: 'mCtrl',
+                bindToController: true,
+            });
 
-    fCtrl.categoryText = "Category"
+            modalInstance.result.then(function(todo) {
+                if (!todo.category) {
+                    todo.category = "N/A";
+                }
+                toDoService.addTodo(todo);
+            }).catch(function(error) {
+                //console.error(error);
+            });
+        };
+    })
+    .controller('ModalInstanceCtrl', function($uibModalInstance, mainFactory) {
 
-    fCtrl.getBackgroundColour = mainFactory.getBackgroundColour;
-    fCtrl.setPriority = mainFactory.setPriority;
-    fCtrl.getPriority = mainFactory.getPriority;
+        var mCtrl = this;
+        mCtrl.todo = { task: "", priority: 3, completed: false }
+        mCtrl.getBackgroundColour = mainFactory.getBackgroundColour;
 
+        mCtrl.ok = function() {
+            if (!mCtrl.todo.task) {
+                return alert("Please enter an item!");
+            }
+            $uibModalInstance.close(mCtrl.todo);
+        };
 
-    fCtrl.setCategory = function(event) {
-        fCtrl.todo.category = fCtrl.categoryText = event.target.innerHTML;
-        fCtrl.categoryChosen = true;
-    }
-
-    fCtrl.add = function() {
-        if (!this.todo.task) {
-            return alert("Please enter an item!");
-        } else if (!fCtrl.categoryChosen) {
-            return alert("Please choose a category!");
-        }
-        toDoService.addTodo(fCtrl.todo);
-        fCtrl.todo = { task: "", priority: 3, completed: false }
-        fCtrl.categoryChosen = false;
-        fCtrl.categoryText = "Category"
-    };
-
-});
+        mCtrl.cancel = function() {
+            $uibModalInstance.dismiss('Dismissed');
+        };
+    });

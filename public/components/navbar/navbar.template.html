@@ -21,12 +21,12 @@
                     </div>
                 </form>
                 <form class="navbar-form navbar-left visible-xs">
-                    <div class="btn-group groupnav" role="group">
-                        <a type="button" class="btnnav btn btn-default" ng-click="mainCtrl.toggleFilter()">{{mainCtrl.toggleBtnText}}</a>
-                        <a ng-if="mainCtrl.sortByPriority" type="button" class="btnnav btn btn-default" ng-click="mainCtrl.toggleSort()" ng-bind-html="mainCtrl.calender"></a>
-                        <a ng-if="!mainCtrl.sortByPriority" type="button" class="btnnav btn btn-default" ng-click="mainCtrl.toggleSort()" ng-bind-html="mainCtrl.thermometer"></a>
-                        <div class="btnnav btn-group" role="group" uib-dropdown>
-                            <a type="button" class="btnnavfilter btn btn-default dropdown-toggle" uib-dropdown-toggle aria-haspopup="true" aria-expanded="false">Filter Category<span class="caret"></span></a>
+                    <div class="btn-group btn-group-justified" role="group">
+                        <a type="button" class="btn btn-default" ng-click="mainCtrl.toggleFilter()">{{mainCtrl.toggleBtnText}}</a>
+                        <a ng-if="mainCtrl.sortByPriority" type="button" class="btn btn-default" ng-click="mainCtrl.toggleSort()" ng-bind-html="mainCtrl.calender"></a>
+                        <a ng-if="!mainCtrl.sortByPriority" type="button" class="btn btn-default" ng-click="mainCtrl.toggleSort()" ng-bind-html="mainCtrl.thermometer"></a>
+                        <div class="btn-group" role="group" uib-dropdown>
+                            <a type="button" class="btn-block btn btn-default dropdown-toggle" uib-dropdown-toggle aria-haspopup="true" aria-expanded="false">Filter Category<span class="caret"></span></a>
                             <ul class="dropdown-menu category-menu" uib-dropdown-menu ng-click="mainCtrl.setFilterCategory($event);">
                                 <li><a>Show All</a></li>
                                 <li><a>Work</a></li>
@@ -38,9 +38,9 @@
                     </div>
                 </form>
                 <form class="navbar-form navbar-left visible-xs">
-                    <div class="btn-group groupnav" role="group">
-                        <a type="button" class="btn btn-danger remove-all-btn btnnav2 navbar-left" ng-click="mainCtrl.removeCompleted()"><i class="fa fa-trash-o fa-lg"></i> Remove Completed</a>
-                        <a type='button' class="btn btn-primary navbar-right btnnav2" ng-click="nbCtrl.authService.logout()">Log Out</a>
+                    <div class="btn-group btn-group-justified" role="group">
+                        <a type="button" class="btn btn-danger remove-all-btn navbar-left" ng-click="mainCtrl.removeCompleted()"><i class="fa fa-trash-o fa-lg"></i> Remove Completed</a>
+                        <a type='button' class="btn btn-primary navbar-right" ng-click="nbCtrl.authService.logout()">Log Out</a>
                     </div>
                 </form>
             </div>

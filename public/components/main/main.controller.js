@@ -1,4 +1,4 @@
-angular.module("myApp").controller('mainController', function($scope, $sce, toDoService) {
+angular.module("myApp").controller('mainController', function($uibModal, $scope, $sce, toDoService) {
 
     this.thermometer = $sce.trustAsHtml('<i class="fa fa-thermometer-half" aria-hidden="true"></i>');
     this.calender = $sce.trustAsHtml('<i class="fa fa-calendar-o" aria-hidden="true"></i>');
@@ -28,4 +28,5 @@ angular.module("myApp").controller('mainController', function($scope, $sce, toDo
             toDoService.removeCompleted();
         }
     };
+
 });
