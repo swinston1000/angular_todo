@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
-        <a type="button" class="btn btn-success navbar-btn btn-add" ng-click="fCtrl.open()">Add Todo</a>
+        <a type="button" class="btn btn-success navbar-btn btn-add" ng-click="fCtrl.open();">Add Todo</a>
         <div class="btn-group navbar-form hidden-xs" role="group">
             <div class="btn-group">
                 <a type="button" class="btn btn-default toggle-button" ng-click="mainCtrl.toggleFilter()">{{mainCtrl.toggleBtnText}}</a>
@@ -30,11 +30,11 @@
         <form class="form" ng-class="mCtrl.getBackgroundColour(null);">
             <div class="form-group" ng-model-options="{ updateOn: 'blur'}">
                 <label for="task">Task</label>
-                <input type="text" id="task" class="form-control" ng-model="mCtrl.todo.task" placeholder="Task" autofocus />
+                <input type="text" id="task" class="form-control" ng-model="mCtrl.todo.task" placeholder="What do you need to do?" />
             </div>
             <div class="form-group" ng-model-options="{ updateOn: 'blur'}">
                 <label for="task-category">Category</label>
-                <input type="text" id="task-category" class="form-control" ng-model="mCtrl.todo.category" list="categories" placeholder="Category">
+                <input type="text" id="task-category" class="form-control" ng-model="mCtrl.todo.category" list="categories" placeholder="What is the task category?">
                 <datalist id="categories">
                     <option>Work</option>
                     <option>Personal</option>
