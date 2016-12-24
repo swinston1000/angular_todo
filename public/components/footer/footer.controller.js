@@ -2,6 +2,7 @@ angular.module("myApp")
     .controller('FooterController', function($uibModal, toDoService) {
 
         fCtrl = this;
+        fCtrl.todo = {}
 
         fCtrl.open = function() {
             var modalInstance = $uibModal.open({
@@ -10,14 +11,16 @@ angular.module("myApp")
                 templateUrl: 'addtodo.html',
                 controller: 'ModalInstanceCtrl',
                 controllerAs: 'mCtrl',
-                bindToController: true,
+                //bindToController: true,
             });
 
             modalInstance.result.then(function(todo) {
-                if (!todo.category) {
-                    todo.category = "N/A";
+                angular.copy(todo, fCtrl.todo)
+                if (!fCtrl.todo.category) {
+                    fCtrl.todo.category = "N/A";
                 }
-                toDoService.addTodo(todo);
+                toDoService.addTodo(fCtrl.todo);
+
             }).catch(function(error) {
                 //console.error(error);
             });
