@@ -12,7 +12,12 @@ angular.module("myApp")
             var modalInstance = $uibModal.open({
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: 'addtodo.html',
+                templateUrl: function(elem, attr) {
+                    if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+                        return '/components/footer/modal/modal.ios.template.html';
+                    }
+                    return '/components/footer/modal/modal.template.html';
+                },
                 controller: 'ModalInstanceCtrl',
                 controllerAs: 'mCtrl',
                 //bindToController: true,
@@ -31,20 +36,3 @@ angular.module("myApp")
             });
         };
     })
-    .controller('ModalInstanceCtrl', function($uibModalInstance, mainFactory) {
-
-        var mCtrl = this;
-        mCtrl.todo = { task: "", priority: 3, completed: false }
-        mCtrl.getBackgroundColour = mainFactory.getBackgroundColour;
-
-        mCtrl.ok = function() {
-            if (!mCtrl.todo.task) {
-                return alert("Please enter an item!");
-            }
-            $uibModalInstance.close(mCtrl.todo);
-        };
-
-        mCtrl.cancel = function() {
-            $uibModalInstance.dismiss('Dismissed');
-        };
-    });

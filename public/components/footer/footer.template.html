@@ -22,39 +22,3 @@
         </div>
     </div>
 </nav>
-<script type="text/ng-template" id="addtodo.html">
-    <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">Add New To-Do</h3>
-    </div>
-    <div class="modal-body" id="modal-body">
-        <form class="form" ng-class="mCtrl.getBackgroundColour(null);">
-            <div class="form-group" ng-model-options="{ updateOn: 'blur'}">
-                <label for="task">Task</label>
-                <input type="text" id="task" class="form-control" ng-model="mCtrl.todo.task" placeholder="What do you need to do?" />
-            </div>
-            <div class="form-group" ng-model-options="{ updateOn: 'blur'}">
-                <label for="task-category">Category</label>
-                <input type="text" id="task-category" class="form-control" ng-model="mCtrl.todo.category" list="categories" placeholder="What is the task category?">
-                <datalist id="categories">
-                    <option>Work</option>
-                    <option>Personal</option>
-                    <option>Delegated</option>
-                </datalist>
-            </div>
-            <div class="form-group" ng-model-options="{ debounce: 100}">
-                <label for="priority">Priority</label>
-                <div id="priority" class="btn-group btn-group-justified">
-                    <label class="btn btn-priority btn-danger" ng-model="mCtrl.todo.priority" uib-btn-radio="1">1</label>
-                    <label class="btn btn-priority btn-warning" ng-model="mCtrl.todo.priority" uib-btn-radio="2">2</label>
-                    <label class="btn btn-priority btn-default" ng-model="mCtrl.todo.priority" uib-btn-radio="3">3</label>
-                    <label class="btn btn-priority btn-success" ng-model="mCtrl.todo.priority" uib-btn-radio="4">4</label>
-                    <label class="btn btn-priority btn-primary" ng-model="mCtrl.todo.priority" uib-btn-radio="5">5</label>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-default" type="button" ng-click="mCtrl.ok()">Add</button>
-        <button class="btn btn-default" type="button" ng-click="mCtrl.cancel()">Cancel</button>
-    </div>
-</script>
