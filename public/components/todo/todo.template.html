@@ -1,5 +1,4 @@
-<!-- Desktop and Tablet View -->
-<form class="form todo-form hidden-xs" ng-submit="todoCtrl.update(todoCtrl.todo, 'enter')">
+<form class="form todo-form" ng-submit="todoCtrl.update(todoCtrl.todo, 'enter')">
     <div class="input-group" ng-class="todoCtrl.getBackgroundColour()">
         <span class="input-group-btn"><a type="button " class="btn btn-default done-button problem-box" ng-click="todoCtrl.toggle(todoCtrl.todo)"><i ng-class="todoCtrl.todo.completed ? 'fa fa-check-square-o fa-lg' : 'fa fa-square-o fa-lg' "></i></a></span>
         <input class="form-control todo-item" type="text" ng-show="todoCtrl.editing[todoCtrl.todo._id]" ng-model="todoCtrl.todo.task" ng-blur="todoCtrl.update(todoCtrl.todo, 'blur');" todo-escape="todoCtrl.cancelEditing(todoCtrl.todo)" todo-focus-me="focusInput" />

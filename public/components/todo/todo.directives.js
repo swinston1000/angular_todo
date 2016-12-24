@@ -1,4 +1,4 @@
-angular.module('myApp').directive('toDo', function() {
+angular.module('myApp').directive('toDo', function($window) {
     return {
         restrict: 'E',
         controller: 'toDoController',
@@ -7,7 +7,15 @@ angular.module('myApp').directive('toDo', function() {
         scope: {
             todo: '=',
         },
-        templateUrl: 'components/todo/todo.template.html'
+        templateUrl: function(tElement, tAttrs) {
+            var width = $window.innerWidth; //or some other test..
+            if (width <= 768) {
+                alert(screen.width)
+                return 'components/todo/todo.mobile.template.html';
+            } else {
+                return 'components/todo/todo.template.html'
+            }
+        }
     };
 });
 
