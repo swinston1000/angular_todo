@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('myApp')
-    .controller('NavbarController', function($window, authService, $stateParams) {
+    .controller('NavbarController', function(authService, $stateParams) {
 
         this.authService = authService;
 
