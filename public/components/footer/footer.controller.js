@@ -4,7 +4,11 @@ angular.module("myApp")
         fCtrl = this;
         fCtrl.todo = {}
 
+        fCtrl.hidebar = false;
+
         fCtrl.open = function() {
+
+            fCtrl.hidebar = true;
             var modalInstance = $uibModal.open({
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
@@ -20,8 +24,9 @@ angular.module("myApp")
                     fCtrl.todo.category = "N/A";
                 }
                 toDoService.addTodo(fCtrl.todo);
-
+                fCtrl.hidebar = false;
             }).catch(function(error) {
+                fCtrl.hidebar = false;
                 //console.error(error);
             });
         };
