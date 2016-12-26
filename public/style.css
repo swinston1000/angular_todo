@@ -1,5 +1,5 @@
 body {
-    padd ing-top: 60px;
+    padding-top: 60px;
     padding-bottom: 60px;
     background-color: #e9ebee;
 }
@@ -64,6 +64,21 @@ body {
 .navbar-default {
     background-color: #ffffff;
     border-color: #e7e7e7;
+}
+
+.toggle-active-btn {
+    padding: 2px 12px;
+    font-size: 75%;
+}
+
+.nopadding_leftright {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.nopadding_topbottom {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .one li .one:after,
@@ -147,9 +162,6 @@ li .five {
         height: 68px;
         opacity: 1;
     }
-    .btn-add {
-        width: 100%;
-    }
     .done-button {
         width: 25px;
     }
@@ -171,11 +183,6 @@ li .five {
 /*above mobile size*/
 
 @media only screen and (min-width: 768px) {
-    .priority-button,
-    .toggle-button,
-    .remove-all-btn {
-        width: 137px;
-    }
     .done-button {
         width: 50px;
     }
@@ -188,6 +195,9 @@ li .five {
     .btn-add {
         margin-left: -15px;
     }
+    .btn-remove-all {
+        margin-right: -15px;
+    }
 }
 
 
@@ -199,7 +209,7 @@ li .five {
     .btn-danger:focus:not(.btn-priority) {
         background-color: #d9534f;
     }
-    .btn-primary:hove:not(.btn-priority)r,
+    .btn-primary:hove:not(.btn-priority),
     .btn-primary:focus:not(.btn-priority) {
         background-color: #337ab7;
     }
@@ -207,8 +217,8 @@ li .five {
     .btn-success:focus:not(.btn-priority) {
         background-color: #5cb85c;
     }
-    .btn-default:hover:not(.btn-priority),
-    .btn-default:focus:not(.btn-priority) {
+    .btn-default:hover:not(.btn-priority, .btn-filter),
+    .btn-default:focus:not(.btn-priority, .btn-filter) {
         background-color: #ffffff;
     }
 }

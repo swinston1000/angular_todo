@@ -1,8 +1,9 @@
 angular.module("myApp")
-    .controller('FooterController', function($uibModal, toDoService) {
+    .controller('FooterController', function($uibModal, toDoService, $sce) {
 
         fCtrl = this;
         fCtrl.todo = {}
+
 
         fCtrl.hidebar = false;
 

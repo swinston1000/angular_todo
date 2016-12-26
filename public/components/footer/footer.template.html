@@ -1,24 +1,19 @@
 <nav class="navbar navbar-default navbar-fixed-bottom" ng-class="{'hidebar':fCtrl.hidebar}">
     <div class="container">
-        <a type="button" class="btn btn-success navbar-btn btn-add navbar-left" ng-click="fCtrl.open();">Add Todo</a>
-        <div class="btn-group navbar-form hidden-xs" role="group">
-            <div class="btn-group">
-                <a type="button" class="btn btn-default toggle-button" ng-click="mainCtrl.toggleFilter()">{{mainCtrl.toggleBtnText}}</a>
-                <a ng-if="mainCtrl.sortByPriority" type="button" class="btn btn-default priority-button visible-xs" ng-click="mainCtrl.toggleSort()" ng-bind-html="mainCtrl.calender"></a>
-                <a ng-if="!mainCtrl.sortByPriority" type="button" class="btn btn-default priority-button visible-xs" ng-click="mainCtrl.toggleSort()" ng-bind-html="mainCtrl.thermometer"></a>
-                <a type="button" class="btn btn-default priority-button hidden-xs" ng-click="mainCtrl.toggleSort()">{{mainCtrl.sortByPriority?"Sort by Date" :"Sort by Priority"}}</a>
-                <div class="btn-group dropup" uib-dropdown>
-                    <a type="button" class="btn btn-default dropdown-toggle cat-button" uib-dropdown-toggle aria-haspopup="true" aria-expanded="false">Filter by Category<span class="caret"></span></a>
-                    <ul class="dropdown-menu dropdown-menu-left" uib-dropdown-menu ng-click="mainCtrl.setFilterCategory($event);">
-                        <li><a>Show All</a></li>
-                        <li><a>Work</a></li>
-                        <li><a>Personal</a></li>
-                        <li><a>Other</a></li>
-                        <li><a>Delegated</a></li>
-                    </ul>
-                </div>
+        <div class="row">
+            <a type="button" class="btn btn-success navbar-btn navbar-left col-xs-12 col-sm-2 col-md-2" ng-click="fCtrl.open();">Add Todo</a>
+            <div class="hidden-xs col-sm-4 col-md-3">
+                <div ng-include="'components/controls/filters.template.html'"></div>
             </div>
-            <a type="button" class="btn btn-danger remove-all-btn" ng-click="mainCtrl.removeCompleted()"><i class="fa fa-trash-o fa-lg"></i><span class="hidden-xs"> Completed</span></a>
+            <div class="hidden-xs col-sm-1 col-md-1 nopadding_leftright">
+                <div ng-include="'components/controls/toggleactive.template.html'"></div>
+            </div>
+            <div class="hidden-xs col-sm-3 col-md-4">
+                <div ng-include="'components/controls/sort.template.html'"></div>
+            </div>
+            <div class=" hidden-xs col-sm-2 col-md-2 nopadding_leftright">
+                <div ng-include="'components/controls/removecompleted.template.html'"></div>
+            </div>
         </div>
     </div>
 </nav>
