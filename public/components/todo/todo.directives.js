@@ -1,3 +1,25 @@
+angular.module('myApp').directive('dropdownDirection', function($window) {
+    return {
+        restrict: 'A',
+        link: function(scope, elem, attrs) {
+            elem.on('click', function() {
+                var dropmenu = angular.element(elem[0].nextElementSibling);
+                var parent = angular.element(elem[0].parentElement);
+
+                dropmenu.addClass('hide_dd');
+                parent.removeClass('dropup');
+
+                //Determine whether bottom of menu will be below window at current scroll position
+                if (40 + dropmenu[0].getBoundingClientRect().top + dropmenu[0].offsetHeight > $window.innerHeight) {
+                    parent.addClass('dropup');
+                }
+
+                dropmenu.removeClass("hide_dd");
+            });
+        }
+    };
+});
+
 angular.module('myApp').directive('toDo', function($window) {
     return {
         restrict: 'E',

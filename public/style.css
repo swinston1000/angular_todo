@@ -1,7 +1,11 @@
 body {
-    padding-top: 60px;
+    padd ing-top: 60px;
     padding-bottom: 60px;
     background-color: #e9ebee;
+}
+
+.hide_dd {
+    visibility: hidden;
 }
 
 .hidebar {
@@ -47,18 +51,6 @@ body {
     box-sizing: content-box;
 }
 
-.mob-problem-box {
-    border-bottom-left-radius: 0;
-}
-
-.mob-category {
-    border-top-left-radius: 0;
-}
-
-.mob-delete {
-    border-top-right-radius: 0;
-}
-
 .todo-item {
     border-bottom-right-radius: 0;
 }
@@ -67,10 +59,6 @@ body {
 .priority {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-}
-
-.priority-mob {
-    width: 158px;
 }
 
 .navbar-default {
@@ -165,6 +153,18 @@ li .five {
     .done-button {
         width: 25px;
     }
+    .priority {
+        width: 158px;
+    }
+    .problem-box {
+        border-bottom-left-radius: 0;
+    }
+    .mob-delete {
+        border-top-right-radius: 0;
+    }
+    .todo-category {
+        border-top-left-radius: 0;
+    }
 }
 
 
@@ -181,6 +181,12 @@ li .five {
     }
     .todo-form {
         margin: 10px 0;
+    }
+    .navbar-brand {
+        margin-left: -30px !important;
+    }
+    .btn-add {
+        margin-left: -15px;
     }
 }
 
