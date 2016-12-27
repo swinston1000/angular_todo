@@ -1,21 +1,28 @@
 'use strict';
 
 angular.module('myApp')
-    .controller('NavbarController', function($window, authService, $stateParams) {
+    .controller('NavbarController', function($timeout, $window, authService, $stateParams) {
 
-        this.authService = authService;
+        var nbCtrl = this;
+        nbCtrl.authService = authService;
+        nbCtrl.isNavCollapsed = false;
 
         if (screen.width < 728) {
-            this.isNavCollapsed = true;
+            nbCtrl.isNavCollapsed = true;
         }
 
-        this.focus = function() {
-            setTimeout(function() {
-                var element = $window.document.getElementById("navbar-collapse");
-                if (element) {
-                    element.focus();
-                }
-            }, 0);
+        var outside = $window.document.getElementById("outside-navbar");
+
+        nbCtrl.focus = function() {
+            angular.element(outside).on("touchstart", function() {
+                $timeout(function() {
+                    nbCtrl.isNavCollapsed = true;
+                }, 0)
+            });
+        };
+
+        nbCtrl.blur = function() {
+            angular.element(outside).off("touchstart")
         };
 
     });

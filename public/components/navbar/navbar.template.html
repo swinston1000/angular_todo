@@ -9,12 +9,12 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">Todoosey</a>
-            <div class="visible-xs">
+            <div class="visible-xs" ng-if="isAuthenticated">
                 <div ng-include="'components/controls/logout.template.html'"></div>
             </div>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div tabindex="-1" auto-collapse id="navbar-collapse" class="collapse navbar-collapse" expanded="nbCtrl.focus()" uib-collapse="nbCtrl.isNavCollapsed">
+        <div class="collapse navbar-collapse" collapsed=nbCtrl.blur() expanded="nbCtrl.focus()" uib-collapse="nbCtrl.isNavCollapsed">
             <div ng-if="isAuthenticated">
                 <div class="hidden-xs navbar-right">
                     <div ng-include="'components/controls/logout.template.html'"></div>

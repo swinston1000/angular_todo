@@ -1,7 +1,17 @@
+html {
+    height: 100%;
+}
+
 body {
     padding-top: 60px;
     padding-bottom: 60px;
     background-color: #e9ebee;
+    height: 100%;
+}
+
+.fullheight,
+#outside-navbar {
+    height: 100%;
 }
 
 .hide_dd {
@@ -166,6 +176,10 @@ li .five {
 .fa-pencil-square-o {
     font-size: 120%;
     vertical-align: middle;
+}
+
+.navbar-collapse:focus {
+    outline: none;
 }
 
 
