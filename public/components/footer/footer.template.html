@@ -1,17 +1,19 @@
 <nav class="navbar navbar-default navbar-fixed-bottom" ng-class="{'hidebar':fCtrl.hidebar}">
     <div class="container">
         <div class="row">
-            <a type="button" class="btn btn-success navbar-btn navbar-left col-xs-12 col-sm-2 col-md-2" ng-click="fCtrl.open();">Add Todo</a>
+            <div class="col-xs-6 col-sm-2 col-md-2 nopadding_leftright">
+                <a type="button" class="btn btn-success btn-block navbar-btn" ng-click="fCtrl.open();"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Todo</a>
+            </div>
             <div class="hidden-xs col-sm-4 col-md-3">
                 <div ng-include="'components/controls/filters.template.html'"></div>
             </div>
-            <div class="hidden-xs col-sm-1 col-md-1 nopadding_leftright">
+            <div class="col-xs-3 col-sm-1 col-md-1 nopadding_leftright">
                 <div ng-include="'components/controls/toggleactive.template.html'"></div>
             </div>
             <div class="hidden-xs col-sm-3 col-md-4">
                 <div ng-include="'components/controls/sort.template.html'"></div>
             </div>
-            <div class=" hidden-xs col-sm-2 col-md-2 nopadding_leftright">
+            <div class=" col-xs-3 col-sm-2 col-md-2 nopadding_leftright">
                 <div ng-include="'components/controls/removecompleted.template.html'"></div>
             </div>
         </div>

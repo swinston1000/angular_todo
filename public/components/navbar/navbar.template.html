@@ -9,9 +9,12 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">Todoosey</a>
+            <div class="visible-xs">
+                <div ng-include="'components/controls/logout.template.html'"></div>
+            </div>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" uib-collapse="nbCtrl.isNavCollapsed">
+        <div tabindex="-1" auto-collapse id="navbar-collapse" class="collapse navbar-collapse" expanded="nbCtrl.focus()" uib-collapse="nbCtrl.isNavCollapsed">
             <div ng-if="isAuthenticated">
                 <div class="hidden-xs navbar-right">
                     <div ng-include="'components/controls/logout.template.html'"></div>
@@ -28,19 +31,6 @@
                 <form class="navbar-form navbar-left nopadding_topbottom visible-xs">
                     <div ng-include="'components/controls/sort.template.html'"></div>
                 </form>
-                <div class="navbar-form container-fluid navbar-left nopadding_topbottom visible-xs">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <div ng-include="'components/controls/toggleactive.template.html'"></div>
-                        </div>
-                        <div class="col-xs-4">
-                            <div ng-include="'components/controls/removecompleted.template.html'"></div>
-                        </div>
-                        <div class="col-xs-4">
-                            <div ng-include="'components/controls/logout.template.html'"></div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div ng-if="!isAuthenticated">
                 <a type='button' class="btn btn-primary navbar-btn navbar-right login" ng-click="nbCtrl.authService.login()">Sign Up | Log In</a>

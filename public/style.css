@@ -66,14 +66,14 @@ body {
     border-color: #e7e7e7;
 }
 
-.toggle-active-btn {
+.toggle-active-btn,
+.filter-off-btn {
     padding: 2px 12px;
     font-size: 75%;
 }
 
-.nopadding_leftright {
-    padding-left: 0;
-    padding-right: 0;
+.fa-ban {
+    opacity: 0.6;
 }
 
 .nopadding_topbottom {
@@ -142,9 +142,53 @@ li .five {
 }
 
 
+/*above mobile size*/
+
+@media only screen and (min-width: 768px) {
+    .done-button {
+        width: 50px;
+    }
+    .todo-form {
+        margin: 10px 0;
+    }
+    .navbar-brand {
+        margin-left: -30px !important;
+    }
+    .btn-remove-all {
+        margin-right: -15px;
+    }
+    .nopadding_leftright {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.fa-pencil-square-o {
+    font-size: 120%;
+    vertical-align: middle;
+}
+
+
+/*tablet and tiny size*/
+
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+    .filter-off-btn {
+        padding: 2px 6px;
+        font-size: 75%;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .sort-btn {
+        font-size: 85%;
+        padding: 8px 12px;
+    }
+}
+
+
 /*mobile size*/
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
     .navbar-form {
         margin-top: 0px;
         margin-bottom: 0px;
@@ -177,26 +221,26 @@ li .five {
     .todo-category {
         border-top-left-radius: 0;
     }
+    .btn-logout {
+        float: right;
+        margin-right: 20px;
+    }
 }
 
 
-/*above mobile size*/
+/*tiny size*/
 
-@media only screen and (min-width: 768px) {
-    .done-button {
-        width: 50px;
+@media only screen and (max-width: 299px) {
+    .filter-off-btn {
+        padding: 2px 6px;
+        font-size: 75%;
     }
-    .todo-form {
-        margin: 10px 0;
-    }
-    .navbar-brand {
-        margin-left: -30px !important;
-    }
-    .btn-add {
-        margin-left: -15px;
-    }
-    .btn-remove-all {
-        margin-right: -15px;
+}
+
+@media only screen and (max-width: 399px) {
+    .toggle-active-btn {
+        padding: 2px 6px;
+        font-size: 75%;
     }
 }
 

@@ -1,17 +1,20 @@
 <div class="navbar-btn btn-group btn-group-justified">
-    <label class="btn btn-default btn-filter" ng-model="mainCtrl.filterCategory" uib-btn-radio=false>
-        <i class="fa fa-power-off" title="Off"></i>
-    </label>
-    <label class="btn btn-default btn-filter" ng-model="mainCtrl.filterCategory" uib-btn-radio="'Work'">
+    <a class="btn btn-default btn-filter filter-off-btn" ng-model="mainCtrl.filterCategory" uib-btn-radio=false>
+        <span class="fa-stack fa-lg">   
+          <i class="fa fa-filter fa-stack-1x"></i>
+          <i class="fa fa-ban text-danger fa-flip-horizontal fa-stack-2x"></i>
+        </span>
+    </a>
+    <a class="btn btn-default btn-filter" ng-model="mainCtrl.filterCategory" uib-btn-radio="'Work'">
         <i class="fa fa-briefcase" title="Work"></i>
-    </label>
-    <label class="btn btn-default btn-filter" ng-model="mainCtrl.filterCategory" uib-btn-radio="'Personal'">
+    </a>
+    <a class="btn btn-default btn-filter" ng-model="mainCtrl.filterCategory" uib-btn-radio="'Personal'">
         <i class="fa fa-street-view" title="Personal"></i>
-    </label>
-    <label class="btn btn-default btn-filter" ng-model="mainCtrl.filterCategory" uib-btn-radio="'Delegated'">
+    </a>
+    <a class="btn btn-default btn-filter" ng-model="mainCtrl.filterCategory" uib-btn-radio="'Delegated'">
         <i class="fa fa-users" title="Delegated"></i>
-    </label>
-    <label class="btn btn-default btn-filter" ng-model="mainCtrl.filterCategory" uib-btn-radio="'Other'">
+    </a>
+    <a class="btn btn-default btn-filter" ng-model="mainCtrl.filterCategory" uib-btn-radio="'Other'">
         <i class="fa fa-asterisk" title="Other"></i>
-    </label>
+    </a>
 </div>
