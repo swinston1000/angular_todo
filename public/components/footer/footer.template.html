@@ -1,8 +1,8 @@
-<nav class="navbar navbar-default navbar-fixed-bottom" ng-class="{'hidebar':fCtrl.hidebar}">
+<nav class="navbar navbar-default navbar-fixed-bottom" ng-class="{'hidebar':$ctrl.hidebar}">
     <div class="container">
         <div class="row">
             <div class="col-xs-6 col-sm-2 col-md-2 nopadding_leftright">
-                <a type="button" class="btn btn-success btn-block navbar-btn" ng-click="fCtrl.open();"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Todo</a>
+                <a type="button" class="btn btn-success btn-block navbar-btn" ng-click="$ctrl.open();"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Todo</a>
             </div>
             <div class="hidden-xs col-sm-4 col-md-3">
                 <div ng-include="'components/controls/filters.template.html'"></div>

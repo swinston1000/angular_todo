@@ -3,7 +3,6 @@ html {
 }
 
 body {
-    margin-top: 60px;
     background-color: #e9ebee;
     height: 100%;
 }
@@ -13,8 +12,9 @@ body {
 }
 
 #outside-navbar {
+    padding-top: 60px;
     min-height: 100%;
-    margin-bottom: 60px;
+    padding-bottom: 60px;
 }
 
 .hide_dd {
