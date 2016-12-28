@@ -3,15 +3,18 @@ html {
 }
 
 body {
-    padding-top: 60px;
-    padding-bottom: 60px;
+    margin-top: 60px;
     background-color: #e9ebee;
     height: 100%;
 }
 
-.fullheight,
-#outside-navbar {
+.fullheight {
     height: 100%;
+}
+
+#outside-navbar {
+    min-height: 100%;
+    margin-bottom: 60px;
 }
 
 .hide_dd {
@@ -149,6 +152,10 @@ li .five {
 
 .todo-animate.ng-enter-prepare {
     opacity: 0;
+}
+
+.breakword {
+    word-break: break-word;
 }
 
 

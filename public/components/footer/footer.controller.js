@@ -4,7 +4,6 @@ angular.module("myApp")
         fCtrl = this;
         fCtrl.todo = {}
 
-
         fCtrl.hidebar = false;
 
         fCtrl.open = function() {

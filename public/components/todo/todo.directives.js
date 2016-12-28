@@ -20,25 +20,6 @@ angular.module('myApp').directive('dropdownDirection', function($window) {
     };
 });
 
-angular.module('myApp').directive('toDo', function($window) {
-    return {
-        restrict: 'E',
-        controller: 'toDoController',
-        controllerAs: 'todoCtrl',
-        bindToController: true,
-        scope: {
-            todo: '=',
-        },
-        templateUrl: function(tElement, tAttrs) {
-            var width = $window.innerWidth; //or some other test..
-            if (width <= 768) {
-                return 'components/todo/todo.mobile.template.html';
-            } else {
-                return 'components/todo/todo.template.html'
-            }
-        }
-    };
-});
 
 // awesome solution to auto-focus from:
 // http://stackoverflow.com/questions/14833326/how-to-set-focus-on-input-field

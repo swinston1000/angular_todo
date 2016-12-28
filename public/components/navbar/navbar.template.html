@@ -9,13 +9,13 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">Todoosey</a>
-            <div class="visible-xs" ng-if="isAuthenticated">
+            <div class="visible-xs" ng-if="$root.isAuthenticated">
                 <div ng-include="'components/controls/logout.template.html'"></div>
             </div>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" collapsed=nbCtrl.blur() expanded="nbCtrl.focus()" uib-collapse="nbCtrl.isNavCollapsed">
-            <div ng-if="isAuthenticated">
+        <div class="collapse navbar-collapse" collapsed=nbCtrl.blur() expanded="nbCtrl.focus()" uib-collapse="$root.isAuthenticated ? nbCtrl.isNavCollapsed : false">
+            <div ng-if="$root.isAuthenticated">
                 <div class="hidden-xs navbar-right">
                     <div ng-include="'components/controls/logout.template.html'"></div>
                 </div>
@@ -32,7 +32,7 @@
                     <div ng-include="'components/controls/sort.template.html'"></div>
                 </form>
             </div>
-            <div ng-if="!isAuthenticated">
+            <div ng-if="!$root.isAuthenticated">
                 <a type='button' class="btn btn-primary navbar-btn navbar-right login" ng-click="nbCtrl.authService.login()">Sign Up | Log In</a>
             </div>
         </div>

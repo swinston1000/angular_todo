@@ -1,7 +1,5 @@
-'use strict';
-
 angular.module('myApp')
-    .controller('NavbarController', function($timeout, $window, authService, $stateParams) {
+    .controller('NavbarController', function($timeout, $window, authService) {
 
         var nbCtrl = this;
         nbCtrl.authService = authService;
@@ -11,9 +9,8 @@ angular.module('myApp')
             nbCtrl.isNavCollapsed = true;
         }
 
-        var outside = $window.document.getElementById("outside-navbar");
-
         nbCtrl.focus = function() {
+            var outside = $window.document.getElementById("outside-navbar");
             angular.element(outside).on("touchstart", function() {
                 $timeout(function() {
                     nbCtrl.isNavCollapsed = true;
@@ -22,7 +19,7 @@ angular.module('myApp')
         };
 
         nbCtrl.blur = function() {
+            var outside = $window.document.getElementById("outside-navbar");
             angular.element(outside).off("touchstart")
         };
-
     });

@@ -1,4 +1,4 @@
-angular.module("myApp").factory('toDoService', function($window, socket, $rootScope, httpService) {
+angular.module("myApp").factory('toDoService', function($timeout, $window, socket, $rootScope, httpService) {
 
     var editing = {}
     var todos = { items: [] }
@@ -11,18 +11,19 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
             } else {}
         }, function(error) {
             if (error && error.data) {
-                //remove listener to stop endless alert loop!
-                $window.onfocus = function() {}
+                $window.onfocus = function() {} //remove listener to stop endless alert loop!
                 alert(error.data);
+
             }
         });
     }
 
     //load todos on page load
-    //the timeout allows authentication to happen first!
-    setTimeout(function() {
-        getTodos();
-        //loaded.status = true
+    //the timeouts allow authentication and the navbar to rise to happen first!
+    $timeout(function() {
+        $timeout(function() {
+            getTodos();
+        }, 0)
     }, 0)
 
     socket.on('change', function(user) {
@@ -33,14 +34,10 @@ angular.module("myApp").factory('toDoService', function($window, socket, $rootSc
 
     $window.onfocus = function() {
         //timeout stops the focus event interfering with page load
-        setTimeout(function() {
+        $timeout(function() {
             getTodos();
         }, 0)
     }
-
-    // $window.onblur = function() {
-    //     loaded.status = false
-    // }
 
     var update = function(todo) {
         httpService.update(todo).then(function(data) {

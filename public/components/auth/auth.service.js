@@ -4,7 +4,7 @@ angular
     .service('authService', authService);
 
 
-function authService($q, lock, authManager, $rootScope, angularAuth0, $stateParams) {
+function authService($q, lock, authManager, $rootScope, angularAuth0) {
 
     // var currentToken = localStorage.getItem('to_do_id_token')
     // if (currentToken && (Date.now() <= angularAuth0.decodeJwt(currentToken).exp * 1000)) {

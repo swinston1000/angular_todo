@@ -2,7 +2,13 @@
     <div class="input-group" ng-class="todoCtrl.getBackgroundColour()">
         <span class="input-group-btn"><a type="button" class="btn btn-default done-button problem-box" ng-click="todoCtrl.toggle(todoCtrl.todo)"><i ng-class="todoCtrl.todo.completed ? 'fa fa-check-square-o fa-lg' : 'fa fa-square-o fa-lg' "></i></a></span>
         <input class="form-control todo-item" type="text" ng-show="todoCtrl.editing[todoCtrl.todo._id]" ng-model="todoCtrl.todo.task" ng-blur="todoCtrl.update(todoCtrl.todo, 'blur');" todo-focus-me="focusInput" />
-        <label class="form-control todo-item todo-label" type="text" ng-hide="todoCtrl.editing[todoCtrl.todo._id]" ng-class="{strike : todoCtrl.todo.completed}" hm-pressup="focusInput=true; todoCtrl.startEditing(todoCtrl.todo)">{{todoCtrl.todo.task}}</label>
+        <label class="form-control todo-item todo-label" type="text" ng-hide="todoCtrl.editing[todoCtrl.todo._id]" ng-class="{strike : todoCtrl.todo.completed}" hm-pressup="focusInput=true; todoCtrl.startEditing(todoCtrl.todo)">
+            <table class="breakword">
+                <tr>
+                    <td>{{todoCtrl.todo.task}}</td>
+                </tr>
+            </table>
+        </label>
     </div>
     <div class="input-group">
         <span class="input-group-addon todo-category">{{::todoCtrl.todo.category}}</span>
