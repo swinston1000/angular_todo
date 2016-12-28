@@ -1,6 +1,10 @@
 angular.module("myApp", ['angularViewportWatch', 'ui.bootstrap', 'ui.router', 'hmTouchEvents', 'ngAnimate', 'auth0.lock', 'auth0.auth0', 'angular-jwt', 'angular-fastclick'])
-    .config(config);
-
+    .config(config)
+    .component('homeComponent', {
+        controller: 'mainController',
+        controllerAs: 'mainCtrl',
+        templateUrl: 'components/main/main.template.html'
+    });
 
 function config($animateProvider, $locationProvider, $urlRouterProvider, $stateProvider, $httpProvider, lockProvider, jwtOptionsProvider, angularAuth0Provider) {
 
@@ -26,9 +30,7 @@ function config($animateProvider, $locationProvider, $urlRouterProvider, $stateP
     $stateProvider
         .state('home', {
             url: '/',
-            controller: 'mainController',
-            controllerAs: 'mainCtrl',
-            templateUrl: 'components/main/main.template.html'
+            template: '<home-component></home-component>'
         })
 
     $urlRouterProvider.otherwise('/');

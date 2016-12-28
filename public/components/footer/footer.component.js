@@ -1,5 +1,7 @@
 angular.module('myApp').component('fixedFooter', {
     controller: 'FooterController',
-    controllerAs: 'fCtrl',
+    require: {
+        mainCtrl: '^homeComponent'
+    },
     templateUrl: '/components/footer/footer.template.html'
 });

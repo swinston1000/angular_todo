@@ -1,14 +1,20 @@
 angular.module("myApp")
     .controller('FooterController', function($uibModal, toDoService, $sce) {
 
-        fCtrl = this;
-        fCtrl.todo = {}
 
-        fCtrl.hidebar = false;
+        $ctrl = this;
 
-        fCtrl.open = function() {
+        $ctrl.$onInit = function() {
+            $ctrl.controls = $ctrl.mainCtrl
+        };
 
-            fCtrl.hidebar = true;
+        $ctrl.todo = {}
+
+        $ctrl.hidebar = false;
+
+        $ctrl.open = function() {
+
+            $ctrl.hidebar = true;
             var modalInstance = $uibModal.open({
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
@@ -24,14 +30,14 @@ angular.module("myApp")
             });
 
             modalInstance.result.then(function(todo) {
-                angular.copy(todo, fCtrl.todo)
-                if (!fCtrl.todo.category) {
-                    fCtrl.todo.category = "N/A";
+                angular.copy(todo, $ctrl.todo)
+                if (!$ctrl.todo.category) {
+                    $ctrl.todo.category = "N/A";
                 }
-                toDoService.addTodo(fCtrl.todo);
-                fCtrl.hidebar = false;
+                toDoService.addTodo($ctrl.todo);
+                $ctrl.hidebar = false;
             }).catch(function(error) {
-                fCtrl.hidebar = false;
+                $ctrl.hidebar = false;
                 //console.error(error);
             });
         };

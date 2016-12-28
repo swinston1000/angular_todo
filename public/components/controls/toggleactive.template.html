@@ -1,4 +1,4 @@
 <div class="navbar-btn btn-group btn-group-justified">
-    <a ng-if="!mainCtrl.applyFilter" type="button" class="toggle-active-btn btn btn-default navbar-btn btn-block" ng-click="mainCtrl.toggleFilter()" ng-bind-html="mainCtrl.active"></a>
-    <a ng-if="mainCtrl.applyFilter" class="btn btn-default navbar-btn btn-block" ng-click="mainCtrl.toggleFilter()" ng-bind-html="mainCtrl.all"></a>
+    <a ng-if="!$ctrl.controls.applyFilter" type="button" class="toggle-active-btn btn btn-default navbar-btn btn-block" ng-click="$ctrl.controls.toggleFilter()" ng-bind-html="$ctrl.controls.active"></a>
+    <a ng-if="$ctrl.controls.applyFilter" class="btn btn-default navbar-btn btn-block" ng-click="$ctrl.controls.toggleFilter()" ng-bind-html="$ctrl.controls.all"></a>
 </div>

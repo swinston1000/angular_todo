@@ -1,6 +1,6 @@
 <div class="navbar-btn btn-group btn-group-justified">
-    <a ng-if="!mainCtrl.dateAsc" class="btn btn-default sort-btn" ng-click="mainCtrl.toggleSort('+_id')" ng-model="mainCtrl.sortByPriority" uib-btn-radio="false"> Date <span ng-bind-html="mainCtrl.asc"></span></a>
-    <a ng-if="mainCtrl.dateAsc" class="btn btn-default sort-btn" ng-click="mainCtrl.toggleSort('-_id')" ng-model="mainCtrl.sortByPriority" uib-btn-radio="false"> Date <span ng-bind-html="mainCtrl.desc"></span></a>
-    <a ng-if="mainCtrl.priorityAsc" class="btn btn-default sort-btn" ng-click="mainCtrl.toggleSort('-priority')" ng-model="mainCtrl.sortByPriority" uib-btn-radio="true"> Priority <span ng-bind-html="mainCtrl.asc"></span></a>
-    <a ng-if="!mainCtrl.priorityAsc" class="btn btn-default sort-btn" ng-click="mainCtrl.toggleSort('+priority')" ng-model="mainCtrl.sortByPriority" uib-btn-radio="true"> Priority <span ng-bind-html="mainCtrl.desc"></span></a>
+    <a ng-if="!$ctrl.controls.dateAsc" class="btn btn-default sort-btn" ng-click="$ctrl.controls.toggleSort('+_id')" ng-model="$ctrl.controls.sortByPriority" uib-btn-radio="false"> Date <span ng-bind-html="$ctrl.controls.asc"></span></a>
+    <a ng-if="$ctrl.controls.dateAsc" class="btn btn-default sort-btn" ng-click="$ctrl.controls.toggleSort('-_id')" ng-model="$ctrl.controls.sortByPriority" uib-btn-radio="false"> Date <span ng-bind-html="$ctrl.controls.desc"></span></a>
+    <a ng-if="$ctrl.controls.priorityAsc" class="btn btn-default sort-btn" ng-click="$ctrl.controls.toggleSort('-priority')" ng-model="$ctrl.controls.sortByPriority" uib-btn-radio="true"> Priority <span ng-bind-html="$ctrl.controls.asc"></span></a>
+    <a ng-if="!$ctrl.controls.priorityAsc" class="btn btn-default sort-btn" ng-click="$ctrl.controls.toggleSort('+priority')" ng-model="$ctrl.controls.sortByPriority" uib-btn-radio="true"> Priority <span ng-bind-html="$ctrl.controls.desc"></span></a>
 </div>

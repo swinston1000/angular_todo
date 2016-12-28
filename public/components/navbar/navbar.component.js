@@ -1,5 +1,7 @@
 angular.module('myApp').component('navBar', {
     controller: 'NavbarController',
-    controllerAs: 'nbCtrl',
+    require: {
+        mainCtrl: '^homeComponent'
+    },
     templateUrl: '/components/navbar/navbar.template.html'
 });
