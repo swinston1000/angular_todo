@@ -49,7 +49,8 @@ module.exports = function(io) {
 
     /* PUT /todos/:id */
     router.put('/:id', authenticate, function(req, res, next) {
-        db.users.findOneAndUpdate({ email: req.user.email, "todos._id": req.params.id }, { "todos.$": req.body },
+        db.users.findOneAndUpdate({ email: req.user.email, "todos._id": req.params.id }, { "todos.$": req.body }, { new: true },
+
             function(err, result) {;
                 if (err) return next(err);
                 else res.json(result);

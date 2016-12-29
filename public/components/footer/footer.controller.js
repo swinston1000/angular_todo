@@ -1,7 +1,6 @@
 angular.module("myApp")
     .controller('FooterController', function($uibModal, toDoService, $sce) {
 
-
         $ctrl = this;
 
         $ctrl.$onInit = function() {

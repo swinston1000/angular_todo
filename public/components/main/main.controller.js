@@ -1,4 +1,4 @@
-angular.module("myApp").controller('mainController', function($uibModal, $scope, $sce, toDoService) {
+angular.module("myApp").controller('mainController', function($window, $sce, toDoService) {
 
     this.active = $sce.trustAsHtml('<span class="fa-stack fa-lg"><i class="fa fa-check fa-stack-1x"></i> <i class="fa fa-ban fa-flip-horizontal fa-stack-2x text-danger"></i></span>');
     this.all = $sce.trustAsHtml('<i class="fa fa-check" aria-hidden="true"></i>');
@@ -12,8 +12,7 @@ angular.module("myApp").controller('mainController', function($uibModal, $scope,
     this.dateAsc = true; // date order
     this.sortByPriority = true; // what button is pressed
 
-
-    this.todos = toDoService.todos;
+    this.todos = toDoService.todos
 
     this.toggleFilter = function() {
         this.applyFilter = !this.applyFilter;
@@ -34,7 +33,6 @@ angular.module("myApp").controller('mainController', function($uibModal, $scope,
             this.sortBy = direction;
             this.dateAsc = true
         } else if (direction === "+_id") {
-            console.log("here");
             this.sortBy = "-_id";
         } else if (direction === "-_id" && this.sortBy.includes('id')) {
             this.sortBy = direction;
@@ -43,12 +41,6 @@ angular.module("myApp").controller('mainController', function($uibModal, $scope,
             this.sortBy = "+_id";
         }
     }
-
-
-
-
-
-
 
     this.removeCompleted = function() {
         if (confirm("Are you sure you want to delete the completed to-dos?")) {

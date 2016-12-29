@@ -1,9 +1,12 @@
 angular.module("myApp", ['angularViewportWatch', 'ui.bootstrap', 'ui.router', 'hmTouchEvents', 'ngAnimate', 'auth0.lock', 'auth0.auth0', 'angular-jwt', 'angular-fastclick'])
     .config(config)
     .component('homeComponent', {
+        // bindings: {
+        //     todos: "<"
+        // },
         controller: 'mainController',
         controllerAs: 'mainCtrl',
-        templateUrl: 'components/main/main.template.html'
+        templateUrl: 'components/main/main.template.html',
     });
 
 function config($animateProvider, $locationProvider, $urlRouterProvider, $stateProvider, $httpProvider, lockProvider, jwtOptionsProvider, angularAuth0Provider) {
@@ -30,7 +33,20 @@ function config($animateProvider, $locationProvider, $urlRouterProvider, $stateP
     $stateProvider
         .state('home', {
             url: '/',
-            template: '<home-component></home-component>'
+            template: '<home-component></home-component>',
+            //template: '<home-component todos="homeRouteCtrl.todos"></home-component>',
+            controllerAs: "homeRouteCtrl",
+            // controller: function(todos) {
+            //     this.todos = todos;
+            // },
+            resolve: {
+                todos: ['toDoService', function(toDoService) {
+                    // return toDoService.getTodos().then(function(data) {
+                    //     return data
+                    // });
+                    return toDoService.getTodos()
+                }]
+            }
         })
 
     $urlRouterProvider.otherwise('/');

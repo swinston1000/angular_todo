@@ -2,32 +2,26 @@ angular.module("myApp").factory('toDoService', function($timeout, $window, socke
 
     var editing = {}
     var todos = { items: [] }
-        //var loaded = { status: false }
 
     var getTodos = function() {
-        httpService.getToDos().then(function(data) {
+        return httpService.getToDos().then(function(data) {
             if (!data.data.error) {
                 todos.items = data.data;
-            } else {}
+                return data
+            } else {
+                console.error(data.data.error);
+            }
         }, function(error) {
             if (error && error.data) {
                 $window.onfocus = function() {} //remove listener to stop endless alert loop!
                 alert(error.data);
-
             }
         });
     }
 
-    //load todos on page load
-    //the timeouts allow authentication and the navbar to rise to happen first!
-    $timeout(function() {
-        $timeout(function() {
-            getTodos();
-        }, 0)
-    }, 0)
-
     socket.on('change', function(user) {
         if ($rootScope.user = user.user) {
+            console.log("change");
             getTodos();
         }
     });
@@ -42,9 +36,13 @@ angular.module("myApp").factory('toDoService', function($timeout, $window, socke
     var update = function(todo) {
         httpService.update(todo).then(function(data) {
             editing[todo._id] = undefined;
-            socket.emit('update', { user: $rootScope.user })
+            if (data.data.error) {
+                alert("Sorry there was an error saving your data, please refresh the page.")
+            } else socket.emit('update', { user: $rootScope.user })
         }).catch(function(error) {
             console.error(error);
+            editing[todo._id] = undefined;
+            alert("Sorry there was an error saving your data, please refresh the page.")
         });
     }
 
@@ -107,6 +105,6 @@ angular.module("myApp").factory('toDoService', function($timeout, $window, socke
         update: update,
         startEditing: startEditing,
         editing: editing,
-        //loaded: loaded
+        getTodos: getTodos
     }
 });

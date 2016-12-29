@@ -1,6 +1,11 @@
-angular.module("myApp").controller('toDoController', function(toDoService, mainFactory) {
+angular.module("myApp").controller('toDoController', function($window, toDoService, mainFactory) {
 
     tdCtrl = this;
+
+    tdCtrl.$postLink = function() {
+        console.log("hi");
+        $window.scrollTo(0, 1)
+    }
 
     tdCtrl.editing = toDoService.editing;
 
